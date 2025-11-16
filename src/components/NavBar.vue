@@ -42,26 +42,26 @@ import { defineComponent, ref } from "vue"
 export default defineComponent({
   name: "NavbarWithFilters",
   setup() {
-    const selectedBrand = ref(null)
-    const selectedRange = ref(null)
-    const selectedPrice = ref(null)
+    const selectedBrand = ref("")
+    const selectedRange = ref("")
+    const selectedPrice = ref("")
 
     const brandOptions = [
-      { value: null, text: "Brand" },
+      { value: "", text: "Brand" },
       { value: 1, text: "Tesla" },
       { value: 2, text: "Nissan" },
       { value: 3, text: "MG" },
     ]
 
     const rangeOptions = [
-      { value: null, text: "Range" },
+      { value: "", text: "Range" },
       { value: 1, text: "0-200 km" },
       { value: 2, text: "200-400 km" },
       { value: 3, text: "400+ km" },
     ]
 
     const priceOptions = [
-      { value: null, text: "Price" },
+      { value: "", text: "Price" },
       { value: 1, text: "Under $30k" },
       { value: 2, text: "$30k-$50k" },
       { value: 3, text: "Above $50k" },
