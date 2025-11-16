@@ -10,7 +10,7 @@ import secondplaceholder from './secondplaceholder.vue'
 export default {
     data(){
         return {
-            title: "Placeholder Component Title",
+            title: "Placeholder Component Title1",
             apicall: "Data from API will be shown here."
         }
     },
