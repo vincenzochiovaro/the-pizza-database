@@ -1,0 +1,16 @@
+steps:
+  - script: npm install
+    displayName: install
+
+  - script: npm run build
+    displayName: build
+    env:
+      VITE_API_URL: $(VITE_API_URL)
+      VITE_API_KEY: $(VITE_API_KEY)
+
+  - task: AzureStaticWebApp@0
+    inputs:
+      app_location: '/'
+      output_location: 'dist'
+      azure_static_web_apps_api_token: $(STATIC_WEB_APP_TOKEN)
+    displayName: deploy
