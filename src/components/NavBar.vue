@@ -1,6 +1,5 @@
 <template>
   <div class="container-fluid p-0" style="font-family: Palatino, serif;">
-    <!-- Navbar -->
     <nav class="navbar navbar-light py-3 px-2" style="background-color: #fdf6e3;">
       <a class="navbar-brand" href="#">
         <img src="" alt="Left Logo" class="img-fluid" style="height: 40px;">
