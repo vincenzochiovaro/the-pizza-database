@@ -16,6 +16,9 @@ steps:
     VITE_API_URL: $(VITE_API_URL)
     VITE_API_KEY: $(VITE_API_KEY)
 
+- script: ls -R
+  displayName: 'List all files'
+
 - task: AzureStaticWebApp@0
   inputs:
     app_location: '/'
