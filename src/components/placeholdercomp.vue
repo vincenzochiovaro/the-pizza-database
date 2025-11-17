@@ -1,6 +1,6 @@
 <template>
     <h1 class="firstclass">{{ title }}</h1>
-    <p>This is a placeholder component.</p>
+    <p>This is a placeholder - hi from azure deployment.</p>
     <p>{{apicall}}</p>
     <secondplaceholder />
 </template>
