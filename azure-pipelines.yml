@@ -7,18 +7,18 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - script: npm install
-    displayName: install packages
+- script: npm install
+  displayName: install packages
 
-  - script: npm run build
-    displayName: build app
+- script: npm run build
+  displayName: build app
+  env:
+    VITE_API_URL: $(VITE_API_URL)
+    VITE_API_KEY: $(VITE_API_KEY)
 
-  - task: AzureStaticWebApp@0
-    inputs:
-      app_location: '/'
-      output_location: 'dist'
-      azure_static_web_apps_api_token: $(STATIC_WEB_APP_TOKEN)
-    env:
-      VITE_API_URL: $(VITE_API_URL)
-      VITE_API_KEY: $(VITE_API_KEY)
-    displayName: deploy static web app
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: '/'
+    output_location: 'dist'
+    azure_static_web_apps_api_token: $(STATIC_WEB_APP_TOKEN)
+  displayName: deploy static web app
