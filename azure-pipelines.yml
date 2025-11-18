@@ -9,19 +9,6 @@ pool:
 steps:
 - script: npm install
   displayName: install packages
-
-- script: |
-    echo "API URL starts with"
-    echo ${VITE_API_URL:0:10}
-    echo "API KEY length"
-    echo ${#VITE_API_KEY}
-    echo "STATIC TOKEN length"
-    echo ${#STATIC_WEB_APP_TOKEN}
-  displayName: check env values
-  env:
-    VITE_API_URL: $(VITE_API_URL)
-    VITE_API_KEY: $(VITE_API_KEY)
-    STATIC_WEB_APP_TOKEN: $(STATIC_WEB_APP_TOKEN)
     
 - script: npm run build
   displayName: build app
