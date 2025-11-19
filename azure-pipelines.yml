@@ -13,6 +13,9 @@ steps:
 - script: ls -R
   displayName: print folders
 
+- script: echo "url --> $(VITE_API_URL)"
+  displayName: "url"
+
 - script: npm run build
   displayName: build app
   env:
