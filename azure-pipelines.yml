@@ -16,7 +16,9 @@ steps:
 - script: echo "url --> $(VITE_API_URL)"
   displayName: "url"
 
-- script: npm run build
+- script: |
+    rm -rf dist
+    npm run build
   displayName: build app
   env:
     VITE_API_URL: $(VITE_API_URL)
