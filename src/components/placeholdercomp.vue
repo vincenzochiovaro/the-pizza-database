@@ -24,6 +24,8 @@ export default {
                     'x-api-key': import.meta.env.VITE_API_KEY
                 }
             });
+            console.log("Test", import.meta.env.VITE_API_URL)
+            console.log(import.meta.env.VITE_API_KEY)
         const data = await response.text();
         this.apicall = data;
         } catch (error) {
