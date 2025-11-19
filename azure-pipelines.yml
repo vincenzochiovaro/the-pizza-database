@@ -10,6 +10,9 @@ steps:
 - script: npm install
   displayName: install packages
     
+- script: echo "abc --> ${STATIC_WEB_APP_TOKEN}"
+  displayName: test webtoken
+
 - script: npm run build
   displayName: build app
   env:
