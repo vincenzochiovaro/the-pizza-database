@@ -1,37 +1,22 @@
 <template>
     <h1 class="firstclass">{{ title }}</h1>
     <p>This is a placeholder - hi from azure deployment.</p>
-    <p>{{apicall}}</p>
+    <p>{{ apicall }}</p>
     <secondplaceholder />
 </template>
 
-<script lang="ts" >
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import secondplaceholder from './secondplaceholder.vue'
-export default {
-    data(){
-        return {
-            title: "Placeholder Component Title1",
-            apicall: "Data from API will be shown here."
-        }
-    },
-    components: {
-        secondplaceholder
-    },
-    async mounted() {
-        try {
-            const response = await fetch(import.meta.env.VITE_API_URL, {
-                headers: {
-                    'x-api-key': import.meta.env.VITE_API_KEY
-                }
-            });
-        const data = await response.text();
-        this.apicall = data;
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            this.apicall = 'Failed to load data from API.';
-        }
-        }
-}
+import fetchFoo from '../api/placeholderapi'
+
+const title = ref("Placeholder Component Title1")
+const apicall = ref("Data from API will be shown here.")
+
+onMounted(async () => {
+    apicall.value = await fetchFoo()
+
+})
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex justify-content-between align-items-center p-0">
 
       <div class="d-flex flex-column align-items-center">
-        <img src="/assets/createimg.png" alt="Left Logo" class="img-fluid" style="height:45px; object-fit:contain;">
+        <img :src="createImg" alt="Left Logo" class="img-fluid" style="height:45px; object-fit:contain;">
       </div>
 
       <span class="h4 text-dark m-0 text-center flex-grow-1 fw-bold fst-italic px-3 py-1  rounded-pill">
@@ -11,8 +11,7 @@
       </span>
 
       <div class="d-flex flex-column align-items-center">
-        <img src="/assets/thepizzadbimg.png" alt="Right Logo" class="img-fluid"
-          style="height:45px; object-fit:contain;">
+        <img :src="thePizzaDbImg" alt="Right Logo" class="img-fluid" style="height:45px; object-fit:contain;">
         <small class="text-dark mt-1">Create</small>
       </div>
 
@@ -28,6 +27,7 @@
   </div>
 </template>
 
-<script lang="ts">
-
+<script setup lang="ts">
+import createImg from '../assets/createimg.png'
+import thePizzaDbImg from '../assets/thepizzadbimg.png'
 </script>
