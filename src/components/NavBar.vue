@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-light px-3 shadow-sm rounded-bottom-5" style="background-color:#A68A7B;">
+  <nav class="navbar navbar-light px-3 shadow-sm rounded-bottom-1" style="background-color:#A68A7B;">
     <div class="container-fluid d-flex justify-content-between align-items-center p-0 flex-nowrap">
 
       <div class="d-flex align-items-center">
-        <button class="btn p-2 d-flex flex-column align-items-center rounded-pill" style="
+        <button class=" btn p-2 d-flex flex-column align-items-center rounded-pill" style="
                   background: linear-gradient(145deg, #BFA58B, #8F7265);
                   color: #fff;
                   box-shadow: 0 3px 6px rgba(0,0,0,0.15);

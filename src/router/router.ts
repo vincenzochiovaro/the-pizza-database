@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import placeholdercomp from '../components/placeholdercomp.vue'
+import PizzaBrowser from '../components/PizzaBrowser.vue'
 
 const routes = [
-  { path: '/', component: placeholdercomp },
+  { path: '/', component: PizzaBrowser }
+
 ]
 
 const router = createRouter({
