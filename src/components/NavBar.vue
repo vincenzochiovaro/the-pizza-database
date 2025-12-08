@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex justify-content-between align-items-center p-0 flex-nowrap">
 
       <div class="d-flex align-items-center">
-        <button class=" btn p-2 d-flex flex-column align-items-center rounded-pill" style="
+        <button @click="goToHome" class=" btn p-2 d-flex flex-column align-items-center rounded-pill" style="
                   background: linear-gradient(145deg, #BFA58B, #8F7265);
                   color: #fff;
                   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
@@ -17,7 +17,7 @@
       </span>
 
       <div class="d-flex align-items-center">
-        <button class="btn p-2 d-flex flex-column align-items-center rounded-pill" style="
+        <button @click="goToDoughGenerator" class="btn p-2 d-flex flex-column align-items-center rounded-pill" style="
             background: linear-gradient(145deg, #BFA58B, #8F7265);
             color: #fff;
             box-shadow: 0 3px 6px rgba(0,0,0,0.15);
@@ -32,6 +32,17 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import createImg from '../assets/createimg.png'
 import homeImg from '../assets/homeimg.png'
+
+const router = useRouter()
+
+function goToDoughGenerator() {
+  router.push('/dough-generator')
+}
+
+function goToHome() {
+  router.push('/')
+}
 </script>

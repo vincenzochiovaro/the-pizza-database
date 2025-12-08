@@ -17,6 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import PizzaCard from './PizzaCard.vue'
-import PizzaFilters from './PizzaFilters.vue'
+import PizzaCard from '../components/PizzaCard.vue'
+import PizzaFilters from '../components/PizzaFilters.vue'
 </script>
