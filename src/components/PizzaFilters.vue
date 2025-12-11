@@ -2,7 +2,7 @@
     <div class="container mt-3">
         <div class="p-3 rounded shadow-sm bg-secondary">
 
-            <h4 v-if="selectedFilter === 'Favourite'" class="text-white fw-bold fst-italic m-0 mb-3 text-center">
+            <h4 v-if="selectedFilter === 'Favourites'" class="text-white fw-bold fst-italic m-0 mb-3 text-center">
                 Your Favourites
             </h4>
 
@@ -10,7 +10,7 @@
 
             <div class="d-flex justify-content-center gap-3">
 
-                <button @click="selectFilter('Favourite')"
+                <button @click="selectFilter('Favourites')"
                     class="btn btn-outline-light d-flex justify-content-between align-items-center fw-bold"
                     style="width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0.5rem 1rem;">
                     <span class="text-truncate">Favourites</span>
@@ -55,13 +55,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const emit = defineEmits(['update-filter'])
+
 const selectedFilter = ref('All Pizzas')
 
 function selectFilter(value: string) {
     selectedFilter.value = value
+    emit('update-filter', value)
 }
 
 function resetFilter() {
     selectedFilter.value = 'All Pizzas'
+    emit('update-filter', 'All Pizzas')
 }
 </script>
