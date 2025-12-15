@@ -1,9 +1,10 @@
 
-export async function FetchPizzasByFilter(filter: string) {
+export async function FetchPizzasByFilter(_filter: string) {
 
     try
     {
-        console.log("Fetching pizzas with filter:", filter);
+        // TODO
+        console.log("Fetching pizzas with filter:", _filter);
         const data = ["test"]
 	    return data;
     }
