@@ -10,7 +10,7 @@
 
             <div class="d-flex justify-content-center gap-3">
 
-                <button @click="selectFilter('Favourites')"
+                <button @click="selectFilter('Favourites', 'Favourites')"
                     class="btn btn-outline-light d-flex justify-content-between align-items-center fw-bold"
                     style="width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0.5rem 1rem;">
                     <span class="text-truncate">Favourites</span>
@@ -22,19 +22,16 @@
                         class="btn btn-dark d-flex justify-content-between align-items-center fw-bold text-white dropdown-toggle"
                         type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false"
                         style="width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0.5rem 1rem;">
-                        <span class="text-truncate">{{ selectedFilter }}</span>
+                        <span class="text-truncate">{{ filterDisplayName }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="filterDropdown">
-                        <li><button class="dropdown-item" @click="selectFilter('All Pizzas')">All Pizzas</button></li>
+                        <li><button class="dropdown-item" @click="selectFilter('All pizzas', 'All Pizzas')">All
+                                Pizzas</button></li>
                         <li><button class="dropdown-item"
-                                @click="selectFilter('Easiest to most advanced pizzas')">Level: Low →
-                                High</button></li>
+                                @click="selectFilter('Preparation time', 'Time')">Time</button></li>
                         <li><button class="dropdown-item"
-                                @click="selectFilter('Most advanced to easiest pizzas')">Level: High →
-                                Low</button></li>
-                        <li><button class="dropdown-item" @click="selectFilter('Most popular pizzas')">Popular</button>
-                        </li>
-                        <li><button class="dropdown-item" @click="selectFilter('Pizzas by style')">Pizza Style</button>
+                                @click="selectFilter('Most popular', 'Popular')">Popular</button></li>
+                        <li><button class="dropdown-item" @click="selectFilter('By style', 'Style')">Style</button>
                         </li>
                     </ul>
                 </div>
@@ -57,15 +54,18 @@ import { ref } from 'vue'
 
 const emit = defineEmits(['update-filter'])
 
-const selectedFilter = ref('All Pizzas')
+const selectedFilter = ref('All pizzas')
+const filterDisplayName = ref('All Pizzas')
 
-function selectFilter(value: string) {
-    selectedFilter.value = value
-    emit('update-filter', value)
+function selectFilter(filterValue: string, displayValue: string) {
+    selectedFilter.value = filterValue
+    filterDisplayName.value = displayValue
+    emit('update-filter', filterValue)
 }
 
 function resetFilter() {
-    selectedFilter.value = 'All Pizzas'
-    emit('update-filter', 'All Pizzas')
+    selectedFilter.value = 'All pizzas'
+    filterDisplayName.value = 'All Pizzas'
+    emit('update-filter', 'All pizzas')
 }
 </script>

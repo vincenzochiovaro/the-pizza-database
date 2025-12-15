@@ -1,12 +1,12 @@
 <template>
     <div class="min-vh-100 py-3 bg-light">
         <div class="container">
-            <div class="mx-auto" style="max-width: 900px;">
-                <PizzaFilters @update-filter="SetFilter" />
-            </div>
 
-            <div class="row g-3 mt-3">
-                <div class="col-md-4" v-for="n in 3" :key="n">
+            <PizzaFilters @update-filter="SetFilter" />
+
+
+            <div class="row justify-content-center mt-3">
+                <div class="col-lg-11">
                     <PizzaCards v-if="currentFilter !== 'Favourites'" :pizzas="pizzaList" />
                     <Favourites v-else />
                 </div>
