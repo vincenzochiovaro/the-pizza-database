@@ -1,99 +1,129 @@
 <template>
-    <div class="container mt-4">
-        <div v-for="pizza in pizzasList" :key="pizza.id" class="row mb-4">
-            <div class="col-12">
-                <div class="card bg-secondary border-0 shadow-sm">
-                    <img :src="homeImgSrc" class="card-img-top" :alt="pizza.name">
+ <div class="container">
+  <div v-for="pizza in pizzasList" :key="pizza.id" class="row mb-4">
+   <div class="col-12">
+    <div class="card border-0 shadow-sm h-100 card-hover" style="transition: all 0.3s;">
+     <div style="position: relative; overflow: hidden; height: 220px;">
+      <img :src="homeImgSrc" class="card-img-top" :alt="pizza.name"
+       style="object-fit: cover; height: 100%; width: 100%; transition: transform 0.3s;">
+      <span class="badge bg-danger position-absolute top-0 end-0 m-3">{{ pizza.style }}</span>
+     </div>
 
-                    <div class="card-body p-3 d-flex flex-column">
-                        <h5 class="card-title text-white fw-bold text-center mb-2" style="font-size: 1.1rem;">
-                            {{ pizza.name }}
-                        </h5>
+     <div class="card-body p-4 d-flex flex-column">
+      <h5 class="card-title fw-bold mb-3" style="font-size: 1.25rem; color: #2d3748;">
+       {{ pizza.name }}
+      </h5>
 
-                        <p class="text-white-50 mb-3" style="
-                                font-size: 0.85rem;
-                                line-height: 1.4;
-                                height: 3.6em;
+      <p class="text-muted mb-3" style="
+                                font-size: 0.95rem;
+                                line-height: 1.6;
+                                flex-grow: 1;
+                                max-height: 3em;
                                 overflow: hidden;
                             ">
-                            {{ pizza.description }}
-                        </p>
-                        <div class="mt-auto"
-                            style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
-                            <div style="display: flex; justify-content: center; gap: 1.5rem;">
-                                <div class="text-white-50" style="text-align: center;">
-                                    <strong>Style</strong>
-                                    <div>{{ pizza.style }}</div>
-                                </div>
+       {{ pizza.description }}
+      </p>
 
-                                <div class="text-white-50" style="text-align: center;">
-                                    <strong>Cooking</strong>
-                                    <div>{{ pizza.homemade ? 'Homemade' : 'Restaurant' }}</div>
-                                </div>
-                            </div>
+      <div class="row text-center mb-3 py-3 bg-light rounded-2">
+       <div class="col-6 col-md-3">
+        <small class="text-muted d-block fw-bold" style="font-size: 0.75rem;">STYLE</small>
+        <span style="font-size: 0.95rem; font-weight: 600; color: #2d3748;">{{ pizza.style
+        }}</span>
+       </div>
+       <div class="col-6 col-md-3">
+        <small class="text-muted d-block fw-bold" style="font-size: 0.75rem;">COOKING</small>
+        <span style="font-size: 0.95rem; font-weight: 600; color: #2d3748;">{{ pizza.homemade ?
+         '🏠' : '🏢' }}</span>
+       </div>
+       <div class="col-6 col-md-3">
+        <small class="text-muted d-block fw-bold" style="font-size: 0.75rem;">OVEN</small>
+        <span style="font-size: 0.95rem; font-weight: 600; color: #2d3748;">{{ pizza.oven
+        }}</span>
+       </div>
+       <div class="col-6 col-md-3">
+        <small class="text-muted d-block fw-bold" style="font-size: 0.75rem;">PREP</small>
+        <span style="font-size: 0.95rem; font-weight: 600; color: #2d3748;">{{ pizza.prepTime
+        }}h</span>
+       </div>
+      </div>
 
-                            <div style="display: flex; justify-content: center; gap: 1.5rem;">
-                                <div class="text-white-50" style="text-align: center;">
-                                    <strong>Oven</strong>
-                                    <div>{{ pizza.oven }}</div>
-                                </div>
-
-                                <div class="text-white-50" style="text-align: center;">
-                                    <strong>Views</strong>
-                                    <div>{{ pizza.views }}</div>
-                                </div>
-
-                                <div class="text-white-50" style="text-align: center;">
-                                    <strong>Prep Time</strong>
-                                    <div>{{ pizza.prepTime }}h</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="d-flex gap-2">
+       <button class="btn btn-outline-danger flex-grow-1 fw-bold" style="transition: all 0.3s;">
+        ❤️ Save
+       </button>
+       <button class="btn btn-secondary flex-grow-1 fw-bold" style="transition: all 0.3s;">
+        👁️ View
+       </button>
+      </div>
+     </div>
     </div>
+   </div>
+  </div>
+ </div>
 </template>
+
+<style scoped>
+.card-hover:hover {
+ transform: translateY(-6px);
+ box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-hover:hover img {
+ transform: scale(1.05);
+}
+
+.btn:hover {
+ transform: translateY(-2px);
+}
+
+.btn-outline-danger:hover {
+ background-color: #dc3545;
+ color: white;
+}
+
+.btn-secondary:hover {
+ background-color: #5a6268;
+}
+</style>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import homeImg from '../assets/homeimg.png'
+import pizzaFritta from '../assets/pizzaFritta.jpg'
 
-const homeImgSrc = homeImg
+const homeImgSrc = pizzaFritta
 const pizzasList = ref([
-    {
-        id: 1,
-        description: 'A classic Margherita pizza with fresh tomatoes, mozzarella cheese, and basil.',
-        name: 'Margherita',
-        prepTime: 48,
-        image: 'https://via.placeholder.com/800x400?text=Margherita',
-        homemade: true,
-        oven: 'Home Oven',
-        style: 'Neapolitan',
-        views: 1234
-    },
-    {
-        id: 2,
-        description: 'A popular Pepperoni pizza topped with spicy pepperoni slices and melted cheese.',
-        name: 'Pepperoni',
-        prepTime: 24,
-        image: 'https://via.placeholder.com/800x400?text=Pepperoni',
-        homemade: false,
-        oven: 'Wood Fired',
-        style: 'Neapolitan',
-        views: 2567
-    },
-    {
-        id: 3,
-        description: 'A delicious Four Cheese pizza with a blend of mozzarella, cheddar, parmesan, and gorgonzola.',
-        name: 'Four Cheese',
-        prepTime: 3,
-        image: 'https://via.placeholder.com/800x400?text=Four+Cheese',
-        homemade: true,
-        oven: 'Electric',
-        style: 'New York',
-        views: 892
-    }
+ {
+  id: 1,
+  description: 'A classic Margherita pizza with fresh tomatoes, mozzarella cheese, and basil.',
+  name: 'Margherita',
+  prepTime: 48,
+  image: 'pizzaFritta.jpg',
+  homemade: true,
+  oven: 'Home Oven',
+  style: 'Neapolitan',
+  views: 1234
+ },
+ {
+  id: 2,
+  description: 'A popular Pepperoni pizza topped with spicy pepperoni slices and melted cheese.',
+  name: 'Pepperoni',
+  prepTime: 24,
+  image: 'pizzaImpasto',
+  homemade: false,
+  oven: 'Wood Fired',
+  style: 'Neapolitan',
+  views: 2567
+ },
+ {
+  id: 3,
+  description: 'A delicious Four Cheese pizza with a blend of mozzarella, cheddar, parmesan, and gorgonzola.',
+  name: 'Four Cheese',
+  prepTime: 3,
+  image: 'pizzaFritta.jpg',
+  homemade: true,
+  oven: 'Electric',
+  style: 'New York',
+  views: 892
+ }
 ])
 </script>
