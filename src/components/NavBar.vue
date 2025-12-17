@@ -25,26 +25,6 @@
   </nav>
 </template>
 
-<style scoped>
-nav {
-  background: linear-gradient(135deg, #5a6268 0%, #495057 100%) !important;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.cursor-pointer:hover {
-  opacity: 0.9;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-</style>
-
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import createImg from '../assets/createimg.png'
@@ -63,3 +43,27 @@ function goToHome() {
   router.push('/')
 }
 </script>
+
+
+<style scoped>
+nav {
+  background: linear-gradient(135deg, #5a6268 0%, #495057 100%) !important;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.cursor-pointer:hover {
+  opacity: 0.9;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+</style>

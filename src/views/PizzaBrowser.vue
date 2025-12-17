@@ -1,10 +1,7 @@
 <template>
     <div class="min-vh-100 py-3 bg-light">
         <div class="container">
-
             <PizzaFilters @update-filter="SetFilter" />
-
-
             <div class="row justify-content-center mt-3">
                 <div class="col-lg-11">
                     <PizzaCards v-if="currentFilter !== 'Favourites'" :pizzas="pizzaList" />

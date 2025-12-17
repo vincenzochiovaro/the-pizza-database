@@ -62,30 +62,6 @@
  </div>
 </template>
 
-<style scoped>
-.card-hover:hover {
- transform: translateY(-6px);
- box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
-}
-
-.card-hover:hover img {
- transform: scale(1.05);
-}
-
-.btn:hover {
- transform: translateY(-2px);
-}
-
-.btn-outline-danger:hover {
- background-color: #dc3545;
- color: white;
-}
-
-.btn-secondary:hover {
- background-color: #5a6268;
-}
-</style>
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import pizzaFritta from '../assets/pizzaFritta.jpg'
@@ -127,3 +103,29 @@ const pizzasList = ref([
  }
 ])
 </script>
+
+
+
+<style scoped>
+.card-hover:hover {
+ transform: translateY(-6px);
+ box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-hover:hover img {
+ transform: scale(1.05);
+}
+
+.btn:hover {
+ transform: translateY(-2px);
+}
+
+.btn-outline-danger:hover {
+ background-color: #dc3545;
+ color: white;
+}
+
+.btn-secondary:hover {
+ background-color: #5a6268;
+}
+</style>
