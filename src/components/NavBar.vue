@@ -59,7 +59,6 @@ nav {
   opacity: 0.9;
 }
 
-/* Modern Create Button */
 .create-btn {
   display: flex;
   align-items: center;
@@ -112,7 +111,6 @@ nav {
   white-space: nowrap;
 }
 
-/* Responsive adjustments */
 @media (max-width: 576px) {
   .create-btn {
     padding: 0.6rem 1rem;
