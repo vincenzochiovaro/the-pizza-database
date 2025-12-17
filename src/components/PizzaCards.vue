@@ -3,15 +3,13 @@
     <div class="row g-3 g-md-4">
       <div v-for="pizza in pizzasList" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="card border-0 shadow-sm h-100 card-hover" style="transition: all 0.3s; cursor: pointer;"
-          @click="openRecipe(pizza)">
+          @click="openRecipe(pizza.id)">
           <div class="image-container">
             <img :src="getPizzaImage(pizza.image)" class="card-img-top pizza-image" :alt="pizza.name">
             <span class="badge bg-danger position-absolute top-0 end-0 m-2 m-md-3">{{ pizza.style }}</span>
 
-            <!-- Modern heart favorite button -->
-            <button class="favorite-btn" @click.stop="toggleFavorite(pizza)"
-              :class="{ 'favorited': pizza.isFavorited }">
-              <span class="heart-icon">{{ pizza.isFavorited ? '❤️' : '🤍' }}</span>
+            <button class="favorite-btn" @click="toggleFavorite(pizza.name)">
+              <span class="heart-icon">❤️</span>
             </button>
           </div>
 
@@ -31,8 +29,8 @@
                   <span class="stat-value">{{ pizza.style }}</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-label">Cooking</span>
-                  <span class="stat-value">{{ pizza.homemade ? 'Home' : 'Restaurant' }}</span>
+                  <span class="stat-label">Views</span>
+                  <span class="stat-value">{{ pizza.views }}</span>
                 </div>
               </div>
 
@@ -66,15 +64,15 @@ function getPizzaImage(imageName: string): string {
   }
 }
 
-function openRecipe(pizza: any) {
+function openRecipe(pizza: number) {
   // TODO: Navigate to recipe detail page
-  console.log('Opening recipe:', pizza.name)
-  // You can use Vue Router here: router.push(`/recipe/${pizza.id}`)
+  console.log('Opening recipe:', pizza)
+  // Eg. router.push(`/recipe/${pizza.id}`)
 }
 
 function toggleFavorite(pizza: any) {
   pizza.isFavorited = !pizza.isFavorited
-  // TODO: Save to localStorage or API
+  // TODO: Save to localStorage§
   console.log(`${pizza.isFavorited ? 'Added to' : 'Removed from'} favorites:`, pizza.name)
 }
 
@@ -85,11 +83,9 @@ const pizzasList = ref([
     name: 'Margherita',
     prepTime: 48,
     image: 'pizzaFritta.jpg',
-    homemade: true,
     oven: 'Home Oven',
     style: 'Neapolitan',
-    views: 1234,
-    isFavorited: false
+    views: 1234
   },
   {
     id: 2,
@@ -97,11 +93,9 @@ const pizzasList = ref([
     name: 'Pepperoni',
     prepTime: 24,
     image: 'pizza-default-img.jpg',
-    homemade: false,
-    oven: 'Wood Fired',
+    oven: 'Professional Oven',
     style: 'Neapolitan',
-    views: 2567,
-    isFavorited: true
+    views: 2567
   },
   {
     id: 3,
@@ -109,11 +103,9 @@ const pizzasList = ref([
     name: 'Four Cheese',
     prepTime: 3,
     image: 'pizzaFritta.jpg',
-    homemade: true,
-    oven: 'Electric',
+    oven: 'Professional Oven',
     style: 'New York',
-    views: 892,
-    isFavorited: false
+    views: 892
   }
 ])
 </script>
@@ -136,7 +128,6 @@ const pizzasList = ref([
   transition: transform 0.3s;
 }
 
-/* Modern favorite button */
 .favorite-btn {
   position: absolute;
   top: 8px;
@@ -189,7 +180,6 @@ const pizzasList = ref([
   display: block;
 }
 
-/* Responsive adjustments */
 @media (min-width: 768px) {
   .image-container {
     height: 200px;
@@ -261,7 +251,6 @@ const pizzasList = ref([
   transform: scale(1.03);
 }
 
-/* Remove button styles since we removed buttons */
 .btn:hover {
   transform: translateY(-2px);
 }
