@@ -13,11 +13,11 @@
       </div>
 
       <div class="d-flex align-items-center">
-        <button @click="goToDoughGenerator"
-          class="btn btn-light btn-sm d-flex flex-column align-items-center gap-1 rounded-pill px-3 py-2 fw-bold"
-          style="transition: all 0.3s;">
-          <img :src="createImgSrc" alt="Create" style="height:24px; object-fit:contain;">
-          <small class="text-dark" style="font-size:0.75rem;">Create</small>
+        <button @click="goToDoughGenerator" class="create-btn">
+          <div class="create-icon">
+            <i class="fas fa-plus create-icon-fa"></i>
+          </div>
+          <span class="create-text">Create</span>
         </button>
       </div>
 
@@ -27,11 +27,9 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import createImg from '../assets/createimg.png'
 import homeImg from '../assets/homeimg.png'
 
 const homeImgSrc = homeImg
-const createImgSrc = createImg
 
 const router = useRouter()
 
@@ -43,7 +41,6 @@ function goToHome() {
   router.push('/')
 }
 </script>
-
 
 <style scoped>
 nav {
@@ -62,8 +59,77 @@ nav {
   opacity: 0.9;
 }
 
-.btn:hover {
+/* Modern Create Button */
+.create-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.create-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.create-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.create-btn:hover .create-icon {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.create-icon-fa {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 300;
+}
+
+.create-text {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .create-btn {
+    padding: 0.6rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .create-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .create-icon-fa {
+    font-size: 1rem;
+  }
+
+  .create-text {
+    font-size: 0.9rem;
+  }
 }
 </style>
