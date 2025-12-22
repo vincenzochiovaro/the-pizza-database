@@ -2,48 +2,42 @@
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3 g-md-4">
       <div v-for="pizza in pizzasList" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow-sm h-100 card-hover" style="transition: all 0.3s; cursor: pointer;"
-          @click="openRecipe(pizza.id)">
-          <div class="image-container">
-            <img :src="getPizzaImage(pizza.image)" class="card-img-top pizza-image" :alt="pizza.name">
-            <span class="badge bg-danger position-absolute top-0 end-0 m-2 m-md-3">{{ pizza.style }}</span>
-
-            <button class="favorite-btn" @click="toggleFavorite(pizza.name)">
-              <span class="heart-icon">❤️</span>
-            </button>
+        <div class="card border-0 shadow-sm card-hover d-flex flex-row" :class="{ 'favorited': pizza.isFavorited }"
+          style="transition: all 0.3s; cursor: pointer;" @click="openRecipe(pizza.id)">
+          <div class="image-container position-relative">
+            <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name">
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">{{ pizza.style }}</span>
           </div>
 
-          <div class="card-body p-3 p-md-4">
-            <h5 class="card-title fw-bold mb-2 mb-md-3" style="font-size: 1.1rem; color: #2d3748;">
-              {{ pizza.name }}
-            </h5>
+          <div class="card-body p-3 flex-grow-1">
+            <div class="d-flex align-items-center mb-2">
+              <button class="favorite-btn me-2" @click.stop="toggleFavorite(pizza)">
+                <span class="heart-icon">❤️</span>
+              </button>
+              <h5 class="card-title fw-bold mb-0" style="font-size: 1.1rem; color: #2d3748;">
+                {{ pizza.name }}
+              </h5>
+            </div>
 
-            <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">
-              {{ pizza.description }}
-            </p>
-
-            <div class="pizza-stats">
-              <div class="stat-row">
-                <div class="stat-item">
-                  <span class="stat-label">Style</span>
-                  <span class="stat-value">{{ pizza.style }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Views</span>
-                  <span class="stat-value">{{ pizza.views }}</span>
-                </div>
+            <div class="d-flex flex-wrap gap-3 mt-3">
+              <div class="stat-item">
+                <span class="stat-label">Temp</span>
+                <span class="stat-value">{{ pizza.temp }} <span style="font-size: 0.7em;">°C</span></span>
               </div>
-
-              <div class="stat-row">
-                <div class="stat-item">
-                  <span class="stat-label">Oven</span>
-                  <span class="stat-value">{{ pizza.oven }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Prep</span>
-                  <span class="stat-value">{{ pizza.prepTime }}h</span>
-                </div>
+              <div class="stat-item">
+                <span class="stat-label">Prep</span>
+                <span class="stat-value">{{ pizza.prepTime }}h</span>
               </div>
+              <div class="stat-item">
+                <span class="stat-label">Price</span>
+                <span class="stat-value">
+                  <span v-for="i in 3" :key="i" :class="{ 'bold-price': i <= pizza.price }">£</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-3 text-end">
+              <span class="fw-bold" style="color: #fd7e14;">View ></span>
             </div>
           </div>
         </div>
@@ -64,15 +58,15 @@ function getPizzaImage(imageName: string): string {
   }
 }
 
-function openRecipe(pizza: number) {
+function openRecipe(id: number) {
   // TODO: Navigate to recipe detail page
-  console.log('Opening recipe:', pizza)
-  // Eg. router.push(`/recipe/${pizza.id}`)
+  console.log('Opening recipe:', id)
+  // Eg. router.push(`/recipe/${id}`)
 }
 
 function toggleFavorite(pizza: any) {
   pizza.isFavorited = !pizza.isFavorited
-  // TODO: Save to localStorage§
+  // TODO: Save to localStorage
   console.log(`${pizza.isFavorited ? 'Added to' : 'Removed from'} favorites:`, pizza.name)
 }
 
@@ -80,32 +74,38 @@ const pizzasList = ref([
   {
     id: 1,
     description: 'A classic Margherita pizza with fresh tomatoes, mozzarella cheese, and basil.',
-    name: 'Margherita',
+    name: 'Pepperoni And Olives',
     prepTime: 48,
+    price: 1,
     image: 'pizzaFritta.jpg',
-    oven: 'Home Oven',
+    temp: 500,
     style: 'Neapolitan',
-    views: 1234
+    views: 1234,
+    isFavorited: false
   },
   {
     id: 2,
     description: 'A popular Pepperoni pizza topped with spicy pepperoni slices and melted cheese.',
     name: 'Pepperoni',
     prepTime: 24,
+    price: 2,
     image: 'pizza-default-img.jpg',
-    oven: 'Professional Oven',
+    temp: 350 + '+',
     style: 'Neapolitan',
-    views: 2567
+    views: 2567,
+    isFavorited: false
   },
   {
     id: 3,
     description: 'A delicious Four Cheese pizza with a blend of mozzarella, cheddar, parmesan, and gorgonzola.',
     name: 'Four Cheese',
     prepTime: 3,
+    price: 3,
     image: 'pizzaFritta.jpg',
-    oven: 'Professional Oven',
+    temp: 250,
     style: 'New York',
-    views: 892
+    views: 892,
+    isFavorited: false
   }
 ])
 </script>
@@ -114,29 +114,26 @@ const pizzasList = ref([
 .image-container {
   position: relative;
   overflow: hidden;
-  height: 180px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 40%;
+  height: 150px;
   background-color: #f8f9fa;
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .pizza-image {
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s;
 }
 
 .favorite-btn {
-  position: absolute;
-  top: 8px;
-  left: 8px;
   background: rgba(255, 255, 255, 0.9);
   border: none;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,54 +172,13 @@ const pizzasList = ref([
 }
 
 .heart-icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1;
   display: block;
 }
 
-@media (min-width: 768px) {
-  .image-container {
-    height: 200px;
-  }
-
-  .favorite-btn {
-    width: 40px;
-    height: 40px;
-    top: 10px;
-    left: 10px;
-  }
-}
-
-@media (min-width: 992px) {
-  .image-container {
-    height: 160px;
-  }
-}
-
-.pizza-stats {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-
-.stat-row:last-child {
-  margin-bottom: 0;
-}
-
 .stat-item {
-  flex: 1;
-  text-align: center;
-  padding: 0 0.5rem;
-}
-
-.stat-item:not(:last-child) {
-  border-right: 1px solid #e9ecef;
+  text-align: left;
 }
 
 .stat-label {
@@ -242,6 +198,14 @@ const pizzasList = ref([
   color: #2d3748;
 }
 
+.bold-price {
+  font-weight: 900;
+}
+
+.stat-value span:not(.bold-price) {
+  opacity: 0.4;
+}
+
 .card-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
@@ -251,16 +215,41 @@ const pizzasList = ref([
   transform: scale(1.03);
 }
 
-.btn:hover {
-  transform: translateY(-2px);
+@media (max-width: 576px) {
+  .image-container {
+    width: 35%;
+  }
+
+  .favorite-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .heart-icon {
+    font-size: 0.9rem;
+  }
+
+  .card-title {
+    font-size: 1rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .stat-value {
+    font-size: 0.85rem;
+  }
 }
 
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: white;
-}
+@media (min-width: 768px) {
+  .favorite-btn {
+    width: 36px;
+    height: 36px;
+  }
 
-.btn-secondary:hover {
-  background-color: #5a6268;
+  .heart-icon {
+    font-size: 1.1rem;
+  }
 }
 </style>

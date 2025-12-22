@@ -53,6 +53,8 @@ nav {
 .cursor-pointer {
   cursor: pointer;
   transition: opacity 0.3s;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .cursor-pointer:hover {
