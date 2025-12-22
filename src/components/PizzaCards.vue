@@ -25,7 +25,7 @@
                 <span class="stat-value">{{ pizza.temp }} <span style="font-size: 0.7em;">°C</span></span>
               </div>
               <div class="stat-item">
-                <span class="stat-label">Prep</span>
+                <span class="stat-label">Time</span>
                 <span class="stat-value">{{ pizza.prepTime }}h</span>
               </div>
               <div class="stat-item">
@@ -73,39 +73,33 @@ function toggleFavorite(pizza: any) {
 const pizzasList = ref([
   {
     id: 1,
-    description: 'A classic Margherita pizza with fresh tomatoes, mozzarella cheese, and basil.',
     name: 'Pepperoni And Olives',
     prepTime: 48,
     price: 1,
     image: 'pizzaFritta.jpg',
     temp: 500,
     style: 'Neapolitan',
-    views: 1234,
-    isFavorited: false
+    views: 1234
   },
   {
     id: 2,
-    description: 'A popular Pepperoni pizza topped with spicy pepperoni slices and melted cheese.',
     name: 'Pepperoni',
     prepTime: 24,
     price: 2,
     image: 'pizza-default-img.jpg',
     temp: 350 + '+',
     style: 'Neapolitan',
-    views: 2567,
-    isFavorited: false
+    views: 2567
   },
   {
     id: 3,
-    description: 'A delicious Four Cheese pizza with a blend of mozzarella, cheddar, parmesan, and gorgonzola.',
     name: 'Four Cheese',
     prepTime: 3,
     price: 3,
     image: 'pizzaFritta.jpg',
     temp: 250,
     style: 'New York',
-    views: 892,
-    isFavorited: false
+    views: 892
   }
 ])
 </script>
