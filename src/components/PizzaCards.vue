@@ -2,21 +2,24 @@
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3 g-md-4">
       <div v-for="pizza in pizzasList" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow-sm card-hover d-flex flex-row" :class="{ 'favorited': pizza.isFavorited }"
-          style="transition: all 0.3s; cursor: pointer;" @click="openRecipe(pizza.id)">
+        <div class="card border-0 shadow-sm card-hover d-flex flex-row position-relative"
+          :class="{ 'favorited': pizza.isFavorited }" style="transition: all 0.3s; cursor: pointer;"
+          @click="openRecipe(pizza.id)">
+          <button class="favorite-btn position-absolute top-0 end-0 m-2" @click.stop="toggleFavorite(pizza)">
+            <span class="heart-icon">❤️</span>
+          </button>
+
           <div class="image-container position-relative">
             <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name">
             <span class="badge bg-danger position-absolute top-0 end-0 m-2">{{ pizza.style }}</span>
           </div>
 
           <div class="card-body p-3 flex-grow-1">
-            <div class="d-flex align-items-center mb-2">
-              <button class="favorite-btn me-2" @click.stop="toggleFavorite(pizza)">
-                <span class="heart-icon">❤️</span>
-              </button>
-              <h5 class="card-title fw-bold mb-0" style="font-size: 1.1rem; color: #2d3748;">
-                {{ pizza.name }}
+            <div class="mb-2">
+              <h5 class="card-title fw-bold mb-1" style="font-size: 0.95rem; color: #2d3748; word-wrap: break-word;">
+                The {{ pizza.name }}
               </h5>
+              <p class="card-text text-muted mb-0" style="font-size: 0.8rem;">{{ pizza.oven }}</p>
             </div>
 
             <div class="d-flex flex-wrap gap-3 mt-3">
@@ -73,13 +76,15 @@ function toggleFavorite(pizza: any) {
 const pizzasList = ref([
   {
     id: 1,
-    name: 'Pepperoni And Olives',
+    name: 'San Daniele with bufala',
     prepTime: 48,
     price: 1,
     image: 'pizzaFritta.jpg',
     temp: 500,
     style: 'Neapolitan',
-    views: 1234
+    views: 1234,
+    oven: 'Home oven'
+
   },
   {
     id: 2,
@@ -87,9 +92,10 @@ const pizzasList = ref([
     prepTime: 24,
     price: 2,
     image: 'pizza-default-img.jpg',
-    temp: 350 + '+',
+    temp: 400,
     style: 'Neapolitan',
-    views: 2567
+    views: 2567,
+    oven: 'Pizza oven'
   },
   {
     id: 3,
@@ -99,7 +105,8 @@ const pizzasList = ref([
     image: 'pizzaFritta.jpg',
     temp: 250,
     style: 'New York',
-    views: 892
+    views: 892,
+    oven: 'Pizza oven'
   }
 ])
 </script>
@@ -120,6 +127,7 @@ const pizzasList = ref([
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s;
+  border-radius: 0.5rem;
 }
 
 .favorite-btn {
