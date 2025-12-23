@@ -3,12 +3,10 @@
     <div class="row g-3 g-md-4">
       <div v-for="pizza in pizzasList" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="card border-0 shadow-sm card-hover d-flex flex-row position-relative"
-          :class="{ 'favorited': pizza.isFavorited }" style="transition: all 0.3s; cursor: pointer;"
-          @click="openRecipe(pizza.id)">
+          style="transition: all 0.3s; cursor: pointer;" @click="openRecipe(pizza.id)">
           <button class="favorite-btn position-absolute top-0 end-0 m-2" @click.stop="toggleFavorite(pizza)">
             <span class="heart-icon">❤️</span>
           </button>
-
           <div class="image-container position-relative">
             <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name">
             <span class="badge bg-danger position-absolute top-0 end-0 m-2">{{ pizza.style }}</span>
