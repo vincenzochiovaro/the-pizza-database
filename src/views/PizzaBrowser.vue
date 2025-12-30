@@ -19,6 +19,7 @@ import PizzaCards from '../components/PizzaCards.vue'
 import PizzaFilters from '../components/PizzaFilters.vue'
 import Favourites from '../components/Favourites.vue';
 import FetchPizzasByFilter from '../api/PizzaApi'
+import type { Pizza } from '../models/Pizza';
 
 const currentFilter = ref('All Pizzas')
 
@@ -26,7 +27,7 @@ function SetFilter(selectedFilter: string) {
     currentFilter.value = selectedFilter
 }
 
-const pizzaList = ref()
+const pizzaList = ref<Array<Pizza>>([])
 
 watch(currentFilter, async (newValue) => {
     const pizzaListResponse = await FetchPizzasByFilter(newValue)
