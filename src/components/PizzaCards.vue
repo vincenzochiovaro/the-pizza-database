@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3 g-md-4">
-      <div v-for="pizza in pizzasList" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
+      <div v-for="pizza in props.pizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="card border-0 shadow-sm card-hover d-flex flex-row position-relative"
           style="transition: all 0.3s; cursor: pointer;" @click="openRecipe(pizza.id)">
           <button class="favorite-btn position-absolute top-0 end-0 m-2" @click.stop="toggleFavorite(pizza)">
@@ -30,7 +30,7 @@
                 <span class="stat-value">{{ pizza.prepTime }}h</span>
               </div>
               <div class="stat-item">
-                <span class="stat-label">Price</span>
+                <span class="stat-label">Cost</span>
                 <span class="stat-value">
                   <span v-for="i in 3" :key="i" :class="{ 'bold-price': i <= pizza.price }">£</span>
                 </span>
@@ -48,18 +48,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { watch } from 'vue';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
+import type { Pizza } from '../models/Pizza';
 
-function getPizzaImage(imageName: string): string {
+const props = defineProps<{
+  pizzas: Array<Pizza>
+}>()
+
+watch
+  (props.pizzas, (newPizzas) => {
+    console.log('PizzaCards received new pizzas:', newPizzas)
+  })
+function getPizzaImage(imageName: string | undefined): string {
   try {
-    return new URL(`../assets/${imageName}`, import.meta.url).href
+    if (!imageName) {
+      return pizzaDefaultImg
+    }
+    return new URL(`../assets/pizzaimages/${imageName}`, import.meta.url).href
   } catch (error) {
     return pizzaDefaultImg
   }
 }
 
-function openRecipe(id: number) {
+function openRecipe(id: string) {
   // TODO: Navigate to recipe detail page
   console.log('Opening recipe:', id)
   // Eg. router.push(`/recipe/${id}`)
@@ -71,42 +83,6 @@ function toggleFavorite(pizza: any) {
   console.log(`${pizza.isFavorited ? 'Added to' : 'Removed from'} favorites:`, pizza.name)
 }
 
-const pizzasList = ref([
-  {
-    id: 1,
-    name: 'San Daniele with bufala',
-    prepTime: 48,
-    price: 1,
-    image: 'pizzaFritta.jpg',
-    temp: 500,
-    style: 'Neapolitan',
-    views: 1234,
-    oven: 'Home oven'
-
-  },
-  {
-    id: 2,
-    name: 'Pepperoni',
-    prepTime: 24,
-    price: 2,
-    image: 'pizza-default-img.jpg',
-    temp: 400,
-    style: 'Neapolitan',
-    views: 2567,
-    oven: 'Pizza oven'
-  },
-  {
-    id: 3,
-    name: 'Four Cheese',
-    prepTime: 3,
-    price: 3,
-    image: 'pizzaFritta.jpg',
-    temp: 250,
-    style: 'New York',
-    views: 892,
-    oven: 'Pizza oven'
-  }
-])
 </script>
 
 <style scoped>
