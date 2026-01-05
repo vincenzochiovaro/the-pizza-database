@@ -3,8 +3,8 @@ import PizzaBrowser from '../views/PizzaBrowser.vue'
 import DoughGenerator from '../views/DoughGenerator.vue'
 
 const routes = [
-  { path: '/', component: PizzaBrowser },
-  { path: '/dough-generator', component: DoughGenerator }
+  { path: '/', component: DoughGenerator  },
+  { path: '/pizza-browser', component: PizzaBrowser }
 
 ]
 
