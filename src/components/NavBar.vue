@@ -11,14 +11,12 @@
         </div>
       </div>
 
-      <div class="d-flex align-items-center">
-        <button @click="goToDoughGenerator" class="create-btn">
-          <div class="create-icon">
-            <i class="fas fa-plus create-icon-fa"></i>
-          </div>
-          <span class="create-text">Create</span>
-        </button>
-      </div>
+      <button @click="goToPizzaBrowser" class="create-btn">
+        <div class="create-icon">
+          <i class="fa-solid fa-pizza-slice"></i>
+        </div>
+        <span class="create-text">Browse</span>
+      </button>
 
     </div>
   </nav>
@@ -32,8 +30,8 @@ const homeImgSrc = homeImg
 
 const router = useRouter()
 
-function goToDoughGenerator() {
-  router.push('/dough-generator')
+function goToPizzaBrowser() {
+  router.push('/pizza-browser')
 }
 
 function goToHome() {
