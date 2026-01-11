@@ -4,8 +4,7 @@
             <PizzaFilters @update-filter="SetFilter" />
             <div class="row justify-content-center mt-3">
                 <div class="col-lg-11">
-                    <PizzaCards v-if="currentFilter !== 'Favourites'" :pizzas="pizzaList" />
-                    <Favourites v-else />
+                    <PizzaCards :filter="currentFilter" :pizzas="pizzaList" />
                 </div>
             </div>
 
@@ -17,7 +16,6 @@
 import { ref, watch } from 'vue'
 import PizzaCards from '../components/PizzaCards.vue'
 import PizzaFilters from '../components/PizzaFilters.vue'
-import Favourites from '../components/Favourites.vue';
 import FetchPizzasByFilter from '../api/PizzaApi'
 import type { Pizza } from '../models/Pizza';
 

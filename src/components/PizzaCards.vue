@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3">
-      <div v-for="pizza in props.pizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
+      <div v-for="pizza in filteredPizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="card border-0 shadow-sm pizza-card">
           <div class="image-container">
             <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name" />
@@ -31,16 +31,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
 
 const props = defineProps<{
   pizzas: Array<Pizza>
+  filter: string
 }>()
 
 const lsTrigger = ref(0)
+const filteredPizzas = ref<Array<Pizza>>([]);
 
+function filterPizzas(filter: string) {
+
+  console.log(filter, "filter")
+  if (filter !== "Favourites") {
+    filteredPizzas.value = props.pizzas;
+    return;
+  }
+
+  filteredPizzas.value = [];
+
+  props.pizzas.forEach(pizza => {
+    if (localStorage.getItem(pizza.name)) {
+      filteredPizzas.value.push(pizza);
+    }
+  });
+
+}
+
+watch(
+  () => [props.filter, props.pizzas],
+  () => {
+    filterPizzas(props.filter);
+  },
+  { immediate: true }
+);
+
+// need to address what if in favourite and 0 items in there? need to display - no favourites added
+// we toggle hearth and I am in the favourite page I need to refresh UI
 function isInLocalStorage(pizzaName: string): boolean {
   lsTrigger.value;
 
