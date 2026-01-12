@@ -1,6 +1,11 @@
 <template>
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3">
+      <div v-if="!filteredPizzas.length" class="empty-favourites">
+        <div class="empty-icon">🍕</div>
+        <h5>No favourite pizzas yet</h5>
+        <p>Tap the heart on a pizza to add it here.</p>
+      </div>
       <div v-for="pizza in filteredPizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="card border-0 shadow-sm pizza-card">
           <div class="image-container">
@@ -44,8 +49,6 @@ const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
 
 function filterPizzas(filter: string) {
-
-  console.log(filter, "filter")
   if (filter !== "Favourites") {
     filteredPizzas.value = props.pizzas;
     return;
@@ -58,22 +61,18 @@ function filterPizzas(filter: string) {
       filteredPizzas.value.push(pizza);
     }
   });
-
 }
 
 watch(
-  () => [props.filter, props.pizzas],
+  () => [props.filter, props.pizzas, lsTrigger.value],
   () => {
     filterPizzas(props.filter);
   },
   { immediate: true }
 );
 
-// need to address what if in favourite and 0 items in there? need to display - no favourites added
-// we toggle hearth and I am in the favourite page I need to refresh UI
 function isInLocalStorage(pizzaName: string): boolean {
-  lsTrigger.value;
-
+  const _ = lsTrigger.value;
   if (localStorage.getItem(pizzaName)) {
     return true;
   }
@@ -164,5 +163,30 @@ function getPizzaImage(imageName: string | undefined): string {
   font-size: 0.8rem;
   color: #718096;
   font-style: italic;
+}
+
+.empty-favourites {
+  width: 100%;
+  padding: 3rem 1rem;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 0.75rem;
+  color: #4a5568;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-favourites h5 {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.empty-favourites p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #718096;
 }
 </style>
