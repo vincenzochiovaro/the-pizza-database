@@ -72,7 +72,7 @@ watch(
 );
 
 function isInLocalStorage(pizzaName: string): boolean {
-  const _ = lsTrigger.value;
+  lsTrigger.value;
   if (localStorage.getItem(pizzaName)) {
     return true;
   }
