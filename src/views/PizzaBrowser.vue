@@ -16,7 +16,7 @@
 import { ref, watch } from 'vue'
 import PizzaCards from '../components/PizzaCards.vue'
 import PizzaFilters from '../components/PizzaFilters.vue'
-import FetchPizzasByFilter from '../api/PizzaApi'
+import { FetchPizzasByFilter } from '../api/PizzaApi'
 import type { Pizza } from '../models/Pizza';
 
 const currentFilter = ref('All Pizzas')

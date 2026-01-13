@@ -3,5 +3,10 @@
 </template>
 
 <script setup lang="ts">
-console.log('DoughGenerator component loaded');
+import { KeepItWarm } from '../api/PizzaApi';
+
+if (!sessionStorage.getItem('apiWarmed')) {
+    sessionStorage.setItem('apiWarmed', 'true');
+    KeepItWarm();
+}
 </script>

@@ -3,7 +3,7 @@ export async function FetchPizzasByFilter(_filter: string) {
 
     try
     {
-        const url = `${import.meta.env.VITE_API_URL}?filter=${_filter}`
+        const url = `${import.meta.env.VITE_API_URL}api/GetPizzasByFilter?filter=${_filter}`
         
             const response = await fetch(url, {
             headers: {
@@ -20,4 +20,17 @@ export async function FetchPizzasByFilter(_filter: string) {
     }
 }
 
-export default  FetchPizzasByFilter
+export async function KeepItWarm() {
+    try {
+        const url = `${import.meta.env.VITE_API_URL}api/KeepItWarm`;
+
+        await fetch(url, {
+            headers: {
+                'x-api-key': import.meta.env.VITE_API_KEY
+            }
+        });
+    }
+    catch (error) {
+        // Swallow
+    }
+}
