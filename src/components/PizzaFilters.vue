@@ -23,10 +23,8 @@
             <ul class="dropdown-menu" aria-labelledby="filterDropdown">
               <li><button class="dropdown-item" @click="selectFilter('All pizzas', 'All Pizzas')">🍕 All
                   Pizzas</button></li>
-              <li><button class="dropdown-item" @click="selectFilter('Preparation time', 'Time')">⏱️
-                  Time</button></li>
-              <li><button class="dropdown-item" @click="selectFilter('Most popular', 'Popular')">⭐
-                  Popular</button></li>
+              <li><button class="dropdown-item" @click="selectFilter('Vegetarian Pizzas', 'Veg Pizzas')">🥦 Vegetarian
+                  Pizzas</button></li>
 
             </ul>
           </div>
