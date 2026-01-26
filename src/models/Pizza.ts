@@ -4,4 +4,5 @@ export interface Pizza {
   image?: string
   note?: string
   ingredients: string[]
+  isVegetarian: boolean
 }

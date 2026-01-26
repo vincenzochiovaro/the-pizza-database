@@ -10,10 +10,11 @@
         <div class="card border-0 shadow-sm pizza-card">
           <div class="image-container">
             <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name" />
-            <div v-if="isInLocalStorage(pizza.name)" class="heart-icon" @click="toggleLSPizza(pizza.name)">♥</div>
-            <div v-else class="heart-icon" @click="toggleLSPizza(pizza.name)">♡</div>
+            <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
+            <div class="heart-icon" @click="toggleLSPizza(pizza.name)">
+              {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
+            </div>
           </div>
-
           <div class="card-body">
             <h5 class="pizza-title">
               The {{ pizza.name }}
@@ -117,17 +118,45 @@ function getPizzaImage(imageName: string | undefined): string {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 1.4rem;
-  color: #e53e3e;
-  background: white;
-  border-radius: 50%;
   width: 34px;
   height: 34px;
+  background: white;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.4rem;
+  color: #e53e3e;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.heart-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.25);
+}
+
+.vegetarian-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #a5ffcb 0%, #8cffc2 100%);
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+  transition: all 0.3s ease;
+}
+
+.vegetarian-icon:hover {
+  transform: scale(1.12);
+  box-shadow: 0 4px 14px rgba(72, 187, 120, 0.4);
 }
 
 .pizza-image {
