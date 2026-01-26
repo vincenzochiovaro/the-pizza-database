@@ -105,13 +105,20 @@ function getPizzaImage(imageName: string | undefined): string {
 .pizza-card {
   border-radius: 0.75rem;
   overflow: hidden;
+  border: 1px solid #A8C89E;
+  transition: all 0.3s ease;
+}
+
+.pizza-card:hover {
+  box-shadow: 0 4px 12px rgba(45, 80, 22, 0.15) !important;
+  transform: translateY(-2px);
 }
 
 .image-container {
   position: relative;
   width: 100%;
   height: 180px;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f3ed 100%);
 }
 
 .heart-icon {
@@ -126,15 +133,17 @@ function getPizzaImage(imageName: string | undefined): string {
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  color: #e53e3e;
+  color: #C85A2C;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(200, 90, 44, 0.2);
   transition: all 0.3s ease;
+  border: 2px solid #C85A2C;
 }
 
 .heart-icon:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.25);
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(200, 90, 44, 0.35);
+  background-color: rgba(200, 90, 44, 0.1);
 }
 
 .vegetarian-icon {
@@ -143,20 +152,20 @@ function getPizzaImage(imageName: string | undefined): string {
   left: 10px;
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #a5ffcb 0%, #8cffc2 100%);
+  background: linear-gradient(135deg, #A8C89E 0%, #8DBE7A 100%);
   border-radius: 50%;
   border: 2px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+  box-shadow: 0 2px 8px rgba(45, 80, 22, 0.25);
   transition: all 0.3s ease;
 }
 
 .vegetarian-icon:hover {
   transform: scale(1.12);
-  box-shadow: 0 4px 14px rgba(72, 187, 120, 0.4);
+  box-shadow: 0 4px 14px rgba(45, 80, 22, 0.35);
 }
 
 .pizza-image {
@@ -167,20 +176,21 @@ function getPizzaImage(imageName: string | undefined): string {
 
 .card-body {
   padding: 1rem;
+  background-color: white;
 }
 
 .pizza-title {
   font-weight: 700;
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #2d3748;
+  color: #2D5016;
 }
 
 .ingredients-list {
   padding-left: 1rem;
   margin: 0;
   font-size: 0.85rem;
-  color: #4a5568;
+  color: #555555;
 }
 
 .ingredients-list li {
@@ -190,7 +200,7 @@ function getPizzaImage(imageName: string | undefined): string {
 .pizza-note {
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  color: #718096;
+  color: #777777;
   font-style: italic;
 }
 
@@ -198,9 +208,10 @@ function getPizzaImage(imageName: string | undefined): string {
   width: 100%;
   padding: 3rem 1rem;
   text-align: center;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #fafaf8 0%, #f0f3ed 100%);
   border-radius: 0.75rem;
-  color: #4a5568;
+  border: 2px dashed #A8C89E;
+  color: #555555;
 }
 
 .empty-icon {
@@ -211,11 +222,12 @@ function getPizzaImage(imageName: string | undefined): string {
 .empty-favourites h5 {
   font-weight: 700;
   margin-bottom: 0.25rem;
+  color: #2D5016;
 }
 
 .empty-favourites p {
   font-size: 0.9rem;
   margin: 0;
-  color: #718096;
+  color: #777777;
 }
 </style>

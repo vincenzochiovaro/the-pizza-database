@@ -42,11 +42,11 @@ function goToHome() {
 <style scoped>
 .navbar {
   background-color: #fafaf8;
-  border-bottom: 1px solid #e8e6e1;
+  border-bottom: 2px solid #A8C89E;
   position: sticky;
   top: 0;
   z-index: 1030;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
   padding: 1rem 0;
 }
 
@@ -64,7 +64,7 @@ function goToHome() {
 
 .logo-title {
   font-size: 1rem;
-  color: #b85c38;
+  color: #2D5016;
   letter-spacing: 0.3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -85,7 +85,7 @@ function goToHome() {
 .logo-divider {
   width: 2px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(253, 126, 20, 0.3), rgba(253, 126, 20, 0.15));
+  background: linear-gradient(to bottom, rgba(45, 80, 22, 0.3), rgba(168, 200, 158, 0.2));
   border-radius: 1px;
 }
 
@@ -97,7 +97,7 @@ function goToHome() {
 
 .logo-text .text-primary {
   font-size: 1rem;
-  color: #b85c38;
+  color: #2D5016;
   letter-spacing: 0.3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -109,7 +109,7 @@ function goToHome() {
   align-items: center;
   gap: 0.6rem;
   padding: 0.7rem 1.1rem;
-  background: linear-gradient(135deg, #fd7e14 0%, #ff8c2c 100%);
+  background: linear-gradient(135deg, #C85A2C 0%, #D67A3C 100%);
   border: none;
   border-radius: 8px;
   color: white;
@@ -117,14 +117,14 @@ function goToHome() {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(253, 126, 20, 0.2);
+  box-shadow: 0 3px 10px rgba(200, 90, 44, 0.25);
   letter-spacing: 0.3px;
 }
 
 .create-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(253, 126, 20, 0.35);
-  background: linear-gradient(135deg, #ff8c2c 0%, #ffa03d 100%);
+  box-shadow: 0 6px 18px rgba(200, 90, 44, 0.4);
+  background: linear-gradient(135deg, #D67A3C 0%, #E5894D 100%);
 }
 
 .create-btn:active {

@@ -4,19 +4,19 @@
 
       <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
 
-        <h4 class="text-dark fw-bold m-0" style="font-size: 1.1rem; white-space: nowrap;">
+        <h4 class="filter-title fw-bold m-0" style="font-size: 1.1rem; white-space: nowrap;">
           {{ selectedFilter === 'Favourites' ? '❤️ Your Favourites' : '🍕 ' + selectedFilter }}
         </h4>
 
         <div class="d-flex justify-content-center gap-2 flex-wrap">
-          <button @click="selectFilter('Favourites', 'Favourites')" class="btn btn-outline-danger fw-bold"
-            :class="{ 'btn-danger text-white': selectedFilter === 'Favourites' }"
+          <button @click="selectFilter('Favourites', 'Favourites')" class="btn fw-bold btn-favourite"
+            :class="{ 'btn-favourite-active': selectedFilter === 'Favourites' }"
             style="width:140px; transition: all 0.3s;">
             ❤️ Favourites
           </button>
 
           <div class="dropdown">
-            <button class="btn btn-outline-secondary fw-bold dropdown-toggle" type="button" id="filterDropdown"
+            <button class="btn btn-filter fw-bold dropdown-toggle" type="button" id="filterDropdown"
               data-bs-toggle="dropdown" aria-expanded="false" style="width:140px; transition: all 0.3s;">
               {{ filterDisplayName }}
             </button>
@@ -30,7 +30,7 @@
           </div>
         </div>
 
-        <button @click="resetFilter" class="btn btn-link text-secondary p-0 fw-bold"
+        <button @click="resetFilter" class="btn btn-reset p-0 fw-bold"
           style="font-size:0.9rem; text-decoration:underline; transition: all 0.3s; white-space: nowrap;">
           ↻ Reset
         </button>
@@ -72,14 +72,75 @@ function resetFilter() {
   background-color: transparent;
 }
 
-.btn:hover {
+.filter-title {
+  color: #2D5016;
+}
+
+.btn-favourite {
+  border: 2px solid #C85A2C;
+  color: #C85A2C;
+  background-color: white;
+}
+
+.btn-favourite:hover {
+  background-color: rgba(200, 90, 44, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(200, 90, 44, 0.2);
+}
+
+.btn-favourite-active {
+  background-color: #C85A2C;
+  color: white;
+  border-color: #C85A2C;
+}
+
+.btn-favourite-active:hover {
+  background-color: #B85028;
+  border-color: #B85028;
+  box-shadow: 0 4px 12px rgba(200, 90, 44, 0.3);
+}
+
+.btn-filter {
+  border: 2px solid #A8C89E;
+  color: #2D5016;
+  background-color: white;
+}
+
+.btn-filter:hover {
+  background-color: rgba(168, 200, 158, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(168, 200, 158, 0.3);
+  border-color: #2D5016;
+}
+
+.btn-filter:focus {
+  border-color: #2D5016;
+  box-shadow: 0 0 0 0.25rem rgba(45, 80, 22, 0.25);
+}
+
+.btn-reset {
+  color: #3A3A3A;
+}
+
+.btn-reset:hover {
+  color: #2D5016;
+  transform: scale(1.1);
+}
+
+.dropdown-item {
+  color: #2D5016;
+  transition: all 0.2s ease;
 }
 
 .dropdown-item:hover {
-  background-color: #f8f9fa;
-  color: #dc3545;
+  background-color: #A8C89E;
+  color: white;
   padding-left: 1.5rem;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #2D5016;
+  color: white;
 }
 </style>
