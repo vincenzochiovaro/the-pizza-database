@@ -18,6 +18,10 @@ import PizzaCards from '../components/PizzaCards.vue'
 import PizzaFilters from '../components/PizzaFilters.vue'
 import { FetchPizzasByFilter } from '../api/PizzaApi'
 import type { Pizza } from '../models/Pizza';
+import { useLanguageStore } from '../stores/LanguageStore';
+
+const languageStore = useLanguageStore();
+const currentLanguage = languageStore.currentLanguage;
 
 const currentFilter = ref('All Pizzas')
 
@@ -28,7 +32,7 @@ function SetFilter(selectedFilter: string) {
 const pizzaList = ref<Array<Pizza>>([])
 
 watch(currentFilter, async (newValue) => {
-    const pizzaListResponse = await FetchPizzasByFilter(newValue)
+    const pizzaListResponse = await FetchPizzasByFilter(newValue, currentLanguage);
     pizzaList.value = pizzaListResponse
 }, { immediate: true })
 

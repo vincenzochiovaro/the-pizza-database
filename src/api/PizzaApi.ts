@@ -1,9 +1,9 @@
 
-export async function FetchPizzasByFilter(_filter: string) {
+export async function FetchPizzasByFilter(_filter: string,  _language: string) {
 
     try
     {
-        const url = `${import.meta.env.VITE_API_URL}api/GetPizzasByFilter?filter=${_filter}`
+        const url = `${import.meta.env.VITE_API_URL}api/GetPizzasByFilter?filter=${_filter}&lang=${_language}`;
         
             const response = await fetch(url, {
             headers: {

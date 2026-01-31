@@ -15,7 +15,7 @@
         <div class="create-icon">
           <i class="fa-solid fa-pizza-slice"></i>
         </div>
-        <span class="create-text">Browse</span>
+        <span class="create-text">Menu</span>
       </button>
 
     </div>

@@ -6,6 +6,7 @@
 import { KeepItWarm } from '../api/PizzaApi';
 
 if (!sessionStorage.getItem('apiWarmed')) {
+    console.log('Warming up API...');
     sessionStorage.setItem('apiWarmed', 'true');
     KeepItWarm();
 }
