@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import PizzaCards from '../components/PizzaCards.vue'
 import PizzaFilters from '../components/PizzaFilters.vue'
 import { FetchPizzasByFilter } from '../api/PizzaApi'
@@ -21,7 +21,7 @@ import type { Pizza } from '../models/Pizza';
 import { useLanguageStore } from '../stores/LanguageStore';
 
 const languageStore = useLanguageStore();
-const currentLanguage = languageStore.currentLanguage;
+const currentLanguage = computed(() => languageStore.currentLanguage)
 
 const currentFilter = ref('All Pizzas')
 
@@ -31,8 +31,8 @@ function SetFilter(selectedFilter: string) {
 
 const pizzaList = ref<Array<Pizza>>([])
 
-watch(currentFilter, async (newValue) => {
-    const pizzaListResponse = await FetchPizzasByFilter(newValue, currentLanguage);
+watch([currentFilter, currentLanguage], async ([newFilter, newLang]) => {
+    const pizzaListResponse = await FetchPizzasByFilter(newFilter, newLang);
     pizzaList.value = pizzaListResponse
 }, { immediate: true })
 

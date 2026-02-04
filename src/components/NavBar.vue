@@ -41,11 +41,11 @@
 import { useRouter } from 'vue-router'
 import homeImg from '../assets/homeimg.png'
 import { useLanguageStore } from '../stores/LanguageStore'
-import { ref, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 
 const homeImgSrc = homeImg
-
 const router = useRouter()
+const languageStore = useLanguageStore()
 
 function goToPizzaBrowser() {
   router.push('/pizza-browser')
@@ -55,19 +55,17 @@ function goToHome() {
   router.push('/')
 }
 
-const currentLanguage = ref<string>("en")
+const currentLanguage = computed(() => languageStore.currentLanguage)
 
 onMounted(() => {
-  currentLanguage.value = localStorage.getItem("lang") ?? "en"
-  useLanguageStore().currentLanguage = currentLanguage.value
+  const savedLanguage = localStorage.getItem("lang") ?? "en"
+  languageStore.currentLanguage = savedLanguage
 })
 
 function UpdateLocalStorageLang(selectedLanguage: string) {
-  currentLanguage.value = selectedLanguage
   localStorage.setItem('lang', selectedLanguage)
-  useLanguageStore().currentLanguage = selectedLanguage
+  languageStore.currentLanguage = selectedLanguage
 }
-
 </script>
 
 <style scoped>
