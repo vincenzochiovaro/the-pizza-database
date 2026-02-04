@@ -59,8 +59,8 @@ const translations = {
   },
   it: {
     favourites: 'Preferiti',
-    allPizzas: 'Tutte le pizze',
-    vegPizzas: 'Pizze veg',
+    allPizzas: 'Tutte le Pizze',
+    vegPizzas: 'Pizze Veg',
     reset: '↻ Ripristina',
     yourFavourites: '❤️ I tuoi preferiti'
   }

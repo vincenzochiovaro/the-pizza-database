@@ -66,7 +66,6 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   currentLanguage.value = selectedLanguage
   localStorage.setItem('lang', selectedLanguage)
   useLanguageStore().currentLanguage = selectedLanguage
-  window.location.reload()
 }
 
 </script>
