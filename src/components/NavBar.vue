@@ -16,10 +16,12 @@
           <button @click="UpdateLocalStorageLang('it')" class="lang-btn" :class="{ active: currentLanguage === 'it' }"
             title="Italiano">
             <span class="flag">🇮🇹</span>
+            <span class="lang-code">it</span>
           </button>
           <button @click="UpdateLocalStorageLang('en')" class="lang-btn" :class="{ active: currentLanguage === 'en' }"
             title="English">
             <span class="flag">🇬🇧</span>
+            <span class="lang-code">en</span>
           </button>
         </div>
 
@@ -197,24 +199,26 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .language-switcher {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5rem;
   background: rgba(168, 200, 158, 0.1);
-  padding: 0.35rem 0.4rem;
+  padding: 0.3rem 0.35rem;
   border-radius: 7px;
   border: 1px solid rgba(168, 200, 158, 0.4);
   align-items: center;
 }
 
 .lang-btn {
-  padding: 0.35rem 0.5rem;
+  padding: 0.25rem 0.35rem;
   background: transparent;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.25s ease;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.15rem;
 }
 
 .lang-btn:hover {
@@ -232,6 +236,19 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.lang-code {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #2D5016;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.lang-btn.active .lang-code {
+  color: white;
 }
 
 @media (max-width: 768px) {
@@ -267,16 +284,21 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   }
 
   .language-switcher {
-    padding: 0.3rem 0.35rem;
-    gap: 0.2rem;
+    padding: 0.25rem 0.3rem;
+    gap: 0.4rem;
   }
 
   .lang-btn {
-    padding: 0.3rem 0.45rem;
+    padding: 0.2rem 0.3rem;
+    gap: 0.1rem;
   }
 
   .flag {
     font-size: 1rem;
+  }
+
+  .lang-code {
+    font-size: 0.55rem;
   }
 }
 
@@ -304,16 +326,21 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   }
 
   .language-switcher {
-    padding: 0.28rem 0.3rem;
-    gap: 0.15rem;
+    padding: 0.2rem 0.25rem;
+    gap: 0.35rem;
   }
 
   .lang-btn {
-    padding: 0.28rem 0.4rem;
+    padding: 0.15rem 0.25rem;
+    gap: 0.08rem;
   }
 
   .flag {
     font-size: 0.95rem;
+  }
+
+  .lang-code {
+    font-size: 0.5rem;
   }
 }
 </style>
