@@ -11,12 +11,25 @@
         </div>
       </div>
 
-      <button @click="goToPizzaBrowser" class="create-btn">
-        <div class="create-icon">
-          <i class="fa-solid fa-pizza-slice"></i>
+      <div class="d-flex align-items-center gap-3">
+        <div class="language-switcher">
+          <button @click="UpdateLocalStorageLang('it')" class="lang-btn" :class="{ active: currentLanguage === 'it' }"
+            title="Italiano">
+            <span class="flag">🇮🇹</span>
+          </button>
+          <button @click="UpdateLocalStorageLang('en')" class="lang-btn" :class="{ active: currentLanguage === 'en' }"
+            title="English">
+            <span class="flag">🇬🇧</span>
+          </button>
         </div>
-        <span class="create-text">Menu</span>
-      </button>
+
+        <button @click="goToPizzaBrowser" class="create-btn">
+          <div class="create-icon">
+            <i class="fa-solid fa-pizza-slice"></i>
+          </div>
+          <span class="create-text">Menu</span>
+        </button>
+      </div>
 
     </div>
   </nav>
@@ -25,6 +38,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import homeImg from '../assets/homeimg.png'
+import { useLanguageStore } from '../stores/LanguageStore'
+import { ref, onMounted } from 'vue'
 
 const homeImgSrc = homeImg
 
@@ -37,6 +52,21 @@ function goToPizzaBrowser() {
 function goToHome() {
   router.push('/')
 }
+
+const currentLanguage = ref<string>("en")
+
+onMounted(() => {
+  currentLanguage.value = localStorage.getItem("lang") ?? "en"
+  useLanguageStore().currentLanguage = currentLanguage.value
+})
+
+function UpdateLocalStorageLang(selectedLanguage: string) {
+  currentLanguage.value = selectedLanguage
+  localStorage.setItem('lang', selectedLanguage)
+  useLanguageStore().currentLanguage = selectedLanguage
+  window.location.reload()
+}
+
 </script>
 
 <style scoped>
@@ -165,6 +195,45 @@ function goToHome() {
   transition: opacity 0.3s;
 }
 
+.language-switcher {
+  display: flex;
+  gap: 0.25rem;
+  background: rgba(168, 200, 158, 0.1);
+  padding: 0.35rem 0.4rem;
+  border-radius: 7px;
+  border: 1px solid rgba(168, 200, 158, 0.4);
+  align-items: center;
+}
+
+.lang-btn {
+  padding: 0.35rem 0.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-btn:hover {
+  background: rgba(168, 200, 158, 0.25);
+}
+
+.lang-btn.active {
+  background: linear-gradient(135deg, #A8C89E 0%, #90B086 100%);
+  box-shadow: 0 2px 6px rgba(45, 80, 22, 0.15);
+}
+
+.flag {
+  font-size: 1.2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 0.8rem 0;
@@ -196,6 +265,19 @@ function goToHome() {
   .create-icon-fa {
     font-size: 0.85rem;
   }
+
+  .language-switcher {
+    padding: 0.3rem 0.35rem;
+    gap: 0.2rem;
+  }
+
+  .lang-btn {
+    padding: 0.3rem 0.45rem;
+  }
+
+  .flag {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -219,6 +301,19 @@ function goToHome() {
 
   .create-text {
     font-size: 0.8rem;
+  }
+
+  .language-switcher {
+    padding: 0.28rem 0.3rem;
+    gap: 0.15rem;
+  }
+
+  .lang-btn {
+    padding: 0.28rem 0.4rem;
+  }
+
+  .flag {
+    font-size: 0.95rem;
   }
 }
 </style>
