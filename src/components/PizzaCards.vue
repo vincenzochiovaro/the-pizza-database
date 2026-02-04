@@ -152,7 +152,7 @@ function getPizzaImage(imageName: string | undefined): string {
   left: 10px;
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #A8C89E 0%, #8DBE7A 100%);
+  background: linear-gradient(135deg, #def0d9 0%, #f8fff5 100%);
   border-radius: 50%;
   border: 2px solid white;
   display: flex;

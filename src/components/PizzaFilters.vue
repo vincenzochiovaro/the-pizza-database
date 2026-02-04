@@ -5,26 +5,25 @@
       <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
 
         <h4 class="filter-title fw-bold m-0" style="font-size: 1.1rem; white-space: nowrap;">
-          {{ selectedFilter === 'Favourites' ? '❤️ Your Favourites' : '🍕 ' + selectedFilter }}
+          {{ selectedFilter === 'Favourites' ? t.yourFavourites : '🍕 ' + displayFilter }}
         </h4>
 
         <div class="d-flex justify-content-center gap-2 flex-wrap">
-          <button @click="selectFilter('Favourites', 'Favourites')" class="btn fw-bold btn-favourite"
+          <button @click="selectFilter('Favourites')" class="btn fw-bold btn-favourite"
             :class="{ 'btn-favourite-active': selectedFilter === 'Favourites' }"
             style="width:140px; transition: all 0.3s;">
-            ❤️ Favourites
+            ❤️ {{ t.favourites }}
           </button>
 
           <div class="dropdown">
             <button class="btn btn-filter fw-bold dropdown-toggle" type="button" id="filterDropdown"
               data-bs-toggle="dropdown" aria-expanded="false" style="width:140px; transition: all 0.3s;">
-              {{ filterDisplayName }}
+              {{ displayFilter }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-              <li><button class="dropdown-item" @click="selectFilter('All pizzas', 'All Pizzas')">🍕 All
-                  Pizzas</button></li>
-              <li><button class="dropdown-item" @click="selectFilter('Vegetarian Pizzas', 'Veg Pizzas')">🥦 Vegetarian
-                  Pizzas</button></li>
+              <li><button class="dropdown-item" @click="selectFilter('All pizzas')">🍕 {{ t.allPizzas }}</button></li>
+              <li><button class="dropdown-item" @click="selectFilter('Vegetarian Pizzas')">🥦 {{ t.vegPizzas }}</button>
+              </li>
 
             </ul>
           </div>
@@ -32,7 +31,7 @@
 
         <button @click="resetFilter" class="btn btn-reset p-0 fw-bold"
           style="font-size:0.9rem; text-decoration:underline; transition: all 0.3s; white-space: nowrap;">
-          ↻ Reset
+          {{ t.reset }}
         </button>
 
       </div>
@@ -42,25 +41,49 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useLanguageStore } from '../stores/LanguageStore'
 
 const emit = defineEmits(['update-filter'])
+const languageStore = useLanguageStore()
 
 const selectedFilter = ref('All pizzas')
-const filterDisplayName = ref('All Pizzas')
 
-function selectFilter(filterValue: string, displayValue: string) {
+const translations = {
+  en: {
+    favourites: 'Favourites',
+    allPizzas: 'All Pizzas',
+    vegPizzas: 'Veg Pizzas',
+    reset: '↻ Reset',
+    yourFavourites: '❤️ Your Favourites'
+  },
+  it: {
+    favourites: 'Preferiti',
+    allPizzas: 'Tutte le pizze',
+    vegPizzas: 'Pizze veg',
+    reset: '↻ Ripristina',
+    yourFavourites: '❤️ I tuoi preferiti'
+  }
+}
+
+const t = computed(() => translations[languageStore.currentLanguage as keyof typeof translations] || translations.en)
+
+const displayFilter = computed(() => {
+  if (selectedFilter.value === 'All pizzas') return t.value.allPizzas
+  if (selectedFilter.value === 'Vegetarian Pizzas') return t.value.vegPizzas
+  if (selectedFilter.value === 'Favourites') return t.value.favourites
+  return selectedFilter.value
+})
+
+function selectFilter(filterValue: string) {
   selectedFilter.value = filterValue
-  filterDisplayName.value = displayValue
   emit('update-filter', filterValue)
 }
 
 function resetFilter() {
   selectedFilter.value = 'All pizzas'
-  filterDisplayName.value = 'All Pizzas'
   emit('update-filter', 'All pizzas')
 }
-
 </script>
 
 
