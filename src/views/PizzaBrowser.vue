@@ -32,6 +32,7 @@ function SetFilter(selectedFilter: string) {
 const pizzaList = ref<Array<Pizza>>([])
 
 watch([currentFilter, currentLanguage], async ([newFilter, newLang]) => {
+    console.log('debug: filter or language changed', newFilter, newLang)
     const pizzaListResponse = await FetchPizzasByFilter(newFilter, newLang);
     pizzaList.value = pizzaListResponse
 }, { immediate: true })
