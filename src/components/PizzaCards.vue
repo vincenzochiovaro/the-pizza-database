@@ -1,7 +1,15 @@
 <template>
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3">
-      <div v-if="!filteredPizzas.length" class="empty-favourites">
+      <div v-if="loading" class="empty-favourites">
+        <div class="loader">
+          <span>🍕</span>
+          <span>🍕</span>
+          <span>🍕</span>
+        </div>
+      </div>
+
+      <div v-else-if="!filteredPizzas.length" class="empty-favourites">
         <div class="empty-icon">🍕</div>
         <h5>No favourite pizzas yet</h5>
         <p>Tap the heart on a pizza to add it here.</p>
@@ -46,6 +54,7 @@ const props = defineProps<{
   filter: string
 }>()
 
+const loading = ref(true)
 const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
 
@@ -64,10 +73,17 @@ function filterPizzas(filter: string) {
   });
 }
 
+
 watch(
   () => [props.filter, props.pizzas, lsTrigger.value],
   () => {
     filterPizzas(props.filter);
+    if (!props.pizzas.length) {
+      loading.value = true;
+      return;
+    }
+
+    loading.value = false;
   },
   { immediate: true }
 );
@@ -229,5 +245,36 @@ function getPizzaImage(imageName: string | undefined): string {
   font-size: 0.9rem;
   margin: 0;
   color: #777777;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 2rem;
+}
+
+.loader span {
+  display: inline-block;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
 }
 </style>
