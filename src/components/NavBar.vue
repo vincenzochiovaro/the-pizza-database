@@ -70,12 +70,12 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 <style scoped>
 .navbar {
-  background-color: #fafaf8;
-  border-bottom: 2px solid #A8C89E;
+  background-color: #F8F4E9;
+  border-bottom: 2px solid #7A8F63;
   position: sticky;
   top: 0;
   z-index: 1030;
-  box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
+  box-shadow: 0 2px 8px rgba(122, 143, 99, 0.15);
   padding: 1rem 0;
 }
 
@@ -93,7 +93,7 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .logo-title {
   font-size: 1rem;
-  color: #2D5016;
+  color: #5C3A21;
   letter-spacing: 0.3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -114,7 +114,7 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 .logo-divider {
   width: 2px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(45, 80, 22, 0.3), rgba(168, 200, 158, 0.2));
+  background: linear-gradient(to bottom, rgba(92, 58, 33, 0.4), rgba(204, 119, 34, 0.2));
   border-radius: 1px;
 }
 
@@ -126,7 +126,7 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .logo-text .text-primary {
   font-size: 1rem;
-  color: #2D5016;
+  color: #5C3A21;
   letter-spacing: 0.3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -138,22 +138,22 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   align-items: center;
   gap: 0.6rem;
   padding: 0.7rem 1.1rem;
-  background: linear-gradient(135deg, #C85A2C 0%, #D67A3C 100%);
+  background: linear-gradient(135deg, #CC7722 0%, #E1A95F 100%);
   border: none;
   border-radius: 8px;
-  color: white;
+  color: #5C3A21;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(200, 90, 44, 0.25);
+  box-shadow: 0 3px 10px rgba(204, 119, 34, 0.25);
   letter-spacing: 0.3px;
 }
 
 .create-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(200, 90, 44, 0.4);
-  background: linear-gradient(135deg, #D67A3C 0%, #E5894D 100%);
+  background: linear-gradient(135deg, #E1A95F 0%, #CC7722 100%);
 }
 
 .create-btn:active {
@@ -166,14 +166,14 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   justify-content: center;
   width: 28px;
   height: 28px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(92, 58, 33, 0.15);
   border-radius: 6px;
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
 .create-btn:hover .create-icon {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(92, 58, 33, 0.25);
   transform: scale(1.08);
 }
 
@@ -197,10 +197,10 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 .language-switcher {
   display: flex;
   gap: 0.5rem;
-  background: rgba(168, 200, 158, 0.1);
+  background: rgba(122, 143, 99, 0.15);
   padding: 0.3rem 0.35rem;
   border-radius: 7px;
-  border: 1px solid rgba(168, 200, 158, 0.4);
+  border: 1px solid rgba(92, 58, 33, 0.25);
   align-items: center;
 }
 
@@ -219,12 +219,12 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 }
 
 .lang-btn:hover {
-  background: rgba(168, 200, 158, 0.25);
+  background: rgba(204, 119, 34, 0.2);
 }
 
 .lang-btn.active {
-  background: linear-gradient(135deg, #A8C89E 0%, #90B086 100%);
-  box-shadow: 0 2px 6px rgba(45, 80, 22, 0.15);
+  background: linear-gradient(135deg, #7A8F63 0%, #A3B18A 100%);
+  box-shadow: 0 2px 6px rgba(92, 58, 33, 0.2);
 }
 
 .flag {
@@ -238,7 +238,7 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 .lang-code {
   font-size: 0.6rem;
   font-weight: 700;
-  color: #2D5016;
+  color: #5C3A21;
   letter-spacing: 0.3px;
   text-transform: uppercase;
   line-height: 1;

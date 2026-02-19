@@ -1,5 +1,6 @@
 <template>
-  <div class="container-fluid filter-sticky mt-4 mb-4 px-0">
+  <div class="container-fluid filter-sticky mt-4 mb-4 px-0"
+    :class="{ 'favourites-mode': selectedFilter === 'Favourites' }">
     <div class="container p-3 rounded-3 shadow-sm bg-light border">
 
       <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
@@ -93,77 +94,88 @@ function resetFilter() {
   top: 74px;
   z-index: 1020;
   background-color: transparent;
+  transition: all 0.3s ease;
 }
 
 .filter-title {
-  color: #2D5016;
+  color: #5C3A21;
 }
 
 .btn-favourite {
-  border: 2px solid #C85A2C;
-  color: #C85A2C;
-  background-color: white;
+  border: 2px solid #CC7722;
+  color: #CC7722;
+  background-color: #F8F4E9;
 }
 
 .btn-favourite:hover {
-  background-color: rgba(200, 90, 44, 0.1);
+  background-color: rgba(204, 119, 34, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(200, 90, 44, 0.2);
+  box-shadow: 0 2px 8px rgba(92, 58, 33, 0.25);
 }
 
 .btn-favourite-active {
-  background-color: #C85A2C;
-  color: white;
-  border-color: #C85A2C;
+  background: linear-gradient(135deg, #CC7722 0%, #E1A95F 100%);
+  color: #5C3A21;
+  border-color: #CC7722;
 }
 
 .btn-favourite-active:hover {
-  background-color: #B85028;
-  border-color: #B85028;
-  box-shadow: 0 4px 12px rgba(200, 90, 44, 0.3);
+  background: linear-gradient(135deg, #E1A95F 0%, #CC7722 100%);
+  border-color: #CC7722;
+  box-shadow: 0 4px 12px rgba(92, 58, 33, 0.3);
 }
 
 .btn-filter {
-  border: 2px solid #A8C89E;
-  color: #2D5016;
-  background-color: white;
+  border: 2px solid #7A8F63;
+  color: #5C3A21;
+  background-color: #F8F4E9;
 }
 
 .btn-filter:hover {
-  background-color: rgba(168, 200, 158, 0.15);
+  background-color: rgba(122, 143, 99, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(168, 200, 158, 0.3);
-  border-color: #2D5016;
+  box-shadow: 0 2px 8px rgba(92, 58, 33, 0.25);
+  border-color: #5C3A21;
 }
 
 .btn-filter:focus {
-  border-color: #2D5016;
-  box-shadow: 0 0 0 0.25rem rgba(45, 80, 22, 0.25);
+  border-color: #5C3A21;
+  box-shadow: 0 0 0 0.25rem rgba(122, 143, 99, 0.35);
 }
 
 .btn-reset {
-  color: #3A3A3A;
+  color: #6B4F3A;
 }
 
 .btn-reset:hover {
-  color: #2D5016;
+  color: #CC7722;
   transform: scale(1.1);
 }
 
 .dropdown-item {
-  color: #2D5016;
+  color: #5C3A21;
   transition: all 0.2s ease;
 }
 
 .dropdown-item:hover {
-  background-color: #A8C89E;
-  color: white;
+  background-color: #7A8F63;
+  color: #F8F4E9;
   padding-left: 1.5rem;
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: #2D5016;
-  color: white;
+  background-color: #5C3A21;
+  color: #F8F4E9;
+}
+
+.favourites-mode .container {
+  background-color: #fff3cd !important;
+  border-color: #cc7722 !important;
+  box-shadow: 0 6px 0 #cc7722;
+}
+
+.favourites-mode .filter-title {
+  color: #cc7722;
 }
 </style>
