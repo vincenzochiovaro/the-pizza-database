@@ -1,5 +1,5 @@
 <template>
-    <h1>Dough Generator</h1>
+    <h1>builder</h1>
 </template>
 
 <script setup lang="ts">
