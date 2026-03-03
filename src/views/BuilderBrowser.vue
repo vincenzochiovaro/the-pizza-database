@@ -1,9 +1,18 @@
 <template>
-    <h1>builder</h1>
+    <BuilderPresets @preset-clicked="handlePresetSelected" />
+
 </template>
 
 <script setup lang="ts">
+import BuilderPresets from '../components/builder/BuilderPresets.vue';
 import { KeepItWarm } from '../api/PizzaApi';
+import { GetPreset } from '../api/BuilderApi';
+
+
+const handlePresetSelected = (preset: string) => {
+    console.log("preset emitted to parent - to pass into the API", preset);
+    const presetToDisplay = GetPreset(preset);
+};
 
 if (!sessionStorage.getItem('apiWarmed')) {
     console.log('Warming up API...');
