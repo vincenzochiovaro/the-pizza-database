@@ -1,7 +1,6 @@
 <template>
     <BuilderPresets @preset-clicked="handlePresetSelected" />
     <BuilderBody :selectedPresetData="selectedPresetData" />
-
 </template>
 
 <script setup lang="ts">
@@ -9,15 +8,18 @@ import BuilderPresets from '../components/builder/BuilderPresets.vue';
 import BuilderBody from '../components/builder/BuilderBody.vue';
 import { KeepItWarm } from '../api/PizzaApi';
 import { ref } from 'vue';
-import { type DoughIngredients } from '../models/Builder.ts';
-// import { GetPresetDataAsync } from '../api/BuilderApi';
+import type { DoughIngredients } from '../models/Builder';
+import { GetPresetDataAsync } from '../api/BuilderApi';
+
 
 const selectedPresetData = ref<DoughIngredients | null>(null)
 
-const handlePresetSelected = (preset: DoughIngredients) => {
-    selectedPresetData.value = preset
+const handlePresetSelected = async (preset: string) => {
     console.log("preset emitted to parent - to pass into the API", preset);
-    // const presetToDisplay = GetPresetDataAsync(preset);
+    const presetToDisplay = await GetPresetDataAsync(preset);
+
+    selectedPresetData.value = presetToDisplay;
+
 };
 
 if (!sessionStorage.getItem('apiWarmed')) {
