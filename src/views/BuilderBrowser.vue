@@ -1,10 +1,12 @@
 <template>
     <BuilderPresets @preset-clicked="handlePresetSelected" />
+    <BuilderBody />
 
 </template>
 
 <script setup lang="ts">
 import BuilderPresets from '../components/builder/BuilderPresets.vue';
+import BuilderBody from '../components/builder/BuilderBody.vue';
 import { KeepItWarm } from '../api/PizzaApi';
 // import { GetPresetAsync } from '../api/BuilderApi';
 
