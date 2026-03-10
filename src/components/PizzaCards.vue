@@ -1,32 +1,37 @@
 <template>
   <div class="container-fluid px-2 px-md-3">
     <div class="row g-3">
-      <div v-if="loading" class="empty-favourites">
-        <div class="loader">
-          <span>🍕</span>
-          <span>🍕</span>
-          <span>🍕</span>
+      <div v-if="loading" class="col-12">
+        <div class="empty-state">
+          <div class="loader">
+            <span>🍕</span>
+            <span>🍕</span>
+            <span>🍕</span>
+          </div>
         </div>
       </div>
 
-      <div v-else-if="!filteredPizzas.length" class="empty-favourites">
-        <div class="empty-icon">🍕</div>
-        <h5>No favourite pizzas yet</h5>
-        <p>Tap the heart on a pizza to add it here.</p>
+      <div v-else-if="!filteredPizzas.length" class="col-12">
+        <div class="empty-state">
+          <div class="empty-icon">🍕</div>
+          <h5>No favourite pizzas yet</h5>
+          <p>Tap the heart on a pizza to add it here.</p>
+        </div>
       </div>
       <div v-for="pizza in filteredPizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow-sm pizza-card">
-          <div class="image-container">
-            <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name" />
-            <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
-            <div class="heart-icon" @click="toggleLSPizza(pizza.name)">
-              {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
+        <div class="pizza-card" :class="{ vegetarian: pizza.isVegetarian }">
+          <div class="pizza-content">
+            <div class="pizza-header">
+              <h5 class="pizza-title">The {{ pizza.name }}</h5>
+              <div class="pizza-controls">
+                <div v-if="pizza.isVegetarian" class="vegetarian-badge" title="Vegetarian">🌱</div>
+                <div class="heart-icon" @click="toggleLSPizza(pizza.name)">
+                  {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <h5 class="pizza-title">
-              The {{ pizza.name }}
-            </h5>
+
+            <img :src="getPizzaImage(pizza.image)" class="pizza-image" :alt="pizza.name" />
 
             <ul class="ingredients-list">
               <li v-for="ingredient in pizza.ingredients" :key="ingredient">
@@ -119,95 +124,140 @@ function getPizzaImage(imageName: string | undefined): string {
 
 <style scoped>
 .pizza-card {
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid #7A8F63;
-  background-color: #F8F4E9;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  position: relative;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  cursor: default;
+}
+
+.pizza-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 .pizza-card:hover {
-  box-shadow: 0 6px 16px rgba(92, 58, 33, 0.2) !important;
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.image-container {
+.pizza-card.vegetarian {
+  border-color: rgba(100, 255, 200, 0.3);
+}
+
+.pizza-card.vegetarian:hover {
+  background: rgba(100, 255, 200, 0.1);
+  border-color: rgba(100, 255, 200, 0.6);
+}
+
+.pizza-content {
   position: relative;
-  width: 100%;
-  height: 180px;
-  background: linear-gradient(135deg, #F8F4E9 0%, #EADFCB 100%);
+  z-index: 1;
 }
 
-.heart-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
-  background: #F8F4E9;
-  border-radius: 50%;
+.pizza-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  color: #CC7722;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(92, 58, 33, 0.25);
-  transition: all 0.3s ease;
-  border: 2px solid #CC7722;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
 }
 
-.heart-icon:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(92, 58, 33, 0.35);
-  background-color: rgba(204, 119, 34, 0.15);
-}
-
-.vegetarian-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #A3B18A 0%, #DAD7CD 100%);
-  border-radius: 50%;
-  border: 2px solid white;
+.pizza-controls {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(92, 58, 33, 0.25);
-  transition: all 0.3s ease;
-}
-
-.vegetarian-icon:hover {
-  transform: scale(1.12);
-  box-shadow: 0 4px 14px rgba(92, 58, 33, 0.35);
-}
-
-.pizza-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 1rem;
-  background-color: #F8F4E9;
+  gap: 0.5rem;
 }
 
 .pizza-title {
   font-weight: 700;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: #5C3A21;
+  margin: 0;
+  color: #ffffff;
+  text-align: left;
+}
+
+.pizza-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vegetarian-badge {
+  width: 32px;
+  height: 32px;
+  background: rgba(100, 255, 200, 0.2);
+  border-radius: 50%;
+  border: 2px solid rgba(100, 255, 200, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 0 12px rgba(100, 255, 200, 0.2);
+  transition: all 0.3s ease;
+}
+
+.vegetarian-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(100, 255, 200, 0.4);
+}
+
+.heart-icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 107, 157, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #FF6B9D;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255, 107, 157, 0.2);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 107, 157, 0.6);
+}
+
+.heart-icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(255, 107, 157, 0.4);
+  background-color: rgba(255, 107, 157, 0.3);
+  border-color: rgba(255, 107, 157, 0.8);
 }
 
 .ingredients-list {
   padding-left: 1rem;
   margin: 0;
   font-size: 0.85rem;
-  color: #6B4F3A;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .ingredients-list li {
@@ -217,18 +267,19 @@ function getPizzaImage(imageName: string | undefined): string {
 .pizza-note {
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  color: #8B6B4A;
+  color: rgba(255, 255, 255, 0.6);
   font-style: italic;
 }
 
-.empty-favourites {
+.empty-state {
   width: 100%;
   padding: 3rem 1rem;
   text-align: center;
-  background: linear-gradient(135deg, #F8F4E9 0%, #EADFCB 100%);
-  border-radius: 0.75rem;
-  border: 2px dashed #7A8F63;
-  color: #6B4F3A;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
 }
 
 .empty-icon {
@@ -236,16 +287,16 @@ function getPizzaImage(imageName: string | undefined): string {
   margin-bottom: 0.5rem;
 }
 
-.empty-favourites h5 {
+.empty-state h5 {
   font-weight: 700;
   margin-bottom: 0.25rem;
-  color: #5C3A21;
+  color: #ffffff;
 }
 
-.empty-favourites p {
+.empty-state p {
   font-size: 0.9rem;
   margin: 0;
-  color: #8B6B4A;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .loader {
