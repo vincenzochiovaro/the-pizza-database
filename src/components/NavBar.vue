@@ -70,13 +70,14 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 <style scoped>
 .navbar {
-  background-color: #F8F4E9;
-  border-bottom: 2px solid #7A8F63;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1545 50%, #0a0e27 100%);
+  border-bottom: 2px solid rgba(100, 200, 255, 0.2);
   position: sticky;
   top: 0;
   z-index: 1030;
-  box-shadow: 0 2px 8px rgba(122, 143, 99, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   padding: 1rem 0;
+  backdrop-filter: blur(10px);
 }
 
 .logo-section {
@@ -88,16 +89,18 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 }
 
 .logo-section:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
 
 .logo-title {
   font-size: 1rem;
-  color: #5C3A21;
+  color: #ffffff;
   letter-spacing: 0.3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  font-weight: 700;
 }
 
 .logo-img {
@@ -105,16 +108,17 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   width: auto;
   cursor: pointer;
   transition: transform 0.3s ease;
+  filter: brightness(1.2);
 }
 
 .logo-section:hover .logo-img {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(-2deg);
 }
 
 .logo-divider {
   width: 2px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(92, 58, 33, 0.4), rgba(204, 119, 34, 0.2));
+  background: linear-gradient(to bottom, rgba(100, 200, 255, 0.4), rgba(100, 200, 255, 0.1));
   border-radius: 1px;
 }
 
@@ -126,7 +130,7 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .logo-text .text-primary {
   font-size: 1rem;
-  color: #5C3A21;
+  color: #ffffff;
   letter-spacing: 0.3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -138,22 +142,48 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   align-items: center;
   gap: 0.6rem;
   padding: 0.7rem 1.1rem;
-  background: linear-gradient(135deg, #CC7722 0%, #E1A95F 100%);
-  border: none;
+  background: rgba(100, 200, 255, 0.12);
+  border: 2px solid rgba(100, 200, 255, 0.3);
   border-radius: 8px;
-  color: #5C3A21;
+  color: #ffffff;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(204, 119, 34, 0.25);
+  box-shadow: 0 4px 15px rgba(100, 200, 255, 0.15);
   letter-spacing: 0.3px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.create-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 .create-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(200, 90, 44, 0.4);
-  background: linear-gradient(135deg, #E1A95F 0%, #CC7722 100%);
+  box-shadow: 0 6px 20px rgba(100, 200, 255, 0.3);
+  background: rgba(100, 200, 255, 0.18);
+  border-color: rgba(100, 200, 255, 0.6);
 }
 
 .create-btn:active {
@@ -166,20 +196,22 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   justify-content: center;
   width: 28px;
   height: 28px;
-  background: rgba(92, 58, 33, 0.15);
+  background: rgba(100, 200, 255, 0.15);
   border-radius: 6px;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  color: #ffffff;
+  font-size: 0.95rem;
 }
 
 .create-btn:hover .create-icon {
-  background: rgba(92, 58, 33, 0.25);
+  background: rgba(100, 200, 255, 0.25);
   transform: scale(1.08);
 }
 
 .create-icon-fa {
   font-size: 0.95rem;
-  color: white;
+  color: #ffffff;
   font-weight: 400;
 }
 
@@ -197,11 +229,12 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 .language-switcher {
   display: flex;
   gap: 0.5rem;
-  background: rgba(122, 143, 99, 0.15);
+  background: rgba(255, 255, 255, 0.08);
   padding: 0.3rem 0.35rem;
   border-radius: 7px;
-  border: 1px solid rgba(92, 58, 33, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   align-items: center;
+  backdrop-filter: blur(10px);
 }
 
 .lang-btn {
@@ -219,12 +252,13 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 }
 
 .lang-btn:hover {
-  background: rgba(204, 119, 34, 0.2);
+  background: rgba(100, 200, 255, 0.15);
 }
 
 .lang-btn.active {
-  background: linear-gradient(135deg, #7A8F63 0%, #A3B18A 100%);
-  box-shadow: 0 2px 6px rgba(92, 58, 33, 0.2);
+  background: rgba(100, 200, 255, 0.25);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(100, 200, 255, 0.3), inset 0 0 10px rgba(100, 200, 255, 0.1);
 }
 
 .flag {
@@ -238,14 +272,14 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 .lang-code {
   font-size: 0.6rem;
   font-weight: 700;
-  color: #5C3A21;
+  color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.3px;
   text-transform: uppercase;
   line-height: 1;
 }
 
 .lang-btn.active .lang-code {
-  color: white;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
