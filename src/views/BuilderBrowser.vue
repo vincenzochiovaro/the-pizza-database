@@ -19,10 +19,10 @@ const currentLanguage = computed(() => languageStore.currentLanguage)
 const selectedPresetData = ref<DoughIngredients | null>(null)
 const templateToDisplay = ref<BuilderTemplateData | null>(null)
 
-watch([currentLanguage, selectedPresetData], async ([newLang, newPresetData]) => {
-    console.log('language changed, selected preset', newLang, newPresetData)
+watch(currentLanguage, async (newLang) => {
+    console.log('language changed', newLang)
 
-    const templateData = await GetTemplateDataByLangAsync(newLang, newPresetData);
+    const templateData = await GetTemplateDataByLangAsync(newLang);
     templateToDisplay.value = templateData;
 }, { immediate: true })
 
