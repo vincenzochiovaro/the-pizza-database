@@ -1,31 +1,29 @@
 <template>
     <div class="ingredients-display">
-        <h2 class="ingredients-title">
-            <span class="icon">🍕</span> Dough Formula
-        </h2>
+        <h2 class="ingredients-title"> INGREDIENTS</h2>
 
         <div class="ingredients-grid">
             <div class="ingredient-card water">
                 <div class="ingredient-icon">💧</div>
-                <div class="ingredient-name">Water</div>
+                <div class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</div>
                 <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '-' }}g</div>
             </div>
 
             <div class="ingredient-card flour">
                 <div class="ingredient-icon">🌾</div>
-                <div class="ingredient-name">Flour</div>
+                <div class="ingredient-name">{{ props.templateData?.flour ?? 'Flour' }}</div>
                 <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '-' }}g</div>
             </div>
 
             <div class="ingredient-card yeast">
                 <div class="ingredient-icon">🧪</div>
-                <div class="ingredient-name">Yeast</div>
+                <div class="ingredient-name">{{ props.templateData?.yeast ?? 'Yeast' }}</div>
                 <div class="ingredient-value">{{ props.selectedPresetData?.yeast ?? '-' }}g</div>
             </div>
 
             <div class="ingredient-card salt">
                 <div class="ingredient-icon">✨</div>
-                <div class="ingredient-name">Salt</div>
+                <div class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</div>
                 <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '-' }}g</div>
             </div>
         </div>
@@ -34,9 +32,11 @@
 
 <script setup lang="ts">
 import type { DoughIngredients } from '../../models/Builder';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null
+    templateData: BuilderTemplateData | null
 }>()
 </script>
 

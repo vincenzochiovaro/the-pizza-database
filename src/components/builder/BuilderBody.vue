@@ -3,17 +3,22 @@
         <div class="starfield"></div>
 
         <div class="ingredients-container">
-            <BuilderIngredients :selectedPresetData="props.selectedPresetData" />
+            <BuilderIngredients :selectedPresetData="props.selectedPresetData" :templateData="props.templateData" />
+            <BuilderSteps :selectedPresetData="props.selectedPresetData" :templateData="props.templateData" />
+
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { DoughIngredients } from '../../models/Builder';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 import BuilderIngredients from './BuilderIngredients.vue';
+import BuilderSteps from './BuilderSteps.vue';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null
+    templateData: BuilderTemplateData | null
 }>()
 </script>
 
