@@ -10,5 +10,8 @@ export interface BuilderTemplateData {
   flour: string
   yeast: string
   salt: string
-  steps: string
+  stepsTitle: string
+  step1: string
+  step2: string
+  step3: string
 }
