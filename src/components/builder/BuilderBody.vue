@@ -4,6 +4,8 @@
 
         <div class="ingredients-container">
             <BuilderIngredients :selectedPresetData="props.selectedPresetData" />
+            <BuilderSteps :selectedPresetData="props.selectedPresetData" />
+
         </div>
     </div>
 </template>
@@ -11,6 +13,7 @@
 <script setup lang="ts">
 import type { DoughIngredients } from '../../models/Builder';
 import BuilderIngredients from './BuilderIngredients.vue';
+import BuilderSteps from './BuilderSteps.vue';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null

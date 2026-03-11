@@ -1,4 +1,4 @@
-import type { DoughIngredients } from "../models/Builder";
+import type { BuilderTemplateData, DoughIngredients } from "../models/Builder";
 
 export async function GetPresetDataAsync(preset:string): Promise<DoughIngredients> {
     const doughIngredients: DoughIngredients = {
@@ -9,4 +9,18 @@ export async function GetPresetDataAsync(preset:string): Promise<DoughIngredient
     };
     console.log('fetching preset BUILDER API', preset);
     return doughIngredients;
+}
+
+export async function GetTemplateDataByLangAsync(lang:string): Promise<BuilderTemplateData> {
+    const templateData: BuilderTemplateData = {
+        water: "acqua",
+        flour: "farina",
+        salt: "sale",
+        yeast: "lievito",
+        steps: "preparazione"
+    };
+
+    console.log('fetching template BUILDER API', lang);
+
+    return templateData;
 }
