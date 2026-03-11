@@ -3,6 +3,9 @@ export interface DoughIngredients {
   flour: number
   yeast: number
   salt: number
+  step1: string
+  step2: string
+  step3: string
 }
 
 export interface BuilderTemplateData {
@@ -11,7 +14,4 @@ export interface BuilderTemplateData {
   yeast: string
   salt: string
   stepsTitle: string
-  step1: string
-  step2: string
-  step3: string
 }

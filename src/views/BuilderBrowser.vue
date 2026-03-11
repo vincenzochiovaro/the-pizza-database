@@ -28,7 +28,7 @@ watch(currentLanguage, async (newLang) => {
 
 const handlePresetSelected = async (preset: string) => {
     console.log("preset emitted to parent - to pass into the API", preset);
-    const presetToDisplay = await GetPresetDataAsync(preset);
+    const presetToDisplay = await GetPresetDataAsync(preset, currentLanguage.value);
 
     selectedPresetData.value = presetToDisplay;
 
