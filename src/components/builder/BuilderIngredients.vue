@@ -1,8 +1,6 @@
 <template>
     <div class="ingredients-display">
-        <h2 class="ingredients-title">
-            <span class="icon">🍕</span> Dough Formula
-        </h2>
+        <h2 class="ingredients-title"> INGREDIENTS</h2>
 
         <div class="ingredients-grid">
             <div class="ingredient-card water">
@@ -33,7 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import type { DoughIngredients, BuilderTemplateData } from '../../models/Builder';
+import type { DoughIngredients } from '../../models/Builder';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null

@@ -1,26 +1,32 @@
 <template>
     <div class="presets-container">
         <button @click="selectPreset('Option 1')" class="preset-btn" :class="{ active: selectedPreset === 'Option 1' }">
-            <div class="preset-title">Option 1</div>
-            <div class="preset-subtitle">8h · Direct</div>
+            <div class="preset-title">{{ props.templateData?.preset1 }}</div>
+            <div class="preset-subtitle">{{ props.templateData?.preset1Description }}</div>
         </button>
 
         <button @click="selectPreset('Option 2')" class="preset-btn" :class="{ active: selectedPreset === 'Option 2' }">
-            <div class="preset-title">Option 2</div>
-            <div class="preset-subtitle">24h · No Knead</div>
+            <div class="preset-title">{{ props.templateData?.preset2 }}</div>
+            <div class="preset-subtitle">{{ props.templateData?.preset2Description }}</div>
         </button>
 
         <button @click="selectPreset('Option 3')" class="preset-btn" :class="{ active: selectedPreset === 'Option 3' }">
-            <div class="preset-title">Option 3</div>
-            <div class="preset-subtitle">24h · Biga</div>
+            <div class="preset-title">{{ props.templateData?.preset3 }}</div>
+            <div class="preset-subtitle">{{ props.templateData?.preset3Description }}</div>
         </button>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
 const selectedPreset = ref('Option 1')
+
+const props = defineProps<{
+    templateData: BuilderTemplateData | null
+}>()
+
 const emit = defineEmits(['preset-clicked']);
 
 const selectPreset = (preset: string) => {

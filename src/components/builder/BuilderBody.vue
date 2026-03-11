@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import type { DoughIngredients, BuilderTemplateData } from '../../models/Builder';
+import type { DoughIngredients } from '../../models/Builder';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 import BuilderIngredients from './BuilderIngredients.vue';
 import BuilderSteps from './BuilderSteps.vue';
 

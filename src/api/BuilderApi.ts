@@ -1,7 +1,7 @@
-import type { BuilderTemplateData, DoughIngredients } from "../models/Builder";
+import type { DoughIngredients } from "../models/Builder";
 
-export async function GetPresetDataAsync(preset:string, lang:string): Promise<DoughIngredients> {
-    // MOCK
+export async function GetPresetDataAsync(preset: string, lang: string): Promise<DoughIngredients> {
+    // MOCK TODO: replace with actual API call
     const doughIngredients: DoughIngredients = {
         water: 300,
         flour: 500,
@@ -13,30 +13,4 @@ export async function GetPresetDataAsync(preset:string, lang:string): Promise<Do
     };
     console.log('fetching preset BUILDER API', preset);
     return doughIngredients;
-}
-
-export async function GetTemplateDataByLangAsync(lang:string): Promise<BuilderTemplateData> {
-
-    //  (this can be keep it in fe (maaybe move in json file))
-    if(lang === 'it') {
-    const templateDataIt: BuilderTemplateData = {
-        water: "acqua",
-        flour: "farina",
-        salt: "sale",
-        yeast: "lievito",
-        stepsTitle: "preparazione"
-    };
-
-    return templateDataIt
-}else {
-        const templateDataEng: BuilderTemplateData = {
-        water: "water",
-        flour: "flour",
-        salt: "salt",
-        yeast: "yeast",
-        stepsTitle: "preparation"
-    };
-    return templateDataEng
-}
-
 }

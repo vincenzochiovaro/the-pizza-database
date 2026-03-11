@@ -14,7 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import type { BuilderTemplateData, DoughIngredients } from '../../models/Builder';
+import type { DoughIngredients } from '../../models/Builder.ts';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel.ts';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null;
