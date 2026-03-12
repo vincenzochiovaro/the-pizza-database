@@ -25,11 +25,9 @@ watch(currentLanguage, (newLang) => {
 }, { immediate: true })
 
 const handlePresetSelected = async (preset: string) => {
-    console.log("preset emitted to parent - to pass into the API", preset);
     const presetToDisplay = await GetPresetDataAsync(preset, currentLanguage.value);
 
     selectedPresetData.value = presetToDisplay;
-
 };
 
 if (!sessionStorage.getItem('apiWarmed')) {

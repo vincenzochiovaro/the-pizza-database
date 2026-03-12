@@ -1,16 +1,16 @@
 <template>
     <div class="presets-container">
-        <button @click="selectPreset('Option 1')" class="preset-btn" :class="{ active: selectedPreset === 'Option 1' }">
+        <button @click="selectPreset('Direct')" class="preset-btn" :class="{ active: selectedPreset === 'Option 1' }">
             <div class="preset-title">{{ props.templateData?.preset1 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset1Description }}</div>
         </button>
 
-        <button @click="selectPreset('Option 2')" class="preset-btn" :class="{ active: selectedPreset === 'Option 2' }">
+        <button @click="selectPreset('Biga')" class="preset-btn" :class="{ active: selectedPreset === 'Option 2' }">
             <div class="preset-title">{{ props.templateData?.preset2 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset2Description }}</div>
         </button>
 
-        <button @click="selectPreset('Option 3')" class="preset-btn" :class="{ active: selectedPreset === 'Option 3' }">
+        <button @click="selectPreset('Express')" class="preset-btn" :class="{ active: selectedPreset === 'Option 3' }">
             <div class="preset-title">{{ props.templateData?.preset3 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset3Description }}</div>
         </button>
@@ -35,7 +35,7 @@ const selectPreset = (preset: string) => {
 }
 
 onMounted(() => {
-    emit('preset-clicked', 'Option 1')
+    emit('preset-clicked', 'Direct')
 })
 </script>
 

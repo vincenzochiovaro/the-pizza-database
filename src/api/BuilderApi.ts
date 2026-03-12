@@ -1,6 +1,24 @@
 import type { DoughIngredients } from "../models/Builder";
 
 export async function GetPresetDataAsync(preset: string, lang: string): Promise<DoughIngredients> {
+
+    try {
+        const url = `${import.meta.env.VITE_API_URL}api/GetPresetData?preset=${preset}&lang=${lang}`;
+        const response = await fetch(url, {
+            headers: {
+                'x-api-key': import.meta.env.VITE_API_KEY
+            }
+        });
+
+        const data = await response.json();
+        return data;
+
+    }
+    catch (error) {
+        console.error("Error fetching preset data:", error);
+        throw error;
+    }
+
     // MOCK TODO: replace with actual API call
     const doughIngredients: DoughIngredients = {
         water: 300,
