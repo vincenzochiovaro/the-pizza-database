@@ -11,9 +11,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             preset1: "Diretto",
             preset2: "Biga",
             preset3: "Espressa",
-            preset1Description: "Pronta in 8 hours",
-            preset2Description: "Pronta in 24 hours",
-            preset3Description: "Pronta in 3 hours"
+            preset1Description: "Pronta in 8 ore",
+            preset2Description: "Pronta in 24 ore",
+            preset3Description: "Pronta in 3 ore"
         };
 
         return templateDataIt
