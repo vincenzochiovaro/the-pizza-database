@@ -25,7 +25,8 @@ watch(currentLanguage, (newLang) => {
 }, { immediate: true })
 
 const handlePresetSelected = async (preset: string) => {
-    const presetToDisplay = await GetPresetDataAsync(preset, currentLanguage.value);
+    // todo: grab weight and count from presets component when emitting.
+    const presetToDisplay = await GetPresetDataAsync(preset, currentLanguage.value, 6, 200);
 
     selectedPresetData.value = presetToDisplay;
 };

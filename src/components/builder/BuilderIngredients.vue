@@ -1,7 +1,5 @@
 <template>
     <div class="ingredients-display">
-        <h2 class="ingredients-title"> INGREDIENTS</h2>
-
         <div class="ingredients-grid">
             <div class="ingredient-card water">
                 <div class="ingredient-icon">💧</div>
@@ -45,16 +43,6 @@ const props = defineProps<{
     margin-top: 2rem;
 }
 
-.ingredients-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    letter-spacing: -0.5px;
-}
 
 .icon {
     font-size: 2.5rem;
@@ -220,10 +208,6 @@ const props = defineProps<{
     .ingredients-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 1rem;
-    }
-
-    .ingredients-title {
-        font-size: 1.5rem;
     }
 
     .ingredient-card {

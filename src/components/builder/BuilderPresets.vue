@@ -15,13 +15,40 @@
             <div class="preset-subtitle">{{ props.templateData?.preset3Description }}</div>
         </button>
     </div>
+
+    <div class="dough-config container">
+        <div class="row w-100 text-center">
+            <div class="col-6">
+                <label class="text-white small">Doughballs</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-light" @click="decreaseDoughBalls">-</button>
+                    <input class="form-control text-center" type="number" v-model="doughBallCount" min="1" max="20" />
+                    <button class="btn btn-outline-light" @click="increaseDoughBalls">+</button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <label class="text-white small">Grams each</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-light" @click="decreaseWeight">-</button>
+                    <input class="form-control text-center" type="number" v-model="doughBallWeight" min="150"
+                        max="600" />
+                    <button class="btn btn-outline-light" @click="increaseWeight">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script setup lang="ts">
+
 import { ref, onMounted } from 'vue';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
 const selectedPreset = ref('Option 1')
+const doughBallCount = ref(6)
+const doughBallWeight = ref(260)
 
 const props = defineProps<{
     templateData: BuilderTemplateData | null
@@ -32,6 +59,22 @@ const emit = defineEmits(['preset-clicked']);
 const selectPreset = (preset: string) => {
     selectedPreset.value = preset
     emit('preset-clicked', preset)
+}
+
+const increaseDoughBalls = () => {
+    if (doughBallCount.value < 20) doughBallCount.value++
+}
+
+const decreaseDoughBalls = () => {
+    if (doughBallCount.value > 1) doughBallCount.value--
+}
+
+const increaseWeight = () => {
+    if (doughBallWeight.value < 800) doughBallWeight.value += 10
+}
+
+const decreaseWeight = () => {
+    if (doughBallWeight.value > 100) doughBallWeight.value -= 10
 }
 
 onMounted(() => {
@@ -181,5 +224,42 @@ onMounted(() => {
     .preset-subtitle {
         font-size: 0.7rem;
     }
+}
+
+.dough-config {
+    margin-top: 1rem;
+    max-width: 420px;
+    display: flex;
+    justify-content: center;
+}
+
+.dough-config .input-group {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+.dough-config input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.dough-config input:focus {
+    box-shadow: none;
+}
+
+.dough-config .btn {
+    border: none;
+    width: 44px;
+    font-weight: 700;
+}
+
+.dough-config label {
+    margin-bottom: 0.35rem;
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
 }
 </style>
