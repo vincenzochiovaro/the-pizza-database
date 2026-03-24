@@ -203,7 +203,6 @@ const props = defineProps<{
     font-family: 'JetBrains Mono', 'Monaco', monospace;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .ingredients-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
