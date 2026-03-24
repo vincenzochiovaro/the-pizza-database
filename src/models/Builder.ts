@@ -3,7 +3,5 @@ export interface DoughIngredients {
   flour: number
   yeast: number
   salt: number
-  step1: string
-  step2: string
-  step3: string
+  steps: string[];
 }

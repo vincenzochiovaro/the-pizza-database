@@ -8,12 +8,14 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             salt: "Sale",
             yeast: "Lievito",
             stepsTitle: "Preparazione",
-            preset1: "Settaggio 1",
-            preset2: "Settaggio 2",
-            preset3: "Settaggio 3",
-            preset1Description: "Descrizione del Settaggio 1",
-            preset2Description: "Descrizione del Settaggio 2",
-            preset3Description: "Descrizione del Settaggio 3"
+            preset1: "Diretto",
+            preset2: "Biga",
+            preset3: "Espressa",
+            preset1Description: "Pronta in 8 ore",
+            preset2Description: "Pronta in 24 ore",
+            preset3Description: "Pronta in 3 ore",
+            doughBallCountLabel: "Numero di palline",
+            doughBallWeightLabel: "Peso per pallina (gr)"
         };
 
         return templateDataIt
@@ -25,12 +27,14 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             salt: "Salt",
             yeast: "Yeast",
             stepsTitle: "Preparation",
-            preset1: "Preset 1",
-            preset2: "Preset 2",
-            preset3: "Preset 3",
-            preset1Description: "Description of Preset 1",
-            preset2Description: "Description of Preset 2",
-            preset3Description: "Description of Preset 3"
+            preset1: "Direct",
+            preset2: "Biga",
+            preset3: "Express",
+            preset1Description: "Ready in 8 hours",
+            preset2Description: "Ready in 24 hours",
+            preset3Description: "Ready in 3 hours",
+            doughBallCountLabel: "Number of doughballs",
+            doughBallWeightLabel: "Doughball weight (gr)"
         };
         return templateDataEng
     }

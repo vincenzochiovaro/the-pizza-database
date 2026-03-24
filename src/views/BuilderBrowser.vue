@@ -1,5 +1,5 @@
 <template>
-    <BuilderPresets @preset-clicked="handlePresetSelected" :templateData="templateToDisplay" />
+    <BuilderPresets @builder-changed="handleBuilderChanged" :templateData="templateToDisplay" />
     <BuilderBody :selectedPresetData="selectedPresetData" :templateData="templateToDisplay" />
 </template>
 
@@ -24,12 +24,19 @@ watch(currentLanguage, (newLang) => {
     templateToDisplay.value = getBuilderTemplate(newLang);
 }, { immediate: true })
 
-const handlePresetSelected = async (preset: string) => {
-    console.log("preset emitted to parent - to pass into the API", preset);
-    const presetToDisplay = await GetPresetDataAsync(preset, currentLanguage.value);
+const handleBuilderChanged = async (builderData: {
+    preset: 'Direct' | 'Biga' | 'Express';
+    doughBallCount: number;
+    doughBallWeight: number
+}) => {
+    const presetToDisplay = await GetPresetDataAsync(
+        builderData.preset,
+        currentLanguage.value,
+        builderData.doughBallCount,
+        builderData.doughBallWeight
+    );
 
     selectedPresetData.value = presetToDisplay;
-
 };
 
 if (!sessionStorage.getItem('apiWarmed')) {

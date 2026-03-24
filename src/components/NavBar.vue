@@ -334,44 +334,57 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 }
 
 @media (max-width: 576px) {
-  .logo-text .text-primary {
-    font-size: 0.9rem;
+  .navbar {
+    padding: 0.6rem 0;
+  }
+
+  .logo-img {
+    height: 36px;
+  }
+
+  .logo-divider {
+    height: 30px;
+  }
+
+  .logo-title {
+    font-size: 0.85rem;
   }
 
   .create-btn {
-    padding: 0.55rem 0.8rem;
-    gap: 0.4rem;
-  }
-
-  .create-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .create-icon-fa {
-    font-size: 0.75rem;
-  }
-
-  .create-text {
+    padding: 0.45rem 0.7rem;
+    gap: 0.3rem;
     font-size: 0.8rem;
   }
 
+  .create-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .create-icon-fa {
+    font-size: 0.7rem;
+  }
+
+  .create-text {
+    font-size: 0.75rem;
+  }
+
   .language-switcher {
-    padding: 0.2rem 0.25rem;
-    gap: 0.35rem;
+    padding: 0.15rem 0.2rem;
+    gap: 0.25rem;
   }
 
   .lang-btn {
-    padding: 0.15rem 0.25rem;
-    gap: 0.08rem;
+    padding: 0.12rem 0.2rem;
+    gap: 0.05rem;
   }
 
   .flag {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 
   .lang-code {
-    font-size: 0.5rem;
+    font-size: 0.45rem;
   }
 }
 </style>

@@ -1,41 +1,118 @@
 <template>
     <div class="presets-container">
-        <button @click="selectPreset('Option 1')" class="preset-btn" :class="{ active: selectedPreset === 'Option 1' }">
+        <button @click="selectPreset('Direct')" class="preset-btn" :class="{ active: selectedPreset === 'Direct' }">
             <div class="preset-title">{{ props.templateData?.preset1 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset1Description }}</div>
         </button>
 
-        <button @click="selectPreset('Option 2')" class="preset-btn" :class="{ active: selectedPreset === 'Option 2' }">
+        <button @click="selectPreset('Biga')" class="preset-btn" :class="{ active: selectedPreset === 'Biga' }">
             <div class="preset-title">{{ props.templateData?.preset2 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset2Description }}</div>
         </button>
 
-        <button @click="selectPreset('Option 3')" class="preset-btn" :class="{ active: selectedPreset === 'Option 3' }">
+        <button @click="selectPreset('Express')" class="preset-btn" :class="{ active: selectedPreset === 'Express' }">
             <div class="preset-title">{{ props.templateData?.preset3 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset3Description }}</div>
         </button>
     </div>
+
+    <div class="dough-config container">
+        <div class="row w-100 text-center">
+            <div class="col-6">
+                <label class="text-white small">{{ props.templateData?.doughBallCountLabel }}</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-light" @click="decreaseDoughBalls">-</button>
+                    <input class="form-control text-center" type="text" :value="doughBallCount" readonly />
+                    <button class="btn btn-outline-light" @click="increaseDoughBalls">+</button>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <label class="text-white small">{{ props.templateData?.doughBallWeightLabel }}</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-light" @click="decreaseWeight">-</button>
+                    <input class="form-control text-center" type="text" :value="doughBallWeight" readonly />
+                    <button class="btn btn-outline-light" @click="increaseWeight">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script setup lang="ts">
+
 import { ref, onMounted } from 'vue';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
-const selectedPreset = ref('Option 1')
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
+
+const selectedPreset = ref('Direct')
+const doughBallCount = ref(6)
+const doughBallWeight = ref(260)
 
 const props = defineProps<{
     templateData: BuilderTemplateData | null
 }>()
 
-const emit = defineEmits(['preset-clicked']);
+
+interface BuilderData {
+    preset: 'Direct' | 'Biga' | 'Express';
+    doughBallCount: number;
+    doughBallWeight: number;
+}
+
+const emit = defineEmits<{
+    (e: 'builder-changed', data: BuilderData): void;
+}>();
+
+const emitBuilderChanged = () => {
+    if (debounceTimer) clearTimeout(debounceTimer)
+
+    debounceTimer = setTimeout(() => {
+        emit('builder-changed', {
+            preset: selectedPreset.value as 'Direct' | 'Biga' | 'Express',
+            doughBallCount: doughBallCount.value,
+            doughBallWeight: doughBallWeight.value
+        })
+    }, 500)
+}
 
 const selectPreset = (preset: string) => {
     selectedPreset.value = preset
-    emit('preset-clicked', preset)
+    emitBuilderChanged()
+}
+
+const increaseDoughBalls = () => {
+    if (doughBallCount.value < 20) {
+        doughBallCount.value++
+        emitBuilderChanged()
+    }
+}
+
+const decreaseDoughBalls = () => {
+    if (doughBallCount.value > 1) {
+        doughBallCount.value--
+        emitBuilderChanged()
+    }
+}
+
+const increaseWeight = () => {
+    if (doughBallWeight.value < 800) {
+        doughBallWeight.value += 10
+        emitBuilderChanged()
+    }
+}
+
+const decreaseWeight = () => {
+    if (doughBallWeight.value > 100) {
+        doughBallWeight.value -= 10
+        emitBuilderChanged()
+    }
 }
 
 onMounted(() => {
-    emit('preset-clicked', 'Option 1')
+    emitBuilderChanged()
 })
 </script>
 
@@ -181,5 +258,42 @@ onMounted(() => {
     .preset-subtitle {
         font-size: 0.7rem;
     }
+}
+
+.dough-config {
+    margin-top: 1rem;
+    max-width: 420px;
+    display: flex;
+    justify-content: center;
+}
+
+.dough-config .input-group {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+.dough-config input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.dough-config input:focus {
+    box-shadow: none;
+}
+
+.dough-config .btn {
+    border: none;
+    width: 44px;
+    font-weight: 700;
+}
+
+.dough-config label {
+    margin-bottom: 0.35rem;
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
 }
 </style>
