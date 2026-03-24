@@ -34,7 +34,7 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             preset2Description: "Ready in 24 hours",
             preset3Description: "Ready in 3 hours",
             doughBallCountLabel: "Number of doughballs",
-            doughBallWeightLabel: "Weight per doughball (gr)"
+            doughBallWeightLabel: "Doughball weight (gr)"
         };
         return templateDataEng
     }

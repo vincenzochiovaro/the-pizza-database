@@ -1,28 +1,36 @@
 <template>
     <div class="ingredients-display">
-        <div class="ingredients-grid">
+        <div class="ingredients-row">
             <div class="ingredient-card water">
                 <div class="ingredient-icon">💧</div>
-                <div class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</div>
-                <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '-' }}g</div>
+                <div class="ingredient-info">
+                    <div class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</div>
+                    <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '0' }}g</div>
+                </div>
             </div>
 
             <div class="ingredient-card flour">
                 <div class="ingredient-icon">🌾</div>
-                <div class="ingredient-name">{{ props.templateData?.flour ?? 'Flour' }}</div>
-                <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '-' }}g</div>
+                <div class="ingredient-info">
+                    <div class="ingredient-name">{{ props.templateData?.flour ?? 'Flour' }}</div>
+                    <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '00' }}g</div>
+                </div>
             </div>
 
             <div class="ingredient-card yeast">
                 <div class="ingredient-icon">🧪</div>
-                <div class="ingredient-name">{{ props.templateData?.yeast ?? 'Yeast' }}</div>
-                <div class="ingredient-value">{{ props.selectedPresetData?.yeast ?? '-' }}g</div>
+                <div class="ingredient-info">
+                    <div class="ingredient-name">{{ props.templateData?.yeast ?? 'Yeast' }}</div>
+                    <div class="ingredient-value">{{ props.selectedPresetData?.yeast ?? '000' }}g</div>
+                </div>
             </div>
 
             <div class="ingredient-card salt">
                 <div class="ingredient-icon">✨</div>
-                <div class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</div>
-                <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '-' }}g</div>
+                <div class="ingredient-info">
+                    <div class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</div>
+                    <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0000' }}g</div>
+                </div>
             </div>
         </div>
     </div>
@@ -40,41 +48,30 @@ const props = defineProps<{
 
 <style scoped>
 .ingredients-display {
-    margin-top: -3rem;
+    margin-top: -2rem;
+    width: 100%;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: center;
 }
 
-
-.icon {
-    font-size: 2.5rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-.ingredients-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+.ingredients-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    max-width: 600px;
 }
 
 .ingredient-card {
+    display: flex;
+    align-items: center;
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
-    padding: 1.25rem 1rem;
-    text-align: center;
-    backdrop-filter: blur(10px);
+    padding: 0.6rem 1rem;
+    min-width: 120px;
+    flex: 1 1 120px;
     transition: all 0.3s ease;
     cursor: default;
     position: relative;
@@ -109,8 +106,8 @@ const props = defineProps<{
 .ingredient-card:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
 .ingredient-card.water {
@@ -150,9 +147,10 @@ const props = defineProps<{
 }
 
 .ingredient-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.75rem;
+    font-size: 2rem;
+    margin-right: 0.6rem;
     animation: bounce 2s infinite;
+    flex-shrink: 0;
 }
 
 .ingredient-card.water .ingredient-icon {
@@ -167,7 +165,7 @@ const props = defineProps<{
     }
 
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-6px);
     }
 }
 
@@ -179,46 +177,53 @@ const props = defineProps<{
     }
 
     25% {
-        transform: translateY(-5px) rotateZ(-5deg);
+        transform: translateY(-3px) rotateZ(-5deg);
     }
 
     75% {
-        transform: translateY(-5px) rotateZ(5deg);
+        transform: translateY(-3px) rotateZ(5deg);
     }
+}
+
+.ingredient-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .ingredient-name {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
 }
 
 .ingredient-value {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    font-family: 'JetBrains Mono', 'Monaco', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
 }
 
-@media (max-width: 768px) {
-    .ingredients-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-    }
-
+@media (max-width: 500px) {
     .ingredient-card {
-        padding: 1rem 0.8rem;
+        min-width: 100px;
+        padding: 0.5rem 0.6rem;
     }
 
     .ingredient-icon {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        margin-right: 0.4rem;
     }
 
     .ingredient-value {
-        font-size: 1.2rem;
+        font-size: 1rem;
+    }
+
+    .ingredient-name {
+        font-size: 0.7rem;
     }
 }
 </style>
