@@ -9,5 +9,7 @@ export interface BuilderTemplateData {
   preset3: string
   preset1Description: string
   preset2Description: string
-  preset3Description: string
+  preset3Description: string,
+  doughBallCountLabel: string,
+  doughBallWeightLabel: string
 }

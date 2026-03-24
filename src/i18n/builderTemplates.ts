@@ -13,7 +13,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             preset3: "Espressa",
             preset1Description: "Pronta in 8 ore",
             preset2Description: "Pronta in 24 ore",
-            preset3Description: "Pronta in 3 ore"
+            preset3Description: "Pronta in 3 ore",
+            doughBallCountLabel: "Numero di palline",
+            doughBallWeightLabel: "Peso per pallina (gr)"
         };
 
         return templateDataIt
@@ -30,7 +32,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             preset3: "Express",
             preset1Description: "Ready in 8 hours",
             preset2Description: "Ready in 24 hours",
-            preset3Description: "Ready in 3 hours"
+            preset3Description: "Ready in 3 hours",
+            doughBallCountLabel: "Number of doughballs",
+            doughBallWeightLabel: "Weight per doughball (gr)"
         };
         return templateDataEng
     }
