@@ -40,7 +40,7 @@ const props = defineProps<{
 
 <style scoped>
 .ingredients-display {
-    margin-top: 2rem;
+    margin-top: -3rem;
 }
 
 
