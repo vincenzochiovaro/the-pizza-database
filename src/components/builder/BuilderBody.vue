@@ -4,7 +4,8 @@
 
         <div class="ingredients-container">
             <BuilderIngredients :selectedPresetData="props.selectedPresetData" :templateData="props.templateData" />
-            <BuilderSteps :selectedPresetData="props.selectedPresetData" :templateData="props.templateData" />
+            <BuilderSteps :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
+                :selectedPreset="props.selectedPreset" />
 
         </div>
     </div>
@@ -19,6 +20,7 @@ import BuilderSteps from './BuilderSteps.vue';
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null
     templateData: BuilderTemplateData | null
+    selectedPreset: 'Direct' | 'Biga' | 'Express' | null
 }>()
 </script>
 

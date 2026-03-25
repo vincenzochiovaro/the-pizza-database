@@ -4,23 +4,30 @@ export async function GetPresetDataAsync(preset: string, lang: string, doughBall
 
     try {
         // // MOCK DATA
-        // const doughIngredients: DoughIngredients = {
-        //     water: 300,
-        //     flour: 500,
-        //     salt: 10,
-        //     yeast: 5,
-        //     steps: lang === 'it' ? [
-        //         "Mescolare acqua e lievito",
-        //         "Aggiungere la farina e il sale",
-        //         "Impastare fino ad ottenere un impasto liscio ed elastico"
-        //     ] : [
-        //         "Mix water and yeast",
-        //         "Add flour and salt",
-        //         "Knead until you get a smooth and elastic dough"
-        //     ]
-        // };
+        const doughIngredients: DoughIngredients = {
+            water: 300,
+            flour: 500,
+            salt: 10,
+            yeast: 5,
+            steps: lang === 'it' ? [
+                "Mescolare acqua e lievito",
+                "Aggiungere la farina e il sale",
+                "Impastare fino ad ottenere un impasto liscio ed elastico",
+                "Impastare fino ad ottenere un impasto liscio ed elastico",
+                "Impastare fino ad ottenere un impasto liscio ed elastico"
 
-        // return doughIngredients;
+            ] : [
+                "Mix water and yeast",
+                "Add flour and salt",
+                "Knead until you get a smooth and elastic dough",
+                "Knead until you get a smooth and elastic dough",
+                "Knead until you get a smooth and elastic dough",
+                "Knead until you get a smooth and elastic dough"
+
+            ]
+        };
+
+        return doughIngredients;
         const params = new URLSearchParams({
             preset: preset,
             lang: lang,

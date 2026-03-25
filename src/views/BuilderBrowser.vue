@@ -1,6 +1,7 @@
 <template>
     <BuilderPresets @builder-changed="handleBuilderChanged" :templateData="templateToDisplay" />
-    <BuilderBody :selectedPresetData="selectedPresetData" :templateData="templateToDisplay" />
+    <BuilderBody :selectedPresetData="selectedPresetData" :templateData="templateToDisplay"
+        :selectedPreset="selectedPreset" />
 </template>
 
 <script setup lang="ts">
@@ -19,6 +20,7 @@ const currentLanguage = computed(() => languageStore.currentLanguage)
 
 const selectedPresetData = ref<DoughIngredients | null>(null)
 const templateToDisplay = ref<BuilderTemplateData | null>(null)
+const selectedPreset = ref<'Direct' | 'Biga' | 'Express' | null>(null)
 
 watch(currentLanguage, (newLang) => {
     templateToDisplay.value = getBuilderTemplate(newLang);
@@ -29,6 +31,8 @@ const handleBuilderChanged = async (builderData: {
     doughBallCount: number;
     doughBallWeight: number
 }) => {
+    selectedPreset.value = builderData.preset;
+
     const presetToDisplay = await GetPresetDataAsync(
         builderData.preset,
         currentLanguage.value,
