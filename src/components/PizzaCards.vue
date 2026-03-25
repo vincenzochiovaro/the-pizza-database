@@ -124,6 +124,8 @@ function getPizzaImage(imageName: string | undefined): string {
 
 <style scoped>
 .pizza-card {
+  max-width: 350px;
+  margin: 0 auto;
   border-radius: 1rem;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.1);
@@ -204,7 +206,8 @@ function getPizzaImage(imageName: string | undefined): string {
 
 .pizza-image {
   width: 100%;
-  height: 180px;
+  height: auto;
+  max-height: 220px;
   object-fit: cover;
   border-radius: 0.75rem;
   margin-bottom: 0.75rem;
@@ -254,6 +257,7 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .ingredients-list {
+  list-style: none;
   padding-left: 1rem;
   margin: 0;
   font-size: 0.85rem;
