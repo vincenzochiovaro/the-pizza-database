@@ -29,10 +29,18 @@ const props = defineProps<{
     selectedPreset: 'Direct' | 'Biga' | 'Express' | null;
 }>();
 
+
 const getStepImage = (stepNumber: number) => {
     if (!props.selectedPreset) return '';
-    const presetName = props.selectedPreset;
-    return `/src/assets/builderimages/${presetName}Step${stepNumber}.jpg`;
+    try {
+        return new URL(
+            `../../assets/builderimages/${props.selectedPreset}Step${stepNumber}.jpg`,
+            import.meta.url
+        ).href;
+    } catch (e) {
+        console.warn('Step image not found:', props.selectedPreset, stepNumber);
+        return '';
+    }
 };
 </script>
 
