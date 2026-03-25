@@ -26,7 +26,7 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             flour: "Flour",
             salt: "Salt",
             yeast: "Yeast",
-            stepsTitle: "Preparation",
+            stepsTitle: "Steps",
             preset1: "Direct",
             preset2: "Biga",
             preset3: "Express",
