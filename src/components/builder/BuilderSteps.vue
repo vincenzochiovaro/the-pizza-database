@@ -77,7 +77,7 @@ const getStepImage = (stepNumber: number) => {
     font-weight: 700;
     line-height: 1.15;
     color: #fff;
-    margin: -2rem;
+    margin: -1rem;
     max-width: 560px;
 }
 

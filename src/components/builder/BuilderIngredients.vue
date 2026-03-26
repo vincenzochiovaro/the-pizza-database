@@ -2,7 +2,6 @@
     <div class="ingredients-display">
         <div class="ingredients-row">
             <div class="ingredient-card water">
-                <div class="ingredient-icon">💧</div>
                 <div class="ingredient-info">
                     <div class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</div>
                     <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '0' }}g</div>
@@ -10,7 +9,6 @@
             </div>
 
             <div class="ingredient-card flour">
-                <div class="ingredient-icon">🌾</div>
                 <div class="ingredient-info">
                     <div class="ingredient-name">{{ props.templateData?.flour ?? 'Flour' }}</div>
                     <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '00' }}g</div>
@@ -18,7 +16,6 @@
             </div>
 
             <div class="ingredient-card yeast">
-                <div class="ingredient-icon">🧪</div>
                 <div class="ingredient-info">
                     <div class="ingredient-name">{{ props.templateData?.yeast ?? 'Yeast' }}</div>
                     <div class="ingredient-value">{{ props.selectedPresetData?.yeast ?? '000' }}g</div>
@@ -26,7 +23,6 @@
             </div>
 
             <div class="ingredient-card salt">
-                <div class="ingredient-icon">✨</div>
                 <div class="ingredient-info">
                     <div class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</div>
                     <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0000' }}g</div>
@@ -69,13 +65,16 @@ const props = defineProps<{
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
-    padding: 0.6rem 1rem;
+    padding: 0.8rem 1rem;
     min-width: 120px;
     flex: 1 1 120px;
     transition: all 0.3s ease;
     cursor: default;
     position: relative;
     overflow: hidden;
+    border-left: 4px solid transparent;
+    justify-content: center;
+    text-align: center;
 }
 
 .ingredient-card::before {
@@ -112,6 +111,7 @@ const props = defineProps<{
 
 .ingredient-card.water {
     border-color: rgba(100, 200, 255, 0.3);
+    border-left-color: rgba(100, 200, 255, 0.9);
 }
 
 .ingredient-card.water:hover {
@@ -121,6 +121,7 @@ const props = defineProps<{
 
 .ingredient-card.flour {
     border-color: rgba(255, 200, 100, 0.3);
+    border-left-color: rgba(255, 200, 100, 0.9);
 }
 
 .ingredient-card.flour:hover {
@@ -130,6 +131,7 @@ const props = defineProps<{
 
 .ingredient-card.yeast {
     border-color: rgba(200, 100, 255, 0.3);
+    border-left-color: rgba(200, 100, 255, 0.9);
 }
 
 .ingredient-card.yeast:hover {
@@ -139,6 +141,7 @@ const props = defineProps<{
 
 .ingredient-card.salt {
     border-color: rgba(100, 255, 200, 0.3);
+    border-left-color: rgba(100, 255, 200, 0.9);
 }
 
 .ingredient-card.salt:hover {
@@ -146,49 +149,11 @@ const props = defineProps<{
     border-color: rgba(100, 255, 200, 0.6);
 }
 
-.ingredient-icon {
-    font-size: 2rem;
-    margin-right: 0.6rem;
-    animation: bounce 2s infinite;
-    flex-shrink: 0;
-}
-
-.ingredient-card.water .ingredient-icon {
-    animation: wave 2s infinite;
-}
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-6px);
-    }
-}
-
-@keyframes wave {
-
-    0%,
-    100% {
-        transform: translateY(0) rotateZ(0deg);
-    }
-
-    25% {
-        transform: translateY(-3px) rotateZ(-5deg);
-    }
-
-    75% {
-        transform: translateY(-3px) rotateZ(5deg);
-    }
-}
-
 .ingredient-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
 }
 
 .ingredient-name {
@@ -198,6 +163,7 @@ const props = defineProps<{
     letter-spacing: 0.5px;
     font-weight: 600;
     margin-bottom: 0.2rem;
+    text-align: center;
 }
 
 .ingredient-value {
@@ -205,17 +171,16 @@ const props = defineProps<{
     font-weight: 700;
     color: #fff;
     font-family: 'JetBrains Mono', monospace;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
 }
 
 @media (max-width: 500px) {
     .ingredient-card {
         min-width: 100px;
         padding: 0.5rem 0.6rem;
-    }
-
-    .ingredient-icon {
-        font-size: 1.6rem;
-        margin-right: 0.4rem;
     }
 
     .ingredient-value {

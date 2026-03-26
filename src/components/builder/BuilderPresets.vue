@@ -35,6 +35,26 @@
                     <button class="btn btn-outline-light" @click="increaseWeight">+</button>
                 </div>
             </div>
+
+            <div class="col-6 mt-3">
+                <label class="text-white small">{{ props.templateData?.hydrationLabel }}</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-light" @click="decreaseHydration">-</button>
+                    <input class="form-control text-center" type="text" :value="hydration" readonly />
+                    <button class="btn btn-outline-light" @click="increaseHydration">+</button>
+                </div>
+            </div>
+            <div class="col-6 mt-3">
+                <label class="text-white small">{{ props.templateData?.prefermentLabel }}</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-light" @click="decreasePreferment"
+                        :disabled="selectedPreset !== 'Biga'">-</button>
+                    <input class="form-control text-center" type="text"
+                        :value="selectedPreset === 'Biga' ? preferment : 'N/A'" readonly />
+                    <button class="btn btn-outline-light" @click="increasePreferment"
+                        :disabled="selectedPreset !== 'Biga'">+</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -50,6 +70,8 @@ let debounceTimer: ReturnType<typeof setTimeout> | null = null
 const selectedPreset = ref('Direct')
 const doughBallCount = ref(6)
 const doughBallWeight = ref(260)
+const hydration = ref(65)
+const preferment = ref(80)
 
 const props = defineProps<{
     templateData: BuilderTemplateData | null
@@ -60,6 +82,8 @@ interface BuilderData {
     preset: 'Direct' | 'Biga' | 'Express';
     doughBallCount: number;
     doughBallWeight: number;
+    hydration: number;
+    preferment: number | null;
 }
 
 const emit = defineEmits<{
@@ -73,13 +97,20 @@ const emitBuilderChanged = () => {
         emit('builder-changed', {
             preset: selectedPreset.value as 'Direct' | 'Biga' | 'Express',
             doughBallCount: doughBallCount.value,
-            doughBallWeight: doughBallWeight.value
+            doughBallWeight: doughBallWeight.value,
+            hydration: hydration.value,
+            preferment: selectedPreset.value === 'Biga' ? preferment.value : null
         })
     }, 500)
 }
 
 const selectPreset = (preset: string) => {
     selectedPreset.value = preset
+
+    if (preset === 'Biga') {
+        preferment.value = 80
+    }
+
     emitBuilderChanged()
 }
 
@@ -107,6 +138,38 @@ const increaseWeight = () => {
 const decreaseWeight = () => {
     if (doughBallWeight.value > 100) {
         doughBallWeight.value -= 10
+        emitBuilderChanged()
+    }
+}
+
+const increaseHydration = () => {
+    if (hydration.value < 100) {
+        hydration.value++
+        emitBuilderChanged()
+    }
+}
+
+const decreaseHydration = () => {
+    if (hydration.value > 40) {
+        hydration.value--
+        emitBuilderChanged()
+    }
+}
+
+const increasePreferment = () => {
+    if (selectedPreset.value !== 'Biga') return
+
+    if (preferment.value < 100) {
+        preferment.value += 5
+        emitBuilderChanged()
+    }
+}
+
+const decreasePreferment = () => {
+    if (selectedPreset.value !== 'Biga') return
+
+    if (preferment.value > 5) {
+        preferment.value -= 5
         emitBuilderChanged()
     }
 }

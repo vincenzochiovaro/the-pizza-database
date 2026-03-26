@@ -21,7 +21,6 @@ export async function GetPresetDataAsync(preset: string, lang: string, doughBall
                 "Add flour and salt",
                 "Knead until you get a smooth and elastic dough",
                 "Knead until you get a smooth and elastic dough",
-                "Knead until you get a smooth and elastic dough",
                 "Knead until you get a smooth and elastic dough"
 
             ]
