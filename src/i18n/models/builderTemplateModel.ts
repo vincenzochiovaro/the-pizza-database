@@ -11,5 +11,7 @@ export interface BuilderTemplateData {
   preset2Description: string
   preset3Description: string,
   doughBallCountLabel: string,
-  doughBallWeightLabel: string
+  doughBallWeightLabel: string,
+  hydrationLabel: string,
+  prefermentLabel?: string
 }

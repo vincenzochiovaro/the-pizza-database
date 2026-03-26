@@ -15,7 +15,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             preset2Description: "Pronta in 24 ore",
             preset3Description: "Pronta in 3 ore",
             doughBallCountLabel: "Numero di palline",
-            doughBallWeightLabel: "Peso per pallina (gr)"
+            doughBallWeightLabel: "Peso per pallina (gr)",
+            hydrationLabel: "Idratazione (%)",
+            prefermentLabel: "Prefermento (%)"
         };
 
         return templateDataIt
@@ -34,7 +36,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             preset2Description: "Ready in 24 hours",
             preset3Description: "Ready in 3 hours",
             doughBallCountLabel: "Number of doughballs",
-            doughBallWeightLabel: "Doughball weight (gr)"
+            doughBallWeightLabel: "Doughball weight (gr)",
+            hydrationLabel: "Hydration (%)",
+            prefermentLabel: "Preferment (%)"
         };
         return templateDataEng
     }
