@@ -29,15 +29,22 @@ watch(currentLanguage, (newLang) => {
 const handleBuilderChanged = async (builderData: {
     preset: 'Direct' | 'Biga' | 'Express';
     doughBallCount: number;
-    doughBallWeight: number
+    doughBallWeight: number;
+    hydration: number;
+    temperature: number;
+    preferment: number | null;
 }) => {
     selectedPreset.value = builderData.preset;
 
+    console.log(builderData, 'Received builder data');
     const presetToDisplay = await GetPresetDataAsync(
         builderData.preset,
         currentLanguage.value,
         builderData.doughBallCount,
-        builderData.doughBallWeight
+        builderData.doughBallWeight,
+        builderData.hydration,
+        builderData.temperature,
+        builderData.preferment
     );
 
     selectedPresetData.value = presetToDisplay;

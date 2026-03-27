@@ -58,6 +58,24 @@
         </div>
     </div>
 
+    <div class="temperature-card">
+        <div class="temperature-header">
+            <span>{{ props.templateData?.temperatureLabel || 'Temperature' }}</span>
+        </div>
+
+        <div class="temperature-display">
+            <span class="temp-value">{{ temperature }}</span>
+            <span class="temp-unit">°C</span>
+        </div>
+
+        <div class="temperature-controls">
+            <button class="temp-btn small" @click="decreaseTemperature">−</button>
+            <input type="range" min="0" max="35" :value="temperature"
+                @input="(e: any) => { temperature = parseInt(e.target.value); emitBuilderChanged(); }" />
+            <button class="temp-btn small" @click="increaseTemperature">+</button>
+        </div>
+    </div>
+
 </template>
 
 <script setup lang="ts">
@@ -72,6 +90,7 @@ const doughBallCount = ref(6)
 const doughBallWeight = ref(260)
 const hydration = ref(65)
 const preferment = ref(80)
+const temperature = ref(18)
 
 const props = defineProps<{
     templateData: BuilderTemplateData | null
@@ -84,6 +103,7 @@ interface BuilderData {
     doughBallWeight: number;
     hydration: number;
     preferment: number | null;
+    temperature: number;
 }
 
 const emit = defineEmits<{
@@ -99,7 +119,8 @@ const emitBuilderChanged = () => {
             doughBallCount: doughBallCount.value,
             doughBallWeight: doughBallWeight.value,
             hydration: hydration.value,
-            preferment: selectedPreset.value === 'Biga' ? preferment.value : null
+            preferment: selectedPreset.value === 'Biga' ? preferment.value : null,
+            temperature: temperature.value
         })
     }, 500)
 }
@@ -170,6 +191,20 @@ const decreasePreferment = () => {
 
     if (preferment.value > 5) {
         preferment.value -= 5
+        emitBuilderChanged()
+    }
+}
+
+const increaseTemperature = () => {
+    if (temperature.value < 35) {
+        temperature.value++
+        emitBuilderChanged()
+    }
+}
+
+const decreaseTemperature = () => {
+    if (temperature.value > 0) {
+        temperature.value--
         emitBuilderChanged()
     }
 }
@@ -358,5 +393,72 @@ onMounted(() => {
     display: block;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 500;
+}
+
+.temperature-card {
+    margin-top: 0.75rem;
+    padding: 0.4rem 0.65rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(10px);
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.temperature-header {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 0;
+}
+
+.temperature-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.15rem;
+    min-width: 50px;
+}
+
+.temp-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.temp-unit {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.temperature-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    width: 140px;
+    flex: unset;
+}
+
+.temperature-controls input[type="range"] {
+    width: 100px;
+    height: 3px;
+    flex: none;
+}
+
+.temp-btn {
+    width: 40px;
+    height: 25px;
+    border-radius: 20%;
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
 }
 </style>

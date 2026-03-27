@@ -1,6 +1,6 @@
 import type { DoughIngredients } from "../models/Builder";
 
-export async function GetPresetDataAsync(preset: string, lang: string, doughBallCount: number, doughBallWeight: number): Promise<DoughIngredients> {
+export async function GetPresetDataAsync(preset: string, lang: string, doughBallCount: number, doughBallWeight: number, hydration: number, temperature: number, preferment: number | null): Promise<DoughIngredients> {
 
     try {
         // // MOCK DATA
@@ -31,8 +31,12 @@ export async function GetPresetDataAsync(preset: string, lang: string, doughBall
             preset: preset,
             lang: lang,
             doughBallCount: doughBallCount.toString(),
-            doughBallWeight: doughBallWeight.toString()
+            doughBallWeight: doughBallWeight.toString(),
+            hydration: hydration.toString(),
+            temperature: temperature.toString()
         });
+
+        params.append('preferment', preferment?.toString() ?? '');
 
         const url = `${import.meta.env.VITE_API_URL}api/GetPresetData?${params}`;
         const response = await fetch(url, {

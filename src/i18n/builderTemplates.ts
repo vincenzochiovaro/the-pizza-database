@@ -6,7 +6,7 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             water: "Acqua",
             flour: "Farina",
             salt: "Sale",
-            yeast: "Lievito",
+            yeast: "Lievito secco",
             stepsTitle: "Preparazione",
             preset1: "Diretto",
             preset2: "Biga",
@@ -17,7 +17,8 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             doughBallCountLabel: "Numero di palline",
             doughBallWeightLabel: "Peso per pallina (gr)",
             hydrationLabel: "Idratazione (%)",
-            prefermentLabel: "Prefermento (%)"
+            prefermentLabel: "Prefermento (%)",
+            temperatureLabel: "Temperatura"
         };
 
         return templateDataIt
@@ -27,7 +28,7 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             water: "Water",
             flour: "Flour",
             salt: "Salt",
-            yeast: "Yeast",
+            yeast: "Dry Yeast",
             stepsTitle: "Steps",
             preset1: "Direct",
             preset2: "Biga",
@@ -38,7 +39,8 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             doughBallCountLabel: "Number of doughballs",
             doughBallWeightLabel: "Doughball weight (gr)",
             hydrationLabel: "Hydration (%)",
-            prefermentLabel: "Preferment (%)"
+            prefermentLabel: "Preferment (%)",
+            temperatureLabel: "Temperature"
         };
         return templateDataEng
     }
