@@ -1,8 +1,11 @@
 export interface BuilderTemplateData {
   water: string
+  waterDay2?: string
   flour: string
+  flourDay2?: string
   yeast: string
   salt: string
+  saltDay2: string
   stepsTitle: string
   preset1: string
   preset2: string

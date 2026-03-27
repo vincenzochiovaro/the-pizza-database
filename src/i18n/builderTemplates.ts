@@ -4,8 +4,11 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
     if (lang === 'it') {
         const templateDataIt: BuilderTemplateData = {
             water: "Acqua",
+            waterDay2: "Acqua (Giorno 2)",
             flour: "Farina",
+            flourDay2: "Farina (Giorno 2)",
             salt: "Sale",
+            saltDay2: "Sale (Giorno 2)",
             yeast: "Lievito secco",
             stepsTitle: "Preparazione",
             preset1: "Diretto",
@@ -26,8 +29,11 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
     else {
         const templateDataEng: BuilderTemplateData = {
             water: "Water",
+            waterDay2: "Water (Day 2)",
             flour: "Flour",
+            flourDay2: "Flour (Day 2)",
             salt: "Salt",
+            saltDay2: "Salt (Day 2)",
             yeast: "Dry Yeast",
             stepsTitle: "Steps",
             preset1: "Direct",

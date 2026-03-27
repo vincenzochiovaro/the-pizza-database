@@ -1,6 +1,7 @@
 <template>
     <div class="ingredients-display">
         <div class="ingredients-row">
+
             <div class="ingredient-card water">
                 <div class="ingredient-info">
                     <div class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</div>
@@ -22,12 +23,38 @@
                 </div>
             </div>
 
-            <div class="ingredient-card salt">
+            <!-- Only show Day 1 salt if not biga -->
+            <div v-if="props.selectedPreset !== 'Biga'" class="ingredient-card salt">
                 <div class="ingredient-info">
                     <div class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</div>
                     <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0000' }}g</div>
                 </div>
             </div>
+
+            <!-- Day 2 ingredients, only for biga -->
+            <template v-if="props.selectedPreset === 'Biga'">
+                <div class="ingredient-card salt">
+                    <div class="ingredient-info">
+                        <div class="ingredient-name">{{ props.templateData?.saltDay2 ?? 'Salt' }}</div>
+                        <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0000' }}g</div>
+                    </div>
+                </div>
+
+                <div class="ingredient-card flour">
+                    <div class="ingredient-info">
+                        <div class="ingredient-name">{{ props.templateData?.flourDay2 ?? 'Flour' }}</div>
+                        <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '00' }}g</div>
+                    </div>
+                </div>
+
+                <div class="ingredient-card water">
+                    <div class="ingredient-info">
+                        <div class="ingredient-name">{{ props.templateData?.waterDay2 ?? 'Water' }}</div>
+                        <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '0' }}g</div>
+                    </div>
+                </div>
+            </template>
+
         </div>
     </div>
 </template>
@@ -39,6 +66,7 @@ import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null
     templateData: BuilderTemplateData | null
+    selectedPreset: 'Direct' | 'Biga' | 'Express' | null;
 }>()
 </script>
 

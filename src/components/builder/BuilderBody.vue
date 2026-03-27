@@ -3,7 +3,8 @@
         <div class="starfield"></div>
 
         <div class="ingredients-container">
-            <BuilderIngredients :selectedPresetData="props.selectedPresetData" :templateData="props.templateData" />
+            <BuilderIngredients :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
+                :selectedPreset="props.selectedPreset" />
             <BuilderSteps :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
                 :selectedPreset="props.selectedPreset" />
 

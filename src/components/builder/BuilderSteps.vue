@@ -17,6 +17,12 @@
             </div>
         </div>
     </div>
+
+    <div class="motto-container">
+        <p class="motto-text">
+            <span>Because pizza is more than just food</span>
+        </p>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -177,6 +183,36 @@ const getStepImage = (stepNumber: number) => {
 
     .step-text {
         font-size: 14px;
+    }
+}
+
+.motto-container {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.motto-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 4vw, 2rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #FF9A3C, #FFD37F, #FF6B00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 8px rgba(255, 160, 80, 0.6), 0 0 15px rgba(255, 200, 120, 0.4);
+    letter-spacing: 1px;
+    animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
     }
 }
 </style>
