@@ -22,21 +22,36 @@ const selectedPresetData = ref<DoughIngredients | null>(null)
 const templateToDisplay = ref<BuilderTemplateData | null>(null)
 const selectedPreset = ref<'Direct' | 'Biga' | 'Express' | null>(null)
 
-watch(currentLanguage, (newLang) => {
-    templateToDisplay.value = getBuilderTemplate(newLang);
-}, { immediate: true })
-
-const handleBuilderChanged = async (builderData: {
+const lastBuilderData = ref<{
     preset: 'Direct' | 'Biga' | 'Express';
     doughBallCount: number;
     doughBallWeight: number;
     hydration: number;
     temperature: number;
     preferment: number | null;
-}) => {
-    selectedPreset.value = builderData.preset;
+} | null>(null);
 
-    console.log(builderData, 'Received builder data');
+const lastFetchKey = ref<string | null>(null);
+
+watch(currentLanguage, async (newLang) => {
+    templateToDisplay.value = getBuilderTemplate(newLang);
+    if (lastBuilderData.value) {
+        await fetchPreset(lastBuilderData.value);
+    }
+}, { immediate: true })
+
+const fetchPreset = async (builderData: typeof lastBuilderData.value) => {
+    if (!builderData) return;
+
+    const key = JSON.stringify({
+        ...builderData,
+        lang: currentLanguage.value
+    });
+
+    if (key === lastFetchKey.value) return;
+
+    lastFetchKey.value = key;
+
     const presetToDisplay = await GetPresetDataAsync(
         builderData.preset,
         currentLanguage.value,
@@ -48,6 +63,21 @@ const handleBuilderChanged = async (builderData: {
     );
 
     selectedPresetData.value = presetToDisplay;
+};
+
+const handleBuilderChanged = async (builderData: {
+    preset: 'Direct' | 'Biga' | 'Express';
+    doughBallCount: number;
+    doughBallWeight: number;
+    hydration: number;
+    temperature: number;
+    preferment: number | null;
+}) => {
+    lastBuilderData.value = builderData;
+    selectedPreset.value = builderData.preset;
+
+    console.log(builderData, 'Received builder data');
+    await fetchPreset(builderData);
 };
 
 if (!sessionStorage.getItem('apiWarmed')) {
