@@ -3,7 +3,6 @@ import type { DoughIngredients } from "../models/Builder";
 export async function GetPresetDataAsync(preset: string, lang: string, doughBallCount: number, doughBallWeight: number, hydration: number, temperature: number, preferment: number | null): Promise<DoughIngredients> {
 
     try {
-        // BUG TODO need to Watch page after changing language to update the steps
         const params = new URLSearchParams({
             preset: preset,
             lang: lang,
