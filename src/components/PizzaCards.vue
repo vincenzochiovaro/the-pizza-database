@@ -136,6 +136,9 @@ function getPizzaImage(imageName: string | undefined): string {
   padding: 1.25rem 1rem;
   text-align: center;
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .pizza-card::before {
@@ -182,6 +185,9 @@ function getPizzaImage(imageName: string | undefined): string {
 .pizza-content {
   position: relative;
   z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .pizza-header {
@@ -206,12 +212,11 @@ function getPizzaImage(imageName: string | undefined): string {
 
 .pizza-image {
   width: 100%;
-  height: auto;
-  max-height: 220px;
+  height: 250px;
   object-fit: cover;
   border-radius: 0.75rem;
   margin-bottom: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .vegetarian-badge {
@@ -269,7 +274,7 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .pizza-note {
-  margin-top: 0.5rem;
+  margin-top: auto;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.6);
   font-style: italic;
