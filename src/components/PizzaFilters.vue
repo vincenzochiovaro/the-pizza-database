@@ -354,7 +354,7 @@ function resetFilter() {
 
 @media (max-width: 576px) {
   .filter-bar {
-    padding: 1rem 0;
+    top: 60px;
   }
 
   .filter-content {
