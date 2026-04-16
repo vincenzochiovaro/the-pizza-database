@@ -30,7 +30,7 @@
             <li><button class="dropdown-item" @click="selectFilter('Vegetarian Pizzas')"><span
                   class="item-icon">🥦</span> {{ t.vegPizzas }}</button></li>
             <li><button class="dropdown-item" @click="selectFilter('Stuffed Crust Pizzas')"><span
-                  class="item-icon">🧁</span> {{ t.stuffedCrustPizzas }}</button></li>
+                  class="item-icon">🧀</span> {{ t.stuffedCrustPizzas }}</button></li>
           </ul>
         </div>
 

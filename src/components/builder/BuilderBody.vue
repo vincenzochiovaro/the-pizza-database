@@ -5,9 +5,11 @@
         <div class="ingredients-container">
             <BuilderIngredients :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
                 :selectedPreset="props.selectedPreset" />
+
+            <BuilderVideo />
+
             <BuilderSteps :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
                 :selectedPreset="props.selectedPreset" />
-
         </div>
     </div>
 </template>
@@ -17,6 +19,7 @@ import type { DoughIngredients } from '../../models/Builder';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 import BuilderIngredients from './BuilderIngredients.vue';
 import BuilderSteps from './BuilderSteps.vue';
+import BuilderVideo from './BuilderVideo.vue';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null

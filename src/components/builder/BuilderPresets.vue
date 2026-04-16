@@ -14,6 +14,7 @@
             <div class="preset-title">{{ props.templateData?.preset3 }}</div>
             <div class="preset-subtitle">{{ props.templateData?.preset3Description }}</div>
         </button>
+
     </div>
 
     <div class="dough-config container">
@@ -266,7 +267,7 @@ onMounted(() => {
 .preset-btn {
     flex: 1;
     min-width: 0;
-    padding: 0.75rem 0.5rem;
+    padding: 0.6rem 0.4rem;
     background: rgba(255, 255, 255, 0.08);
     border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 1rem;
@@ -346,7 +347,7 @@ onMounted(() => {
     }
 
     .preset-btn {
-        padding: 1rem 0.75rem;
+        padding: 0.8rem 0.6rem;
     }
 
     .preset-title {

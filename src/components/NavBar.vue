@@ -204,6 +204,11 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   font-size: 0.95rem;
 }
 
+.fa-pizza-slice {
+  color: #ff9a3c;
+  font-size: 1.2rem;
+}
+
 .create-btn:hover .create-icon {
   background: rgba(100, 200, 255, 0.25);
   transform: scale(1.08);

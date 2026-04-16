@@ -83,9 +83,10 @@ const props = defineProps<{
 @media (max-width: 768px) {
     .ingredients-display {
         position: sticky;
-        top: 4rem;
+        top: 3.8rem;
         background: #0a0e27;
         z-index: 10;
+        padding: 0.25rem 0;
     }
 }
 
@@ -99,14 +100,14 @@ const props = defineProps<{
 
 @media (max-width: 768px) {
     .ingredients-row {
-        gap: 0.4rem;
+        gap: 0.3rem;
         max-width: 100%;
     }
 
     .ingredient-card {
-        min-width: 80px;
-        flex: 1 1 80px;
-        padding: 0.5rem 0.6rem;
+        min-width: 70px;
+        flex: 1 1 70px;
+        padding: 0.3rem 0.4rem;
     }
 
     .ingredient-name {
@@ -115,7 +116,8 @@ const props = defineProps<{
     }
 
     .ingredient-value {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        padding: 0.1rem 0.3rem;
     }
 }
 
@@ -239,16 +241,18 @@ const props = defineProps<{
 
 @media (max-width: 500px) {
     .ingredient-card {
-        min-width: 100px;
-        padding: 0.5rem 0.6rem;
+        min-width: 70px;
+        padding: 0.3rem 0.4rem;
     }
 
     .ingredient-value {
-        font-size: 1rem;
+        font-size: 0.8rem;
+        padding: 0.1rem 0.3rem;
     }
 
     .ingredient-name {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
+        margin-bottom: 0.1rem;
     }
 }
 </style>
