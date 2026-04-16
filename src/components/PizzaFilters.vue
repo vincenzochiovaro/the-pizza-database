@@ -3,7 +3,7 @@
     <div class="filter-glow"></div>
     <div class="filter-content">
       <div class="filter-left">
-        <div class="filter-label">Filter</div>
+        <div class="filter-label">{{ t.filterTitle }}</div>
         <h5 class="filter-title">
           {{ selectedFilter === 'Favourites' ? t.yourFavourites : displayFilter }}
         </h5>
@@ -59,7 +59,8 @@ const translations = {
     vegPizzas: 'Vegetarians',
     reset: '↻ Reset',
     yourFavourites: '❤️ Your Favourites',
-    stuffedCrustPizzas: 'Stuffed Crusts'
+    stuffedCrustPizzas: 'Stuffed Crusts',
+    filterTitle: 'Sort By'
   },
   it: {
     favourites: 'Preferiti',
@@ -67,7 +68,8 @@ const translations = {
     vegPizzas: 'Vegetariane',
     reset: '↻ Ripristina',
     yourFavourites: '❤️ I tuoi preferiti',
-    stuffedCrustPizzas: 'Bordo Ripieno'
+    stuffedCrustPizzas: 'Bordi Ripieni',
+    filterTitle: 'Ordina Per'
   }
 }
 

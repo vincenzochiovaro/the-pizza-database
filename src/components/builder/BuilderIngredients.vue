@@ -36,21 +36,21 @@
                 <div class="ingredient-card salt">
                     <div class="ingredient-info">
                         <div class="ingredient-name">{{ props.templateData?.saltDay2 ?? 'Salt' }}</div>
-                        <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0000' }}g</div>
+                        <div class="ingredient-value">{{ props.selectedPresetData?.saltDay2 ?? '0000' }}g</div>
                     </div>
                 </div>
 
                 <div class="ingredient-card flour">
                     <div class="ingredient-info">
                         <div class="ingredient-name">{{ props.templateData?.flourDay2 ?? 'Flour' }}</div>
-                        <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '00' }}g</div>
+                        <div class="ingredient-value">{{ props.selectedPresetData?.flourDay2 ?? '00' }}g</div>
                     </div>
                 </div>
 
                 <div class="ingredient-card water">
                     <div class="ingredient-info">
                         <div class="ingredient-name">{{ props.templateData?.waterDay2 ?? 'Water' }}</div>
-                        <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '0' }}g</div>
+                        <div class="ingredient-value">{{ props.selectedPresetData?.waterDay2 ?? '0' }}g</div>
                     </div>
                 </div>
             </template>
