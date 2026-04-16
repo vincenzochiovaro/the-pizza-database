@@ -31,7 +31,6 @@ const props = defineProps<{
     width: 100%;
     min-height: 100vh;
     background: linear-gradient(135deg, #0a0e27 0%, #1a1545 50%, #0a0e27 100%);
-    overflow: hidden;
 }
 
 .starfield {

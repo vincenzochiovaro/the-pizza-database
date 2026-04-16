@@ -79,12 +79,44 @@ const props = defineProps<{
     justify-content: center;
 }
 
+/* Mobile sticky behavior */
+@media (max-width: 768px) {
+    .ingredients-display {
+        position: sticky;
+        top: 4rem;
+        background: #0a0e27;
+        z-index: 10;
+    }
+}
+
 .ingredients-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     justify-content: center;
     max-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .ingredients-row {
+        gap: 0.4rem;
+        max-width: 100%;
+    }
+
+    .ingredient-card {
+        min-width: 80px;
+        flex: 1 1 80px;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .ingredient-name {
+        font-size: 0.6rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .ingredient-value {
+        font-size: 0.9rem;
+    }
 }
 
 .ingredient-card {
