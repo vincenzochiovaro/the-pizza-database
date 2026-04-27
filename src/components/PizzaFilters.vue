@@ -18,18 +18,21 @@
           <span class="btn-text">{{ t.favourites }}</span>
         </button>
 
-        <div class="dropdown">
-          <button class="filter-btn btn-filter dropdown-toggle" type="button" id="filterDropdown"
-            data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown" style="position: relative;">
+          <button class="filter-btn btn-filter dropdown-toggle" type="button" @click="dropdownOpen = !dropdownOpen"
+            @blur="closeDropdown" tabindex="0" :aria-expanded="dropdownOpen">
             <span class="btn-icon">🍕</span>
             <span class="btn-text">{{ displayFilter }}</span>
           </button>
-          <ul class="dropdown-menu dropdown-dark" aria-labelledby="filterDropdown">
-            <li><button class="dropdown-item" @click="selectFilter('All pizzas')"><span class="item-icon">🍕</span> {{
-              t.allPizzas }}</button></li>
-            <li><button class="dropdown-item" @click="selectFilter('Vegetarian Pizzas')"><span
+          <ul v-if="dropdownOpen" class="dropdown-menu dropdown-dark"
+            style="display: block; position: absolute; left: 0; top: 100%; min-width: 180px; z-index: 2000;">
+            <li><button class="dropdown-item" @mousedown.prevent="selectFilter('All pizzas'); closeDropdown()"><span
+                  class="item-icon">🍕</span> {{ t.allPizzas }}</button></li>
+            <li><button class="dropdown-item"
+                @mousedown.prevent="selectFilter('Vegetarian Pizzas'); closeDropdown()"><span
                   class="item-icon">🥦</span> {{ t.vegPizzas }}</button></li>
-            <li><button class="dropdown-item" @click="selectFilter('Stuffed Crust Pizzas')"><span
+            <li><button class="dropdown-item"
+                @mousedown.prevent="selectFilter('Stuffed Crust Pizzas'); closeDropdown()"><span
                   class="item-icon">🧀</span> {{ t.stuffedCrustPizzas }}</button></li>
           </ul>
         </div>
@@ -51,6 +54,7 @@ const emit = defineEmits(['update-filter'])
 const languageStore = useLanguageStore()
 
 const selectedFilter = ref('All pizzas')
+const dropdownOpen = ref(false)
 
 const translations = {
   en: {
@@ -91,6 +95,10 @@ function selectFilter(filterValue: string) {
 function resetFilter() {
   selectedFilter.value = 'All pizzas'
   emit('update-filter', 'All pizzas')
+}
+
+function closeDropdown() {
+  setTimeout(() => { dropdownOpen.value = false }, 100)
 }
 </script>
 
