@@ -1,20 +1,61 @@
 <template>
+
+    <Teleport to="body">
+        <div class="modal fade" id="infoModalDirect" tabindex="-1">
+            <div class="modal-dialog modal-shift-up modal-sm">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header border-0 pb-1">
+                        <span class="modal-badge">{{ props.templateData?.preset1 }}</span>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-1">{{ props.templateData?.preset1Description }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="infoModalBiga" tabindex="-1">
+            <div class="modal-dialog modal-shift-up modal-sm">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header border-0 pb-1">
+                        <span class="modal-badge">{{ props.templateData?.preset2 }}</span>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-1">{{ props.templateData?.preset2Description }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="infoModalExpress" tabindex="-1">
+            <div class="modal-dialog modal-shift-up modal-sm">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header border-0 pb-1">
+                        <span class="modal-badge">{{ props.templateData?.preset3 }}</span>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-1">{{ props.templateData?.preset3Description }}</div>
+                </div>
+            </div>
+        </div>
+    </Teleport>
+
     <div class="presets-container">
         <button @click="selectPreset('Direct')" class="preset-btn" :class="{ active: selectedPreset === 'Direct' }">
+            <span class="info-icon" @click.stop="openModal('infoModalDirect')" title="About Direct">ⓘ</span>
             <div class="preset-title">{{ props.templateData?.preset1 }}</div>
-            <div class="preset-subtitle">{{ props.templateData?.preset1Description }}</div>
         </button>
 
         <button @click="selectPreset('Biga')" class="preset-btn" :class="{ active: selectedPreset === 'Biga' }">
+            <span class="info-icon" @click.stop="openModal('infoModalBiga')" title="About Biga">ⓘ</span>
             <div class="preset-title">{{ props.templateData?.preset2 }}</div>
-            <div class="preset-subtitle">{{ props.templateData?.preset2Description }}</div>
         </button>
 
         <button @click="selectPreset('Express')" class="preset-btn" :class="{ active: selectedPreset === 'Express' }">
+            <span class="info-icon" @click.stop="openModal('infoModalExpress')" title="About Express">ⓘ</span>
             <div class="preset-title">{{ props.templateData?.preset3 }}</div>
-            <div class="preset-subtitle">{{ props.templateData?.preset3Description }}</div>
         </button>
-
     </div>
 
     <div class="dough-config container">
@@ -27,7 +68,6 @@
                     <button class="btn btn-outline-light" @click="increaseDoughBalls">+</button>
                 </div>
             </div>
-
             <div class="col-6">
                 <label class="text-white small">{{ props.templateData?.doughBallWeightLabel }}</label>
                 <div class="input-group">
@@ -36,7 +76,6 @@
                     <button class="btn btn-outline-light" @click="increaseWeight">+</button>
                 </div>
             </div>
-
             <div class="col-6 mt-3">
                 <label class="text-white small">{{ props.templateData?.hydrationLabel }}</label>
                 <div class="input-group">
@@ -63,25 +102,23 @@
         <div class="temperature-header">
             <span>{{ props.templateData?.temperatureLabel || 'Temperature' }}</span>
         </div>
-
         <div class="temperature-display">
             <span class="temp-value">{{ temperature }}</span>
             <span class="temp-unit">°C</span>
         </div>
-
         <div class="temperature-controls">
-            <button class="temp-btn small" @click="decreaseTemperature">−</button>
+            <button class="temp-btn" @click="decreaseTemperature">−</button>
             <input type="range" min="0" max="35" :value="temperature"
                 @input="(e: any) => { temperature = parseInt(e.target.value); emitBuilderChanged(); }" />
-            <button class="temp-btn small" @click="increaseTemperature">+</button>
+            <button class="temp-btn" @click="increaseTemperature">+</button>
         </div>
     </div>
 
 </template>
 
 <script setup lang="ts">
-
 import { ref, onMounted } from 'vue';
+import { Modal } from 'bootstrap';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
@@ -93,10 +130,7 @@ const hydration = ref(65)
 const preferment = ref(80)
 const temperature = ref(18)
 
-const props = defineProps<{
-    templateData: BuilderTemplateData | null
-}>()
-
+const props = defineProps<{ templateData: BuilderTemplateData | null }>()
 
 interface BuilderData {
     preset: 'Direct' | 'Biga' | 'Express';
@@ -107,13 +141,15 @@ interface BuilderData {
     temperature: number;
 }
 
-const emit = defineEmits<{
-    (e: 'builder-changed', data: BuilderData): void;
-}>();
+const emit = defineEmits<{ (e: 'builder-changed', data: BuilderData): void; }>();
+
+const openModal = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) Modal.getOrCreateInstance(el).show()
+}
 
 const emitBuilderChanged = () => {
     if (debounceTimer) clearTimeout(debounceTimer)
-
     debounceTimer = setTimeout(() => {
         emit('builder-changed', {
             preset: selectedPreset.value as 'Direct' | 'Biga' | 'Express',
@@ -128,91 +164,22 @@ const emitBuilderChanged = () => {
 
 const selectPreset = (preset: string) => {
     selectedPreset.value = preset
-
-    if (preset === 'Biga') {
-        preferment.value = 80
-    }
-
+    if (preset === 'Biga') preferment.value = 80
     emitBuilderChanged()
 }
 
-const increaseDoughBalls = () => {
-    if (doughBallCount.value < 20) {
-        doughBallCount.value++
-        emitBuilderChanged()
-    }
-}
+const increaseDoughBalls = () => { if (doughBallCount.value < 20) { doughBallCount.value++; emitBuilderChanged() } }
+const decreaseDoughBalls = () => { if (doughBallCount.value > 1) { doughBallCount.value--; emitBuilderChanged() } }
+const increaseWeight = () => { if (doughBallWeight.value < 800) { doughBallWeight.value += 10; emitBuilderChanged() } }
+const decreaseWeight = () => { if (doughBallWeight.value > 100) { doughBallWeight.value -= 10; emitBuilderChanged() } }
+const increaseHydration = () => { if (hydration.value < 100) { hydration.value++; emitBuilderChanged() } }
+const decreaseHydration = () => { if (hydration.value > 40) { hydration.value--; emitBuilderChanged() } }
+const increasePreferment = () => { if (selectedPreset.value !== 'Biga') return; if (preferment.value < 100) { preferment.value += 5; emitBuilderChanged() } }
+const decreasePreferment = () => { if (selectedPreset.value !== 'Biga') return; if (preferment.value > 5) { preferment.value -= 5; emitBuilderChanged() } }
+const increaseTemperature = () => { if (temperature.value < 35) { temperature.value++; emitBuilderChanged() } }
+const decreaseTemperature = () => { if (temperature.value > 0) { temperature.value--; emitBuilderChanged() } }
 
-const decreaseDoughBalls = () => {
-    if (doughBallCount.value > 1) {
-        doughBallCount.value--
-        emitBuilderChanged()
-    }
-}
-
-const increaseWeight = () => {
-    if (doughBallWeight.value < 800) {
-        doughBallWeight.value += 10
-        emitBuilderChanged()
-    }
-}
-
-const decreaseWeight = () => {
-    if (doughBallWeight.value > 100) {
-        doughBallWeight.value -= 10
-        emitBuilderChanged()
-    }
-}
-
-const increaseHydration = () => {
-    if (hydration.value < 100) {
-        hydration.value++
-        emitBuilderChanged()
-    }
-}
-
-const decreaseHydration = () => {
-    if (hydration.value > 40) {
-        hydration.value--
-        emitBuilderChanged()
-    }
-}
-
-const increasePreferment = () => {
-    if (selectedPreset.value !== 'Biga') return
-
-    if (preferment.value < 100) {
-        preferment.value += 5
-        emitBuilderChanged()
-    }
-}
-
-const decreasePreferment = () => {
-    if (selectedPreset.value !== 'Biga') return
-
-    if (preferment.value > 5) {
-        preferment.value -= 5
-        emitBuilderChanged()
-    }
-}
-
-const increaseTemperature = () => {
-    if (temperature.value < 35) {
-        temperature.value++
-        emitBuilderChanged()
-    }
-}
-
-const decreaseTemperature = () => {
-    if (temperature.value > 0) {
-        temperature.value--
-        emitBuilderChanged()
-    }
-}
-
-onMounted(() => {
-    emitBuilderChanged()
-})
+onMounted(() => { emitBuilderChanged() })
 </script>
 
 <style scoped>
@@ -221,47 +188,8 @@ onMounted(() => {
     gap: 1rem;
     width: 100%;
     justify-content: center;
-    flex-wrap: nowrap;
-    position: relative;
     background: linear-gradient(135deg, #0a0e27 0%, #1a1545 50%, #0a0e27 100%);
     padding: 1rem;
-    overflow: hidden;
-}
-
-.presets-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        radial-gradient(2px 2px at 20px 30px, #eee, rgba(238, 238, 238, 0)),
-        radial-gradient(2px 2px at 60px 70px, #fff, rgba(255, 255, 255, 0)),
-        radial-gradient(1px 1px at 50px 50px, #fff, rgba(255, 255, 255, 0)),
-        radial-gradient(1px 1px at 130px 80px, #fff, rgba(255, 255, 255, 0)),
-        radial-gradient(2px 2px at 90px 10px, #fff, rgba(255, 255, 255, 0));
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    animation: twinkle 5s infinite;
-    z-index: 0;
-}
-
-@keyframes twinkle {
-
-    0%,
-    100% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
-.presets-container>* {
-    position: relative;
-    z-index: 1;
 }
 
 .preset-btn {
@@ -276,39 +204,12 @@ onMounted(() => {
     transition: all 0.3s ease;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     color: #ffffff;
     font-family: inherit;
 }
 
-.preset-btn::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
-    transform: rotate(45deg);
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    }
-
-    100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-    }
-}
-
 .preset-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -322,41 +223,62 @@ onMounted(() => {
 .preset-btn.active:hover {
     background: rgba(100, 200, 255, 0.2);
     border-color: rgba(100, 200, 255, 0.8);
-    box-shadow: 0 0 30px rgba(100, 200, 255, 0.6), inset 0 0 20px rgba(100, 200, 255, 0.15);
 }
 
 .preset-title {
     font-size: 1rem;
     font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.5rem;
     letter-spacing: -0.5px;
 }
 
-.preset-subtitle {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 500;
+.info-icon {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: color 0.2s, text-shadow 0.2s;
+    user-select: none;
+    z-index: 2;
+    line-height: 1;
 }
 
-@media (max-width: 768px) {
-    .presets-container {
-        gap: 0.75rem;
-    }
+.info-icon:hover {
+    color: rgba(100, 200, 255, 0.95);
+    text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
+}
 
-    .preset-btn {
-        padding: 0.8rem 0.6rem;
-    }
+:global(.modal-shift-up) {
+    margin-top: 15vh !important;
+}
 
-    .preset-title {
-        font-size: 0.9rem;
-    }
+:global(.glass-modal) {
+    background: linear-gradient(145deg, rgba(15, 20, 55, 0.97), rgba(8, 12, 35, 0.99));
+    border: 1.5px solid rgba(100, 200, 255, 0.28);
+    border-radius: 1.1rem !important;
+    box-shadow: 0 0 40px rgba(100, 200, 255, 0.12), 0 20px 48px rgba(0, 0, 0, 0.65);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
 
-    .preset-subtitle {
-        font-size: 0.7rem;
-    }
+:global(.glass-modal .modal-body) {
+    color: rgba(255, 255, 255, 0.72);
+    padding-top: 0.25rem;
+    padding-bottom: 1.1rem;
+}
+
+.modal-badge {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(100, 200, 255, 0.9);
+    background: rgba(100, 200, 255, 0.1);
+    border: 1px solid rgba(100, 200, 255, 0.28);
+    border-radius: 999px;
+    padding: 0.18rem 0.6rem;
 }
 
 .dough-config {
@@ -416,13 +338,11 @@ onMounted(() => {
     color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
     letter-spacing: 0.4px;
-    margin: 0;
 }
 
 .temperature-display {
     display: flex;
     align-items: baseline;
-    justify-content: center;
     gap: 0.15rem;
     min-width: 50px;
 }
@@ -430,7 +350,7 @@ onMounted(() => {
 .temp-value {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #fff;
 }
 
 .temp-unit {
@@ -443,7 +363,6 @@ onMounted(() => {
     align-items: center;
     gap: 0.25rem;
     width: 140px;
-    flex: unset;
 }
 
 .temperature-controls input[type="range"] {
@@ -461,5 +380,19 @@ onMounted(() => {
     color: white;
     font-weight: 700;
     font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .presets-container {
+        gap: 0.75rem;
+    }
+
+    .preset-btn {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .preset-title {
+        font-size: 0.9rem;
+    }
 }
 </style>
