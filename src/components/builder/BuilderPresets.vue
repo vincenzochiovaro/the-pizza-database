@@ -1,91 +1,63 @@
 <template>
 
-    <!-- ── Info Modals (Bootstrap native, hardcoded content) ───────── -->
-    <div class="modal fade" id="infoModalDirect" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content glass-modal">
-                <div class="modal-header border-0 pb-1">
-                    <span class="modal-badge">{{ props.templateData?.preset1 }}</span>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body pt-1">
-                    {{ props.templateData?.preset1Description }}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="infoModalBiga" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content glass-modal">
-                <div class="modal-header border-0 pb-1">
-                    <span class="modal-badge">{{ props.templateData?.preset2 }}</span>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body pt-1">
-                    {{ props.templateData?.preset2Description }}
+    <Teleport to="body">
+        <div class="modal fade" id="infoModalDirect" tabindex="-1">
+            <div class="modal-dialog modal-shift-up modal-sm">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header border-0 pb-1">
+                        <span class="modal-badge">{{ props.templateData?.preset1 }}</span>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-1">{{ props.templateData?.preset1Description }}</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="infoModalExpress" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content glass-modal">
-                <div class="modal-header border-0 pb-1">
-                    <span class="modal-badge">{{ props.templateData?.preset3 }}</span>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body pt-1">
-                    {{ props.templateData?.preset3Description }}
+        <div class="modal fade" id="infoModalBiga" tabindex="-1">
+            <div class="modal-dialog modal-shift-up modal-sm">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header border-0 pb-1">
+                        <span class="modal-badge">{{ props.templateData?.preset2 }}</span>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-1">{{ props.templateData?.preset2Description }}</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="infoModalExpress" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content glass-modal">
-                <div class="modal-header border-0 pb-1">
-                    <span class="modal-badge">Express</span>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body pt-1">
-                    Hello button 3 — Express uses a faster fermentation schedule so you can have dough ready in under
-                    two hours without sacrificing too much flavour.
+        <div class="modal fade" id="infoModalExpress" tabindex="-1">
+            <div class="modal-dialog modal-shift-up modal-sm">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header border-0 pb-1">
+                        <span class="modal-badge">{{ props.templateData?.preset3 }}</span>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-1">{{ props.templateData?.preset3Description }}</div>
                 </div>
             </div>
         </div>
-    </div>
+    </Teleport>
 
-    <!-- ── Preset buttons ──────────────────────────────────────────── -->
     <div class="presets-container">
-
         <button @click="selectPreset('Direct')" class="preset-btn" :class="{ active: selectedPreset === 'Direct' }">
-            <span class="info-icon" data-bs-toggle="modal" data-bs-target="#infoModalDirect" @click.stop
-                title="About Direct">ⓘ</span>
+            <span class="info-icon" @click.stop="openModal('infoModalDirect')" title="About Direct">ⓘ</span>
             <div class="preset-title">{{ props.templateData?.preset1 }}</div>
         </button>
 
         <button @click="selectPreset('Biga')" class="preset-btn" :class="{ active: selectedPreset === 'Biga' }">
-            <span class="info-icon" data-bs-toggle="modal" data-bs-target="#infoModalBiga" @click.stop
-                title="About Biga">ⓘ</span>
+            <span class="info-icon" @click.stop="openModal('infoModalBiga')" title="About Biga">ⓘ</span>
             <div class="preset-title">{{ props.templateData?.preset2 }}</div>
         </button>
 
         <button @click="selectPreset('Express')" class="preset-btn" :class="{ active: selectedPreset === 'Express' }">
-            <span class="info-icon" data-bs-toggle="modal" data-bs-target="#infoModalExpress" @click.stop
-                title="About Express">ⓘ</span>
+            <span class="info-icon" @click.stop="openModal('infoModalExpress')" title="About Express">ⓘ</span>
             <div class="preset-title">{{ props.templateData?.preset3 }}</div>
         </button>
-
     </div>
 
-    <!-- ── Dough config ────────────────────────────────────────────── -->
     <div class="dough-config container">
         <div class="row w-100 text-center">
             <div class="col-6">
@@ -126,7 +98,6 @@
         </div>
     </div>
 
-    <!-- ── Temperature ────────────────────────────────────────────── -->
     <div class="temperature-card">
         <div class="temperature-header">
             <span>{{ props.templateData?.temperatureLabel || 'Temperature' }}</span>
@@ -147,6 +118,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { Modal } from 'bootstrap';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
@@ -170,6 +142,11 @@ interface BuilderData {
 }
 
 const emit = defineEmits<{ (e: 'builder-changed', data: BuilderData): void; }>();
+
+const openModal = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) Modal.getOrCreateInstance(el).show()
+}
 
 const emitBuilderChanged = () => {
     if (debounceTimer) clearTimeout(debounceTimer)
@@ -206,7 +183,6 @@ onMounted(() => { emitBuilderChanged() })
 </script>
 
 <style scoped>
-/* ── Preset container & buttons ───────────────────────────────── */
 .presets-container {
     display: flex;
     gap: 1rem;
@@ -255,12 +231,11 @@ onMounted(() => { emitBuilderChanged() })
     letter-spacing: -0.5px;
 }
 
-/* ── Info icon ────────────────────────────────────────────────── */
 .info-icon {
     position: absolute;
     top: 5px;
     right: 6px;
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
     transition: color 0.2s, text-shadow 0.2s;
@@ -274,7 +249,10 @@ onMounted(() => { emitBuilderChanged() })
     text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
 }
 
-/* ── Bootstrap modal skin ─────────────────────────────────────── */
+:global(.modal-shift-up) {
+    margin-top: 15vh !important;
+}
+
 :global(.glass-modal) {
     background: linear-gradient(145deg, rgba(15, 20, 55, 0.97), rgba(8, 12, 35, 0.99));
     border: 1.5px solid rgba(100, 200, 255, 0.28);
@@ -303,7 +281,6 @@ onMounted(() => { emitBuilderChanged() })
     padding: 0.18rem 0.6rem;
 }
 
-/* ── Dough config ─────────────────────────────────────────────── */
 .dough-config {
     margin-top: 1rem;
     max-width: 420px;
@@ -341,7 +318,6 @@ onMounted(() => { emitBuilderChanged() })
     font-weight: 500;
 }
 
-/* ── Temperature card ─────────────────────────────────────────── */
 .temperature-card {
     margin-top: 0.75rem;
     padding: 0.4rem 0.65rem;
