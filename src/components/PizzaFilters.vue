@@ -31,9 +31,8 @@
             <li><button class="dropdown-item"
                 @mousedown.prevent="selectFilter('Vegetarian Pizzas'); closeDropdown()"><span
                   class="item-icon">🥦</span> {{ t.vegPizzas }}</button></li>
-            <li><button class="dropdown-item"
-                @mousedown.prevent="selectFilter('Stuffed Crust Pizzas'); closeDropdown()"><span
-                  class="item-icon">🧀</span> {{ t.stuffedCrustPizzas }}</button></li>
+            <li><button class="dropdown-item" @mousedown.prevent="selectFilter('White Pizzas'); closeDropdown()"><span
+                  class="item-icon">🧀</span> {{ t.whitePizzas }}</button></li>
           </ul>
         </div>
 
@@ -63,7 +62,7 @@ const translations = {
     vegPizzas: 'Vegetarians',
     reset: '↻ Reset',
     yourFavourites: '❤️ Your Favourites',
-    stuffedCrustPizzas: 'Stuffed Crusts',
+    whitePizzas: 'White Pizzas',
     filterTitle: 'Sort By'
   },
   it: {
@@ -72,7 +71,7 @@ const translations = {
     vegPizzas: 'Vegetariane',
     reset: '↻ Ripristina',
     yourFavourites: '❤️ I tuoi preferiti',
-    stuffedCrustPizzas: 'Bordi Ripieni',
+    whitePizzas: 'Pizze Bianche',
     filterTitle: 'Ordina Per'
   }
 }
@@ -83,7 +82,7 @@ const displayFilter = computed(() => {
   if (selectedFilter.value === 'All pizzas') return t.value.allPizzas
   if (selectedFilter.value === 'Vegetarian Pizzas') return t.value.vegPizzas
   if (selectedFilter.value === 'Favourites') return t.value.favourites
-  if (selectedFilter.value === 'Stuffed Crust Pizzas') return t.value.stuffedCrustPizzas
+  if (selectedFilter.value === 'White Pizzas') return t.value.whitePizzas
   return selectedFilter.value
 })
 
@@ -204,7 +203,7 @@ function closeDropdown() {
   letter-spacing: 0.5px;
   text-transform: capitalize;
   filter: drop-shadow(0 2px 4px rgba(100, 200, 255, 0.2));
-  animation: title-pulse 1.3s ease;
+  animation: title-pulse 2.0s ease;
 }
 
 .filter-divider {
