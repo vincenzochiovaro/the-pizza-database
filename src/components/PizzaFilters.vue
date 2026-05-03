@@ -4,7 +4,7 @@
     <div class="filter-content">
       <div class="filter-left">
         <div class="filter-label">{{ t.filterTitle }}</div>
-        <h5 class="filter-title">
+        <h5 class="filter-title" :key="selectedFilter">
           {{ selectedFilter === 'Favourites' ? t.yourFavourites : displayFilter }}
         </h5>
       </div>
@@ -148,6 +148,23 @@ function closeDropdown() {
   }
 }
 
+@keyframes title-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  40% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .filter-content {
   display: flex;
   justify-content: space-between;
@@ -187,6 +204,7 @@ function closeDropdown() {
   letter-spacing: 0.5px;
   text-transform: capitalize;
   filter: drop-shadow(0 2px 4px rgba(100, 200, 255, 0.2));
+  animation: title-pulse 1.3s ease;
 }
 
 .filter-divider {
