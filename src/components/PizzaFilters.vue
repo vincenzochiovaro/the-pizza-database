@@ -27,12 +27,12 @@
           <ul v-if="dropdownOpen" class="dropdown-menu dropdown-dark"
             style="display: block; position: absolute; left: 0; top: 100%; min-width: 180px; z-index: 2000;">
             <li><button class="dropdown-item" @mousedown.prevent="selectFilter('All pizzas'); closeDropdown()"><span
-                  class="item-icon">🍕</span> {{ t.allPizzas }}</button></li>
+                  class="item-icon"></span> {{ t.allPizzas }}</button></li>
             <li><button class="dropdown-item"
-                @mousedown.prevent="selectFilter('Vegetarian Pizzas'); closeDropdown()"><span
-                  class="item-icon">🥦</span> {{ t.vegPizzas }}</button></li>
+                @mousedown.prevent="selectFilter('Vegetarian Pizzas'); closeDropdown()"><span class="item-icon"></span>
+                {{ t.vegPizzas }}</button></li>
             <li><button class="dropdown-item" @mousedown.prevent="selectFilter('White Pizzas'); closeDropdown()"><span
-                  class="item-icon">🧀</span> {{ t.whitePizzas }}</button></li>
+                  class="item-icon"></span> {{ t.whitePizzas }}</button></li>
           </ul>
         </div>
 
