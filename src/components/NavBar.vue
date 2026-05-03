@@ -165,18 +165,6 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   width: 200%;
   height: 200%;
   background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transform: rotate(45deg);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
-  }
-
-  100% {
-    transform: translateX(100%) translateY(100%) rotate(45deg);
-  }
 }
 
 .create-btn:hover {
@@ -196,22 +184,23 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   justify-content: center;
   width: 28px;
   height: 28px;
-  background: rgba(100, 200, 255, 0.15);
   border-radius: 6px;
   transition: all 0.3s ease;
   flex-shrink: 0;
   color: #ffffff;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  background: transparent;
 }
 
 .fa-pizza-slice {
-  color: #ff9a3c;
-  font-size: 1.2rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+  opacity: 0.9;
 }
 
 .create-btn:hover .create-icon {
-  background: rgba(100, 200, 255, 0.25);
-  transform: scale(1.08);
+  transform: scale(1.1) rotate(-8deg);
+  color: #64c8ff;
 }
 
 .create-icon-fa {
