@@ -1,0 +1,26 @@
+/* ============================================
+   COLOR PALETTE & SEMANTIC COLORS
+   ============================================ */
+
+:root {
+  /* ========== SEMANTIC COLORS ========== */
+
+  /* Primary Brand Color (Cyan/Blue) */
+  --color-accent: var(--color-primary);
+  --color-accent-hover: rgba(100, 200, 255, 0.25);
+  --color-accent-active: rgba(100, 200, 255, 0.35);
+
+  /* Backgrounds */
+  --color-bg: var(--color-bg-dark-tertiary);
+  --color-bg-elevated: var(--color-bg-dark-secondary);
+  --color-bg-overlay: var(--color-overlay-glass);
+
+  /* Text */
+  --color-text: var(--color-text-primary);
+  --color-text-secondary-emphasis: var(--color-text-secondary);
+  --color-text-disabled: var(--color-text-faint);
+
+  /* Borders */
+  --color-border: var(--color-border-primary);
+  --color-border-subtle: var(--color-border-lighter);
+}

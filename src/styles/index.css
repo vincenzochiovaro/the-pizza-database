@@ -1,0 +1,15 @@
+/* ============================================
+   GLOBAL STYLES - MAIN ENTRY POINT
+   Import all global CSS files here in order
+   ============================================ */
+
+/* 1. Design Tokens */
+@import './variables.css';
+@import './colors.css';
+
+/* 2. Foundation */
+@import './reset.css';
+@import './typography.css';
+
+/* 3. Utilities */
+@import './spacing.css';
