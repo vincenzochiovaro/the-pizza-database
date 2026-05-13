@@ -87,4 +87,9 @@
 
   /* ========== BACKDROP FILTER ========== */
   --backdrop-blur: blur(10px);
+
+  /* ========== ICON SIZES ========== */
+--size-icon-sm: 20px;
+--size-icon-md: 24px;
+--size-icon-lg: 28px;
 }

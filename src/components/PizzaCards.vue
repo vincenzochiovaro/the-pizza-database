@@ -24,7 +24,7 @@
             <div class="pizza-header">
               <h5 class="pizza-title">The {{ pizza.name }}</h5>
               <div class="pizza-controls">
-                <div v-if="pizza.isVegetarian" class="vegetarian-badge" title="Vegetarian">🌱</div>
+                <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
                 <div class="heart-icon" @click="toggleLSPizza(pizza.name)">
                   {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
                 </div>
@@ -219,9 +219,9 @@ function getPizzaImage(imageName: string | undefined): string {
   border: 2px solid var(--color-border-subtle);
 }
 
-.vegetarian-badge {
-  width: var(--spacing-icon-md);
-  height: var(--spacing-icon-md);
+.vegetarian-icon {
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
   background: rgba(100, 255, 200, 0.2);
   border-radius: 50%;
   border: 2px solid rgba(100, 255, 200, 0.6);
@@ -233,14 +233,14 @@ function getPizzaImage(imageName: string | undefined): string {
   transition: all var(--transition-base);
 }
 
-.vegetarian-badge:hover {
+.vegetarian-icon:hover {
   transform: scale(1.1);
   box-shadow: 0 0 16px rgba(100, 255, 200, 0.4);
 }
 
 .heart-icon {
-  width: var(--spacing-icon-md);
-  height: var(--spacing-icon-md);
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
   background: rgba(255, 107, 157, 0.2);
   border-radius: 50%;
   display: flex;
