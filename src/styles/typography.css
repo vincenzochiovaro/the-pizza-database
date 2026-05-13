@@ -3,14 +3,6 @@
    ============================================ */
 
 :root {
-  --text-base: {
-    font-family: var(--font-family-base);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-normal);
-    color: var(--color-text);
-  };
-
   /* Letter spacing utilities */
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0em;
