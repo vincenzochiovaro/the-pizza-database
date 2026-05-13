@@ -126,14 +126,14 @@ function getPizzaImage(imageName: string | undefined): string {
 .pizza-card {
   max-width: 350px;
   margin: 0 auto;
-  border-radius: 1rem;
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  border: 2px solid var(--color-border-subtle);
+  background: var(--color-overlay-glass);
+  backdrop-filter: var(--backdrop-blur);
+  transition: all var(--transition-base);
   position: relative;
-  padding: 1.25rem 1rem;
+  padding: 1.25rem var(--spacing-md);
   text-align: center;
   cursor: default;
   display: flex;
@@ -167,10 +167,10 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .pizza-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--color-overlay-glass);
+  border-color: var(--color-border-light);
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .pizza-card.vegetarian {
@@ -199,14 +199,14 @@ function getPizzaImage(imageName: string | undefined): string {
 
 .pizza-controls {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .pizza-title {
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
   margin: 0;
-  color: #ffffff;
+  color: var(--color-text-primary);
   text-align: left;
 }
 
@@ -214,23 +214,23 @@ function getPizzaImage(imageName: string | undefined): string {
   width: 100%;
   height: 250px;
   object-fit: cover;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg);
   margin-bottom: 0.75rem;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--color-border-subtle);
 }
 
 .vegetarian-badge {
-  width: 32px;
-  height: 32px;
+  width: var(--spacing-icon-md);
+  height: var(--spacing-icon-md);
   background: rgba(100, 255, 200, 0.2);
   border-radius: 50%;
   border: 2px solid rgba(100, 255, 200, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   box-shadow: 0 0 12px rgba(100, 255, 200, 0.2);
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .vegetarian-badge:hover {
@@ -239,18 +239,18 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .heart-icon {
-  width: 32px;
-  height: 32px;
+  width: var(--spacing-icon-md);
+  height: var(--spacing-icon-md);
   background: rgba(255, 107, 157, 0.2);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: var(--font-size-xl);
   color: #FF6B9D;
   cursor: pointer;
   box-shadow: 0 0 12px rgba(255, 107, 157, 0.2);
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   border: 2px solid rgba(255, 107, 157, 0.6);
 }
 
@@ -263,32 +263,32 @@ function getPizzaImage(imageName: string | undefined): string {
 
 .ingredients-list {
   list-style: none;
-  padding-left: 1rem;
+  padding-left: var(--spacing-md);
   margin: 0;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .ingredients-list li {
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 .pizza-note {
   margin-top: auto;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-faint);
   font-style: italic;
 }
 
 .empty-state {
   width: 100%;
-  padding: 3rem 1rem;
+  padding: var(--spacing-2xl) var(--spacing-md);
   text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
+  background: var(--color-overlay-glass);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+  backdrop-filter: var(--backdrop-blur);
 }
 
 .empty-icon {
@@ -297,22 +297,22 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .empty-state h5 {
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-  color: #ffffff;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-primary);
 }
 
 .empty-state p {
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
   margin: 0;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-faint);
 }
 
 .loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
   font-size: 2rem;
 }
 

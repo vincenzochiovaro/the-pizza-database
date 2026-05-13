@@ -33,7 +33,7 @@ const props = defineProps<{
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1545 50%, #0a0e27 100%);
+    background: linear-gradient(135deg, var(--color-bg-dark-primary) 0%, var(--color-bg-dark-secondary) 50%, var(--color-bg-dark-primary) 100%);
 }
 
 .starfield {
@@ -66,8 +66,8 @@ const props = defineProps<{
 
 .ingredients-container {
     position: relative;
-    z-index: 1;
-    padding: 3rem 2rem;
+    z-index: var(--z-dropdown);
+    padding: var(--spacing-2xl) var(--spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
 }

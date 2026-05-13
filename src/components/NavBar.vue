@@ -70,22 +70,22 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 <style scoped>
 .navbar {
-  background: linear-gradient(135deg, #0a0e27 0%, #1a1545 50%, #0a0e27 100%);
-  border-bottom: 2px solid rgba(100, 200, 255, 0.2);
+  background: linear-gradient(135deg, var(--color-bg-dark-primary) 0%, var(--color-bg-dark-secondary) 50%, var(--color-bg-dark-primary) 100%);
+  border-bottom: 2px solid var(--color-border-light);
   position: sticky;
   top: 0;
-  z-index: 1030;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  padding: 1rem 0;
-  backdrop-filter: blur(10px);
+  z-index: var(--z-fixed);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-md) 0;
+  backdrop-filter: var(--backdrop-blur);
 }
 
 .logo-section {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   user-select: none;
   -webkit-user-select: none;
-  gap: 1rem;
+  gap: var(--spacing-md);
 }
 
 .logo-section:hover {
@@ -94,20 +94,18 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 }
 
 .logo-title {
-  font-size: 1rem;
-  color: #ffffff;
-  letter-spacing: 0.3px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-wide);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
 }
 
 .logo-img {
   height: 45px;
   width: auto;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-base);
   filter: brightness(1.2);
 }
 
@@ -118,41 +116,39 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 .logo-divider {
   width: 2px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(100, 200, 255, 0.4), rgba(100, 200, 255, 0.1));
+  background: linear-gradient(to bottom, var(--color-border-primary), var(--color-border-lighter));
   border-radius: 1px;
 }
 
 .logo-text {
-  line-height: 1.1;
+  line-height: var(--line-height-tight);
   display: flex;
   flex-direction: column;
 }
 
 .logo-text .text-primary {
-  font-size: 1rem;
-  color: #ffffff;
-  letter-spacing: 0.3px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-wide);
+  font-family: var(--font-family-base);
 }
 
 .create-btn {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: var(--spacing-icon-sm);
   padding: 0.7rem 1.1rem;
-  background: rgba(100, 200, 255, 0.12);
-  border: 2px solid rgba(100, 200, 255, 0.3);
-  border-radius: 8px;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.9rem;
+  background: var(--color-primary-lighter);
+  border: 2px solid var(--color-border-primary);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(100, 200, 255, 0.15);
-  letter-spacing: 0.3px;
-  backdrop-filter: blur(10px);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  letter-spacing: var(--letter-spacing-wide);
+  backdrop-filter: var(--backdrop-blur);
   position: relative;
   overflow: hidden;
 }
@@ -169,8 +165,8 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .create-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(100, 200, 255, 0.3);
-  background: rgba(100, 200, 255, 0.18);
+  box-shadow: var(--shadow-md);
+  background: var(--color-primary-light);
   border-color: rgba(100, 200, 255, 0.6);
 }
 
@@ -182,62 +178,62 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+  width: var(--spacing-icon-md);
+  height: var(--spacing-icon-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
   flex-shrink: 0;
-  color: #ffffff;
-  font-size: 1rem;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
   background: transparent;
 }
 
 .fa-pizza-slice {
-  color: #ffffff;
-  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
   opacity: 0.9;
 }
 
 .create-btn:hover .create-icon {
   transform: scale(1.1) rotate(-8deg);
-  color: #64c8ff;
+  color: var(--color-accent);
 }
 
 .create-icon-fa {
   font-size: 0.95rem;
-  color: #ffffff;
-  font-weight: 400;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-regular);
 }
 
 .create-text {
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
   white-space: nowrap;
 }
 
 .cursor-pointer {
   cursor: pointer;
-  transition: opacity 0.3s;
+  transition: opacity var(--transition-base);
 }
 
 .language-switcher {
   display: flex;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.08);
+  gap: var(--spacing-sm);
+  background: var(--color-overlay-glass);
   padding: 0.3rem 0.35rem;
-  border-radius: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
   align-items: center;
-  backdrop-filter: blur(10px);
+  backdrop-filter: var(--backdrop-blur);
 }
 
 .lang-btn {
   padding: 0.25rem 0.35rem;
   background: transparent;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all var(--transition-fast);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -251,12 +247,12 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .lang-btn.active {
   background: rgba(100, 200, 255, 0.25);
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(100, 200, 255, 0.3), inset 0 0 10px rgba(100, 200, 255, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 10px rgba(100, 200, 255, 0.3), var(--shadow-inner-glow);
 }
 
 .flag {
-  font-size: 1.2rem;
+  font-size: var(--font-size-xl);
   line-height: 1;
   display: flex;
   align-items: center;
@@ -264,16 +260,16 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 }
 
 .lang-code {
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.3px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   line-height: 1;
 }
 
 .lang-btn.active .lang-code {
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 768px) {

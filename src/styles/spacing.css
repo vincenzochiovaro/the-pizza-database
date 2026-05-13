@@ -1,0 +1,43 @@
+/* ============================================
+   SPACING UTILITIES & SCALE
+   ============================================ */
+
+:root {
+  /* Padding utilities */
+  --p-xs: var(--spacing-xs);
+  --p-sm: var(--spacing-sm);
+  --p-md: var(--spacing-md);
+  --p-lg: var(--spacing-lg);
+  --p-xl: var(--spacing-xl);
+  --p-2xl: var(--spacing-2xl);
+
+  /* Margin utilities */
+  --m-xs: var(--spacing-xs);
+  --m-sm: var(--spacing-sm);
+  --m-md: var(--spacing-md);
+  --m-lg: var(--spacing-lg);
+  --m-xl: var(--spacing-xl);
+  --m-2xl: var(--spacing-2xl);
+
+  /* Gap utilities */
+  --gap-xs: var(--spacing-xs);
+  --gap-sm: var(--spacing-sm);
+  --gap-md: var(--spacing-md);
+  --gap-lg: var(--spacing-lg);
+  --gap-xl: var(--spacing-xl);
+
+  /* Common spacing patterns */
+  --spacing-icon-sm: 0.6rem;
+  --spacing-icon-md: 1.1rem;
+  --spacing-section: var(--spacing-xl);
+  --spacing-component-internal: var(--spacing-md);
+  --spacing-component-external: var(--spacing-lg);
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 768px) {
+  :root {
+    --spacing-component-external: var(--spacing-md);
+    --spacing-section: var(--spacing-lg);
+  }
+}
