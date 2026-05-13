@@ -65,7 +65,7 @@ const getStepImage = (stepNumber: number) => {
 
 .steps-container {
     color: white;
-    padding: 60px 24px 80px;
+    padding: 60px var(--spacing-xl) 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,9 +80,9 @@ const getStepImage = (stepNumber: number) => {
 .steps-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: #fff;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
     margin: -1rem;
     max-width: 560px;
 }
@@ -90,7 +90,7 @@ const getStepImage = (stepNumber: number) => {
 .steps-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 28px;
+    gap: var(--spacing-lg);
     width: 100%;
     max-width: 1100px;
 }
@@ -103,7 +103,7 @@ const getStepImage = (stepNumber: number) => {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.35s cubic-bezier(.22, .68, 0, 1.2), box-shadow 0.35s ease;
+    transition: transform 0.35s cubic-bezier(.22, .68, 0, 1.2), box-shadow var(--transition-base);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
 }
@@ -150,11 +150,11 @@ const getStepImage = (stepNumber: number) => {
 
 .step-text {
     font-size: 15px;
-    font-weight: 500;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.88);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary-emphasis);
     margin: 0;
-    letter-spacing: 0.01em;
+    letter-spacing: var(--letter-spacing-normal);
 }
 
 .step-card--alt {
@@ -163,12 +163,12 @@ const getStepImage = (stepNumber: number) => {
 
 @media (max-width: 640px) {
     .steps-container {
-        padding: 40px 16px 60px;
+        padding: 40px var(--spacing-md) 60px;
     }
 
     .steps-list {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: var(--spacing-lg);
     }
 
     .step-card {
@@ -200,7 +200,7 @@ const getStepImage = (stepNumber: number) => {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 8px rgba(255, 160, 80, 0.6), 0 0 15px rgba(255, 200, 120, 0.4);
-    letter-spacing: 1px;
+    letter-spacing: var(--letter-spacing-wide);
     animation: shine 3s ease-in-out infinite;
 }
 

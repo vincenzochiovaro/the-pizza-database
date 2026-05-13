@@ -185,49 +185,49 @@ onMounted(() => { emitBuilderChanged() })
 <style scoped>
 .presets-container {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
     width: 100%;
     justify-content: center;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1545 50%, #0a0e27 100%);
-    padding: 1rem;
+    background: linear-gradient(135deg, var(--color-bg-dark-primary) 0%, var(--color-bg-dark-secondary) 50%, var(--color-bg-dark-primary) 100%);
+    padding: var(--spacing-md);
 }
 
 .preset-btn {
     flex: 1;
     min-width: 0;
     padding: 0.6rem 0.4rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    border-radius: 1rem;
-    backdrop-filter: blur(10px);
+    background: var(--color-overlay-glass);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    backdrop-filter: var(--backdrop-blur);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
     text-align: center;
     position: relative;
     overflow: visible;
-    color: #ffffff;
+    color: var(--color-text-primary);
     font-family: inherit;
 }
 
 .preset-btn:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg);
 }
 
 .preset-btn.active {
-    background: rgba(100, 200, 255, 0.15);
+    background: var(--color-primary-light);
     border-color: rgba(100, 200, 255, 0.6);
     box-shadow: 0 0 20px rgba(100, 200, 255, 0.4), inset 0 0 20px rgba(100, 200, 255, 0.1);
 }
 
 .preset-btn.active:hover {
-    background: rgba(100, 200, 255, 0.2);
+    background: var(--color-primary-light);
     border-color: rgba(100, 200, 255, 0.8);
 }
 
 .preset-title {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
     letter-spacing: -0.5px;
 }
 
@@ -235,17 +235,17 @@ onMounted(() => { emitBuilderChanged() })
     position: absolute;
     top: 5px;
     right: 6px;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: var(--font-size-md);
+    color: var(--color-text-faint);
     cursor: pointer;
-    transition: color 0.2s, text-shadow 0.2s;
+    transition: color var(--transition-fast), text-shadow var(--transition-fast);
     user-select: none;
     z-index: 2;
     line-height: 1;
 }
 
 .info-icon:hover {
-    color: rgba(100, 200, 255, 0.95);
+    color: var(--color-accent);
     text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
 }
 
@@ -270,11 +270,11 @@ onMounted(() => { emitBuilderChanged() })
 }
 
 .modal-badge {
-    font-size: 0.63rem;
-    font-weight: 700;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(100, 200, 255, 0.9);
+    color: var(--color-accent);
     background: rgba(100, 200, 255, 0.1);
     border: 1px solid rgba(100, 200, 255, 0.28);
     border-radius: 999px;
@@ -282,15 +282,15 @@ onMounted(() => { emitBuilderChanged() })
 }
 
 .dough-config {
-    margin-top: 1rem;
+    margin-top: var(--spacing-md);
     max-width: 420px;
     display: flex;
     justify-content: center;
 }
 
 .dough-config .input-group {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 0.8rem;
+    background: var(--color-overlay-glass);
+    border-radius: var(--radius-xl);
     overflow: hidden;
 }
 
@@ -298,7 +298,7 @@ onMounted(() => { emitBuilderChanged() })
     background: transparent;
     border: none;
     color: white;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
 }
 
 .dough-config input:focus {
@@ -308,36 +308,36 @@ onMounted(() => { emitBuilderChanged() })
 .dough-config .btn {
     border: none;
     width: 44px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
 }
 
 .dough-config label {
     margin-bottom: 0.35rem;
     display: block;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: 500;
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
 }
 
 .temperature-card {
     margin-top: 0.75rem;
     padding: 0.4rem 0.65rem;
-    border-radius: 1rem;
+    border-radius: var(--radius-xl);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--backdrop-blur);
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
+    gap: var(--spacing-md);
 }
 
 .temperature-header {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: var(--letter-spacing-wide);
 }
 
 .temperature-display {
@@ -348,20 +348,20 @@ onMounted(() => { emitBuilderChanged() })
 }
 
 .temp-value {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #fff;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
 }
 
 .temp-unit {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
 }
 
 .temperature-controls {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--spacing-xs);
     width: 140px;
 }
 
@@ -376,15 +376,15 @@ onMounted(() => { emitBuilderChanged() })
     height: 25px;
     border-radius: 20%;
     border: none;
-    background: rgba(255, 255, 255, 0.08);
-    color: white;
-    font-weight: 700;
-    font-size: 0.9rem;
+    background: var(--color-overlay-glass);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base);
 }
 
 @media (max-width: 768px) {
     .presets-container {
-        gap: 0.75rem;
+        gap: var(--spacing-md);
     }
 
     .preset-btn {
@@ -392,7 +392,7 @@ onMounted(() => { emitBuilderChanged() })
     }
 
     .preset-title {
-        font-size: 0.9rem;
+        font-size: var(--font-size-sm);
     }
 }
 </style>

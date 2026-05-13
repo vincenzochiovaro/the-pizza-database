@@ -19,21 +19,21 @@
 
 <style scoped>
 .video-container {
-    padding: 24px;
+    padding: var(--spacing-xl);
     display: flex;
     justify-content: center;
 }
 
 .video-placeholder {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-overlay-glass);
     border: 1px solid rgba(201, 151, 58, 0.18);
-    border-radius: 20px;
+    border-radius: var(--radius-card);
     overflow: hidden;
     max-width: 560px;
     width: 100%;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
-    transition: transform 0.35s cubic-bezier(.22, .68, 0, 1.2), box-shadow 0.35s ease;
+    transition: transform 0.35s cubic-bezier(.22, .68, 0, 1.2), box-shadow var(--transition-base);
 }
 
 .video-placeholder:hover {
@@ -54,9 +54,9 @@
 
 .play-button {
     font-size: 4rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-secondary-emphasis);
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-fast);
 }
 
 .video-thumbnail:hover .play-button {
@@ -68,34 +68,34 @@
     bottom: 8px;
     right: 8px;
     background: rgba(0, 0, 0, 0.8);
-    color: white;
+    color: var(--color-text-primary);
     padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
 }
 
 .video-info {
-    padding: 16px 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
 }
 
 .video-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #fff;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
     margin-bottom: 4px;
-    line-height: 1.3;
+    line-height: var(--line-height-tight);
 }
 
 .video-meta {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 400;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-regular);
 }
 
 @media (max-width: 640px) {
     .video-container {
-        padding: 16px;
+        padding: var(--spacing-md);
     }
 
     .video-placeholder {
@@ -107,11 +107,11 @@
     }
 
     .video-title {
-        font-size: 1rem;
+        font-size: var(--font-size-md);
     }
 
     .video-meta {
-        font-size: 0.8rem;
+        font-size: var(--font-size-sm);
     }
 }
 </style>

@@ -84,8 +84,8 @@ const props = defineProps<{
     .ingredients-display {
         position: sticky;
         top: 3.8rem;
-        background: #0a0e27;
-        z-index: 10;
+        background: var(--color-bg-dark-primary);
+        z-index: var(--z-sticky);
         padding: 0.25rem 0;
     }
 }
@@ -93,7 +93,7 @@ const props = defineProps<{
 .ingredients-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: var(--spacing-md);
     justify-content: center;
     max-width: 600px;
 }
@@ -124,13 +124,13 @@ const props = defineProps<{
 .ingredient-card {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 0.8rem 1rem;
+    background: var(--color-overlay-glass);
+    border: 2px solid var(--color-border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md) var(--spacing-md);
     min-width: 120px;
     flex: 1 1 120px;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
     cursor: default;
     position: relative;
     overflow: hidden;
@@ -166,7 +166,7 @@ const props = defineProps<{
 
 .ingredient-card:hover {
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-border-light);
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
@@ -219,23 +219,23 @@ const props = defineProps<{
 }
 
 .ingredient-name {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
+    letter-spacing: var(--letter-spacing-wide);
+    font-weight: var(--font-weight-semibold);
     margin-bottom: 0.2rem;
     text-align: center;
 }
 
 .ingredient-value {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #fff;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
     font-family: 'JetBrains Mono', monospace;
     background: rgba(255, 255, 255, 0.08);
     padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-md);
     text-align: center;
 }
 
