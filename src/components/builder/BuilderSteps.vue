@@ -15,6 +15,7 @@
                     <p class="step-text">{{ step }}</p>
                 </div>
             </div>
+            <BuilderCookingSteps />
         </div>
     </div>
 
@@ -28,6 +29,7 @@
 <script setup lang="ts">
 import type { DoughIngredients } from '../../models/Builder.ts';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel.ts';
+import BuilderCookingSteps from './BuilderCookingSteps.vue';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null;
