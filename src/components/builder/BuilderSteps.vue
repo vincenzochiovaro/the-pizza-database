@@ -15,7 +15,7 @@
                     <p class="step-text">{{ step }}</p>
                 </div>
             </div>
-            <BuilderCookingSteps />
+            <BuilderCookingSteps :selectedPresetData="props.selectedPresetData" />
         </div>
     </div>
 
