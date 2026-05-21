@@ -6,5 +6,9 @@ export interface DoughIngredients {
   waterDay2: number
   flourDay2: number
   saltDay2: number
-  steps: string[];
+  steps: string[]
+  tips: {
+    home: string[]
+    professional: string[]
+  }
 }
