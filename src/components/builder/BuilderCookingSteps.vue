@@ -5,12 +5,12 @@
                 <button type="button"
                     :class="['tips-card-toggle', selectedOven === 'home' ? 'tips-card-toggle--active' : '']"
                     @click="selectedOven = 'home'">
-                    Home oven 250°
+                    {{ props.templateData?.homeOvenLabel || 'Home oven' }} 250°
                 </button>
                 <button type="button"
                     :class="['tips-card-toggle', selectedOven === 'professional' ? 'tips-card-toggle--active' : '']"
                     @click="selectedOven = 'professional'">
-                    Professional oven 400°
+                    {{ props.templateData?.professionalOvenLabel || 'Professional oven' }} 400°
                 </button>
             </div>
         </div>
@@ -24,10 +24,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { DoughIngredients } from '../../models/Builder.ts';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel.ts';
 const selectedOven = ref<'home' | 'professional'>('home');
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null;
+    templateData: BuilderTemplateData | null;
 }>();
 
 
