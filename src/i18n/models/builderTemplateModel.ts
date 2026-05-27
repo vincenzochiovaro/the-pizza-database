@@ -17,5 +17,7 @@ export interface BuilderTemplateData {
   doughBallWeightLabel: string,
   hydrationLabel: string,
   prefermentLabel?: string,
-  temperatureLabel: string
+  temperatureLabel: string,
+  homeOvenLabel: string,
+  professionalOvenLabel: string,
 }

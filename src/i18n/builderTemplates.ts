@@ -21,7 +21,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             doughBallWeightLabel: "Peso per pallina (gr)",
             hydrationLabel: "Idratazione (%)",
             prefermentLabel: "Prefermento (%)",
-            temperatureLabel: "Temperatura"
+            temperatureLabel: "Temperatura",
+            homeOvenLabel: "Forno di Casa",
+            professionalOvenLabel: "Forno Professionale"
         };
 
         return templateDataIt
@@ -46,7 +48,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             doughBallWeightLabel: "Doughball weight (gr)",
             hydrationLabel: "Hydration (%)",
             prefermentLabel: "Preferment (%)",
-            temperatureLabel: "Temperature"
+            temperatureLabel: "Temperature",
+            homeOvenLabel: "Home Oven",
+            professionalOvenLabel: "Professional Oven"
         };
         return templateDataEng
     }
