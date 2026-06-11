@@ -1,7 +1,7 @@
 <template>
     <div class="schedule-card">
         <div class="schedule-row">
-            <div class="schedule-heading">Schedule My Pizza</div>
+            <div class="schedule-heading">Ready by</div>
             <button class="schedule-button" type="button" @click="open = true">Schedule</button>
         </div>
 
@@ -10,14 +10,15 @@
             <div v-if="open" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
                 <div class="modal-card">
                     <button class="close-btn" type="button" @click="close">×</button>
-                    <h3 id="schedule-modal-title">Pickup schedule</h3>
-                    <p class="modal-copy">Add a date, time, and email to book your pizza.</p>
+                    <h3 id="schedule-modal-title">Ready by time</h3>
+                    <p class="modal-copy">Choose date, time, and email for your pizza booking.</p>
 
                     <label class="field-label" for="schedule-date">Date</label>
-                    <input id="schedule-date" class="field-input" type="date" v-model="date" />
+                    <input id="schedule-date" class="field-input" type="date" :min="today" v-model="date"
+                        @keydown.prevent />
 
                     <label class="field-label" for="schedule-time">Time</label>
-                    <input id="schedule-time" class="field-input" type="time" v-model="time" />
+                    <input id="schedule-time" class="field-input" type="time" v-model="time" @keydown.prevent />
 
                     <label class="field-label" for="schedule-email">Email</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
@@ -154,6 +155,33 @@ const submit = () => {
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text-primary);
+    cursor: pointer;
+}
+
+.field-input[type="date"],
+.field-input[type="time"] {
+    cursor: pointer;
+}
+
+.field-input::-webkit-calendar-picker-indicator,
+.field-input::-webkit-clear-button {
+    filter: invert(1) contrast(1.2);
+}
+
+.field-input::-webkit-datetime-edit,
+.field-input::-webkit-datetime-edit-fields-wrapper,
+.field-input::-webkit-datetime-edit-text {
+    color: var(--color-text-primary);
+}
+
+.field-input::-webkit-datetime-edit,
+.field-input::-webkit-datetime-edit-fields-wrapper,
+.field-input::-webkit-datetime-edit-text {
+    color: var(--color-text-primary);
+}
+
+.field-input::-moz-focus-inner {
+    border: 0;
 }
 
 .submit-btn {
