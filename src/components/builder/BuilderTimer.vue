@@ -57,38 +57,47 @@ const submit = () => {
 
 <style scoped>
 .schedule-card {
-    min-width: 240px;
-    flex: 1 1 240px;
-    padding: var(--spacing-md);
+    min-width: auto;
+    flex: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-xl);
-    background: var(--color-overlay-glass);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(14px);
 }
 
 .schedule-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-sm);
+    justify-content: space-between;
+    gap: 0.85rem;
 }
 
-.schedule-title {
-    font-size: var(--font-size-sm);
+.schedule-heading {
+    font-size: 0.75rem;
     color: var(--color-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
     font-weight: var(--font-weight-semibold);
     white-space: nowrap;
 }
 
 .schedule-button {
-    padding: 0.45rem 0.85rem;
-    border: none;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, var(--color-primary), rgba(100, 200, 255, 0.92));
+    background: rgba(255, 255, 255, 0.06);
     color: #fff;
-    font-size: var(--font-size-sm);
+    font-size: 0.78rem;
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
     white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.schedule-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
 }
 
 .modal-overlay {
@@ -103,9 +112,9 @@ const submit = () => {
     position: fixed;
     inset: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: var(--spacing-lg);
+    padding: 3rem var(--spacing-lg) var(--spacing-lg);
     z-index: 1250;
 }
 
