@@ -25,7 +25,15 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             homeOvenLabel: "Forno di Casa",
             professionalOvenLabel: "Forno Professionale",
             readyByTitle: "Pronta Entro",
-            readyByScheduleButton: "Timer"
+            readyByScheduleButton: "Timer",
+            readyByModalTitle: "Pizza Timer",
+            readyByModalDescription: "Questo timer invia un'email con tutte le istruzioni necessarie, così da avere la tua pizza pronta da infornare per l'orario scelto.",
+            readyByDateLabel: "Data e ora",
+            readyByTimeLabel: "Ora",
+            readyByEmailLabel: "Email",
+            readyByPizzaTypeLabel: "Tipo di pizza",
+            readyBySendButton: "Invia richiesta",
+            readyByInvalidTimeText: "L'orario selezionato deve essere almeno"
         };
 
         return templateDataIt
@@ -54,7 +62,15 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             homeOvenLabel: "Home Oven",
             professionalOvenLabel: "Professional Oven",
             readyByTitle: "Ready by",
-            readyByScheduleButton: "Timer"
+            readyByScheduleButton: "Timer",
+            readyByModalTitle: "Pizza Timer",
+            readyByModalDescription: "This timer sends an email with all the necessary instructions, so that your pizza is ready to bake by the time you’ve chosen.",
+            readyByDateLabel: "Date & time",
+            readyByTimeLabel: "Time",
+            readyByEmailLabel: "Email",
+            readyByPizzaTypeLabel: "Pizza Type",
+            readyBySendButton: "Send request",
+            readyByInvalidTimeText: "Selected time must be at least"
         };
         return templateDataEng
     }

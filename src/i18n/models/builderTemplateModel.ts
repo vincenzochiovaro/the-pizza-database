@@ -22,4 +22,12 @@ export interface BuilderTemplateData {
   professionalOvenLabel: string,
   readyByTitle: string,
   readyByScheduleButton: string,
+  readyByModalTitle: string,
+  readyByModalDescription: string,
+  readyByDateLabel: string,
+  readyByTimeLabel: string,
+  readyByEmailLabel: string,
+  readyByPizzaTypeLabel: string,
+  readyBySendButton: string,
+  readyByInvalidTimeText: string,
 }

@@ -46,7 +46,7 @@ export async function SubmitScheduleRequestAsync(
             preset
         };
 
-        const url = `${import.meta.env.VITE_API_URL}api/SubmitScheduleRequest`;
+        const url = `${import.meta.env.VITE_API_URL}api/todo`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
