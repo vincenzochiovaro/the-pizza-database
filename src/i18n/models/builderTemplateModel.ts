@@ -20,4 +20,6 @@ export interface BuilderTemplateData {
   temperatureLabel: string,
   homeOvenLabel: string,
   professionalOvenLabel: string,
+  readyByTitle: string,
+  readyByScheduleButton: string,
 }

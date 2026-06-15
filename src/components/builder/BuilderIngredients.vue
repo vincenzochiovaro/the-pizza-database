@@ -54,8 +54,10 @@
                     </div>
                 </div>
             </template>
+        </div>
 
-            <BuilderTimer />
+        <div class="timer-container">
+            <BuilderTimer :selectedPreset="props.selectedPreset" :templateData="props.templateData" />
         </div>
     </div>
 </template>
@@ -78,7 +80,9 @@ const props = defineProps<{
     width: 100%;
     padding: 0.5rem 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
 }
 
 /* Mobile sticky behavior */
@@ -256,5 +260,11 @@ const props = defineProps<{
         font-size: 0.6rem;
         margin-bottom: 0.1rem;
     }
+}
+
+.timer-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 </style>

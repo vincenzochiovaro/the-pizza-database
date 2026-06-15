@@ -30,5 +30,42 @@ export async function GetPresetDataAsync(preset: string, lang: string, doughBall
         throw error;
     }
 
+}
 
+export async function SubmitScheduleRequestAsync(
+    date: string,
+    time: string,
+    email: string,
+    preset: 'Direct' | 'Biga' | 'Express' | null
+): Promise<void> {
+    try {
+        const payload = {
+            date,
+            time,
+            email,
+            preset
+        };
+
+        const url = `${import.meta.env.VITE_API_URL}api/SubmitScheduleRequest`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': import.meta.env.VITE_API_KEY
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        return result;
+
+    }
+    catch (error) {
+        console.error("Error submitting schedule request:", error);
+        throw error;
+    }
 }

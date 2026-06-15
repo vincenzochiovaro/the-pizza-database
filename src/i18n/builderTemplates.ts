@@ -23,7 +23,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             prefermentLabel: "Prefermento (%)",
             temperatureLabel: "Temperatura",
             homeOvenLabel: "Forno di Casa",
-            professionalOvenLabel: "Forno Professionale"
+            professionalOvenLabel: "Forno Professionale",
+            readyByTitle: "Pronta Entro",
+            readyByScheduleButton: "Timer"
         };
 
         return templateDataIt
@@ -50,7 +52,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             prefermentLabel: "Preferment (%)",
             temperatureLabel: "Temperature",
             homeOvenLabel: "Home Oven",
-            professionalOvenLabel: "Professional Oven"
+            professionalOvenLabel: "Professional Oven",
+            readyByTitle: "Ready by",
+            readyByScheduleButton: "Timer"
         };
         return templateDataEng
     }

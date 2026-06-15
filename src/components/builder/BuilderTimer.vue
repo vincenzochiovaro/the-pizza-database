@@ -1,8 +1,9 @@
 <template>
     <div class="schedule-card">
         <div class="schedule-row">
-            <div class="schedule-heading">Ready by</div>
-            <button class="schedule-button" type="button" @click="open = true">Schedule</button>
+            <div class="schedule-heading">{{ props.templateData?.readyByTitle ?? 'Ready by' }}</div>
+            <button class="schedule-button" type="button" @click="open = true">{{
+                props.templateData?.readyByScheduleButton ?? 'Schedule' }}</button>
         </div>
 
         <teleport to="body">
@@ -24,6 +25,9 @@
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
+                    <label class="field-label" for="schedule-preset">Pizza Type</label>
+                    <div id="schedule-preset" class="field-preset">{{ props.selectedPreset ?? 'None' }}</div>
+
                     <button class="submit-btn" type="button" :disabled="!canSend" @click="submit">Send request</button>
                 </div>
             </div>
@@ -33,12 +37,19 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
+import { SubmitScheduleRequestAsync } from '../../api/BuilderApi';
 
 const today = new Date().toISOString().slice(0, 10);
 const open = ref(false);
 const date = ref(today);
 const time = ref('18:00');
 const email = ref('');
+
+const props = defineProps<{
+    selectedPreset: 'Direct' | 'Biga' | 'Express' | null
+    templateData: BuilderTemplateData | null
+}>();
 
 const canSend = computed(() => date.value.length > 0 && time.value.length > 0 && email.value.includes('@'));
 
@@ -49,9 +60,16 @@ const close = () => {
     email.value = '';
 };
 
-const submit = () => {
-    if (!canSend.value) return;
-    close();
+const submit = async () => {
+    if (!canSend.value || !props.selectedPreset) return;
+
+    try {
+        await SubmitScheduleRequestAsync(date.value, time.value, email.value, props.selectedPreset);
+        close();
+    } catch (error) {
+        // TODO return error message e.g Toast
+        console.error("Failed to submit schedule request:", error);
+    }
 };
 </script>
 
@@ -191,6 +209,18 @@ const submit = () => {
 
 .field-input::-moz-focus-inner {
     border: 0;
+}
+
+.field-preset {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    font-weight: var(--font-weight-semibold);
 }
 
 .submit-btn {
