@@ -220,8 +220,8 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .vegetarian-icon {
-  width: var(--size-icon-md);
-  height: var(--size-icon-md);
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
   background: rgba(100, 255, 200, 0.2);
   border-radius: 50%;
   border: 2px solid rgba(100, 255, 200, 0.6);
@@ -239,8 +239,8 @@ function getPizzaImage(imageName: string | undefined): string {
 }
 
 .heart-icon {
-  width: var(--size-icon-md);
-  height: var(--size-icon-md);
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
   background: rgba(255, 107, 157, 0.2);
   border-radius: 50%;
   display: flex;

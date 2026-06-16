@@ -319,67 +319,68 @@ onMounted(() => { emitBuilderChanged() })
 }
 
 .temperature-card {
-    margin-top: 0.75rem;
-    padding: 0.4rem 0.65rem;
-    border-radius: var(--radius-xl);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    backdrop-filter: var(--backdrop-blur);
+    margin-top: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 1rem;
+    background: rgba(15, 20, 55, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--spacing-md);
+    justify-content: space-between;
+    gap: 0.6rem;
 }
 
 .temperature-header {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.72);
     text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
+    letter-spacing: 0.08em;
 }
 
 .temperature-display {
     display: flex;
     align-items: baseline;
-    gap: 0.15rem;
-    min-width: 50px;
+    gap: 0.1rem;
+    min-width: 42px;
 }
 
 .temp-value {
-    font-size: var(--font-size-xl);
+    font-size: 1rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
+    color: #f7fafc;
 }
 
 .temp-unit {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .temperature-controls {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    width: 140px;
+    gap: 0.35rem;
+    width: 120px;
 }
 
 .temperature-controls input[type="range"] {
-    width: 100px;
+    width: 80px;
     height: 3px;
     flex: none;
 }
 
 .temp-btn {
-    width: 40px;
-    height: 25px;
-    border-radius: 20%;
+    width: 32px;
+    height: 26px;
+    border-radius: 0.6rem;
     border: none;
-    background: var(--color-overlay-glass);
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-base);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f7fafc;
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {

@@ -23,7 +23,18 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             prefermentLabel: "Prefermento (%)",
             temperatureLabel: "Temperatura",
             homeOvenLabel: "Forno di Casa",
-            professionalOvenLabel: "Forno Professionale"
+            professionalOvenLabel: "Forno Professionale",
+            readyByScheduleButton: "Timer",
+            readyByModalDescription: "Scegli quando vuoi la pizza pronta e ricevi email con i passaggi chiave per arrivare pronti al forno senza stress.",
+            readyByDateLabel: "Data e ora",
+            readyByTimeLabel: "Ora",
+            readyByTimePlaceholder: "Scegli un orario",
+            readyByEmailLabel: "Email",
+            readyByPizzaTypeLabel: "Tipo di pizza",
+            readyBySendButton: "Invia",
+            readyBySuccessMessage: "Richiesta inviata con successo!",
+            readyByFailureMessage: "Invio fallito. Per favore riprova.",
+            readyByInvalidTimeText: "L'orario selezionato deve essere almeno"
         };
 
         return templateDataIt
@@ -50,7 +61,18 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             prefermentLabel: "Preferment (%)",
             temperatureLabel: "Temperature",
             homeOvenLabel: "Home Oven",
-            professionalOvenLabel: "Professional Oven"
+            professionalOvenLabel: "Professional Oven",
+            readyByScheduleButton: "Timer",
+            readyByModalDescription: "Choose when you want your pizza ready and get email reminders for the main steps, so everything lines up for the oven.",
+            readyByDateLabel: "Date & time",
+            readyByTimeLabel: "Time",
+            readyByTimePlaceholder: "Choose time",
+            readyByEmailLabel: "Email",
+            readyByPizzaTypeLabel: "Pizza Type",
+            readyBySendButton: "Send",
+            readyBySuccessMessage: "Request sent successfully!",
+            readyByFailureMessage: "Failed to send request. Please try again.",
+            readyByInvalidTimeText: "Selected time must be at least"
         };
         return templateDataEng
     }
