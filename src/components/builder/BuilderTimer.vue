@@ -26,8 +26,9 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                    }}</label>
+                        }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
+                        <option disabled value="">Choose time</option>
                         <option v-for="slot in timeSlots" :key="slot.value" :value="slot.value"
                             :disabled="slot.disabled">
                             {{ slot.label }}
@@ -35,7 +36,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                    }}</label>
+                        }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -70,7 +71,7 @@ const open = ref(false);
 const now = ref(new Date());
 const minScheduleDateTime = computed(() => getMinScheduleDateTime(props.selectedPreset, now.value));
 const selectedDate = ref(normalizeDateInput(minScheduleDateTime.value));
-const selectedTime = ref(normalizeTimeInput(minScheduleDateTime.value));
+const selectedTime = ref('');
 const email = ref('');
 const isSubmitting = ref(false);
 let timerId: number | null = null;
@@ -130,7 +131,7 @@ const canSend = computed(() => {
     return (
         props.selectedPreset !== null &&
         selectedDate.value.length > 0 &&
-        selectedTime.value.length > 0 &&
+        selectedTime.value !== '' &&
         email.value.includes('@')
     );
 });
@@ -140,7 +141,7 @@ const ensureValidSchedule = () => {
         selectedDate.value = minDate.value;
     }
 
-    if (selectedDate.value === minDate.value && selectedTime.value < minTime.value) {
+    if (selectedDate.value === minDate.value && selectedTime.value && selectedTime.value < minTime.value) {
         selectedTime.value = minTime.value;
     }
 };
@@ -150,7 +151,7 @@ watch([selectedDate, minDate, minTime], ensureValidSchedule, { immediate: true }
 const resetFields = () => {
     now.value = new Date();
     selectedDate.value = minDate.value;
-    selectedTime.value = minTime.value;
+    selectedTime.value = '';
     email.value = '';
 };
 
@@ -193,8 +194,10 @@ const submit = async () => {
             props.selectedPreset,
             languageStore.currentLanguage
         );
+        window.alert('Request sent successfully!');
     } catch (error) {
         console.error('Failed to submit schedule request:', error);
+        window.alert('Failed to send request. Please try again.');
     } finally {
         isSubmitting.value = false;
     }
