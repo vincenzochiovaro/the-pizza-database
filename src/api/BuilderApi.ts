@@ -37,14 +37,16 @@ export async function SubmitScheduleRequestAsync(
     date: string,
     time: string,
     email: string,
-    preset: 'Direct' | 'Biga' | 'Express' | null
+    preset: 'Direct' | 'Biga' | 'Express' | null,
+    lang: string
 ): Promise<void> {
     try {
         const payload = {
             date,
             time,
             email,
-            preset
+            preset,
+            lang
         };
 
         const url = `${import.meta.env.VITE_API_URL}api/SchedulePizzaTimeline`;

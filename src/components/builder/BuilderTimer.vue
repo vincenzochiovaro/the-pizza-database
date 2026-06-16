@@ -1,7 +1,7 @@
 <template>
     <div class="schedule-card">
         <div class="schedule-row">
-            <div class="schedule-heading">{{ props.templateData?.readyByTitle ?? 'Ready by' }}</div>
+            <div class="schedule-heading">Pizza Timer</div>
             <button class="schedule-button" type="button" @click="openModal">
                 {{ props.templateData?.readyByScheduleButton ?? 'Schedule' }}
             </button>
@@ -12,9 +12,9 @@
             <div v-if="open" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
                 <div class="modal-card">
                     <button class="close-btn" type="button" @click="close">×</button>
-                    <h3 id="schedule-modal-title">{{ props.templateData?.readyByModalTitle ?? 'Ready by time' }}</h3>
+                    <h3 id="schedule-modal-title">Pizza Timer</h3>
                     <p class="modal-copy">{{ props.templateData?.readyByModalDescription ??
-                        'Choose date, time, and email for your pizza booking.' }}</p>
+                        'Pick the time you want your pizza to be ready' }}</p>
 
                     <label class="field-label">{{ props.templateData?.readyByDateLabel ?? 'Choose date' }}</label>
                     <div class="date-grid">
@@ -26,7 +26,7 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                        }}</label>
+                    }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
                         <option v-for="slot in timeSlots" :key="slot.value" :value="slot.value"
                             :disabled="slot.disabled">
@@ -35,7 +35,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                        }}</label>
+                    }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -186,7 +186,13 @@ const submit = async () => {
     close();
 
     try {
-        await SubmitScheduleRequestAsync(selectedDate.value, selectedTime.value, email.value, props.selectedPreset);
+        await SubmitScheduleRequestAsync(
+            selectedDate.value,
+            selectedTime.value,
+            email.value,
+            props.selectedPreset,
+            languageStore.currentLanguage
+        );
     } catch (error) {
         console.error('Failed to submit schedule request:', error);
     } finally {
@@ -265,15 +271,17 @@ onBeforeUnmount(clearTimer);
 }
 
 .modal-card {
-    width: min(420px, 100%);
+    width: min(440px, 100%);
+    max-height: min(95vh, 640px);
     background: rgba(10, 16, 38, 0.98);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-2xl);
     padding: 1.1rem 1.1rem 1rem;
     display: grid;
-    gap: 0.85rem;
+    gap: 0.75rem;
     position: relative;
     margin-top: 1.4rem;
+    overflow-y: auto;
 }
 
 .close-btn {
@@ -293,8 +301,8 @@ onBeforeUnmount(clearTimer);
 .modal-copy {
     margin: 0;
     color: var(--color-text-muted);
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .field-label {
