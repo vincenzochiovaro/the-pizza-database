@@ -17,6 +17,7 @@ export async function GetPresetDataAsync(preset: string, lang: string, doughBall
         const url = `${import.meta.env.VITE_API_URL}api/GetPresetData?${params}`;
         const response = await fetch(url, {
             headers: {
+                'Content-Type': 'application/json',
                 'x-api-key': import.meta.env.VITE_API_KEY
             }
         });
@@ -46,7 +47,7 @@ export async function SubmitScheduleRequestAsync(
             preset
         };
 
-        const url = `${import.meta.env.VITE_API_URL}api/todo`;
+        const url = `${import.meta.env.VITE_API_URL}api/SchedulePizzaTimeline`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {

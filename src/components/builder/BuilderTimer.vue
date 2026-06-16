@@ -26,7 +26,7 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                    }}</label>
+                        }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
                         <option v-for="slot in timeSlots" :key="slot.value" :value="slot.value"
                             :disabled="slot.disabled">
@@ -35,7 +35,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                    }}</label>
+                        }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onBeforeUnmount } from 'vue';
+import { useLanguageStore } from '../../stores/LanguageStore';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 import { SubmitScheduleRequestAsync } from '../../api/BuilderApi';
 import { getMinScheduleDateTime, normalizeDateInput, normalizeTimeInput } from '../../utils/scheduleHelpers';
@@ -73,6 +74,9 @@ const selectedTime = ref(normalizeTimeInput(minScheduleDateTime.value));
 const email = ref('');
 const isSubmitting = ref(false);
 let timerId: number | null = null;
+
+const languageStore = useLanguageStore();
+const locale = computed(() => languageStore.currentLanguage === 'it' ? 'it-IT' : 'en-US');
 
 const selectedPresetLabel = computed(() => {
     if (!props.selectedPreset) {
@@ -97,7 +101,7 @@ const availableDates = computed(() => {
         const date = new Date(start);
         date.setDate(start.getDate() + index);
         const value = normalizeDateInput(date);
-        const label = date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+        const label = date.toLocaleDateString(locale.value, { weekday: 'short', month: 'short', day: 'numeric' });
         return {
             value,
             label,
