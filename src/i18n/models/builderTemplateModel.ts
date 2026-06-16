@@ -24,8 +24,11 @@ export interface BuilderTemplateData {
   readyByModalDescription: string,
   readyByDateLabel: string,
   readyByTimeLabel: string,
+  readyByTimePlaceholder: string,
   readyByEmailLabel: string,
   readyByPizzaTypeLabel: string,
   readyBySendButton: string,
+  readyBySuccessMessage: string,
+  readyByFailureMessage: string,
   readyByInvalidTimeText: string,
 }

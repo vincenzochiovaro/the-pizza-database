@@ -7,6 +7,10 @@
             </button>
         </div>
 
+        <div v-if="notification.visible" :class="['toast-message', notification.type]">
+            {{ notification.message }}
+        </div>
+
         <teleport to="body">
             <div v-if="open" class="modal-overlay" @click.self="close"></div>
             <div v-if="open" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
@@ -28,7 +32,8 @@
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
                         }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
-                        <option disabled value="">Choose time</option>
+                        <option disabled value="">{{ props.templateData?.readyByTimePlaceholder ?? 'Choose time' }}
+                        </option>
                         <option v-for="slot in timeSlots" :key="slot.value" :value="slot.value"
                             :disabled="slot.disabled">
                             {{ slot.label }}
@@ -74,7 +79,9 @@ const selectedDate = ref(normalizeDateInput(minScheduleDateTime.value));
 const selectedTime = ref('');
 const email = ref('');
 const isSubmitting = ref(false);
+const notification = ref({ visible: false, message: '', type: 'success' as 'success' | 'error' });
 let timerId: number | null = null;
+let notificationTimerId: number | null = null;
 
 const languageStore = useLanguageStore();
 const locale = computed(() => languageStore.currentLanguage === 'it' ? 'it-IT' : 'en-US');
@@ -127,12 +134,14 @@ const timeSlots = computed(() => {
     return slots;
 });
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const canSend = computed(() => {
     return (
         props.selectedPreset !== null &&
         selectedDate.value.length > 0 &&
         selectedTime.value !== '' &&
-        email.value.includes('@')
+        emailPattern.test(email.value)
     );
 });
 
@@ -160,6 +169,23 @@ const clearTimer = () => {
         window.clearInterval(timerId);
         timerId = null;
     }
+};
+
+const clearNotification = () => {
+    if (notificationTimerId !== null) {
+        window.clearTimeout(notificationTimerId);
+        notificationTimerId = null;
+    }
+    notification.value.visible = false;
+};
+
+const showNotification = (message: string, type: 'success' | 'error') => {
+    clearNotification();
+    notification.value = { visible: true, message, type };
+    notificationTimerId = window.setTimeout(() => {
+        notification.value.visible = false;
+        notificationTimerId = null;
+    }, 4000);
 };
 
 const openModal = () => {
@@ -194,16 +220,19 @@ const submit = async () => {
             props.selectedPreset,
             languageStore.currentLanguage
         );
-        window.alert('Request sent successfully!');
+        showNotification(props.templateData?.readyBySuccessMessage ?? 'Request sent successfully!', 'success');
     } catch (error) {
         console.error('Failed to submit schedule request:', error);
-        window.alert('Failed to send request. Please try again.');
+        showNotification(props.templateData?.readyByFailureMessage ?? 'Failed to send request. Please try again.', 'error');
     } finally {
         isSubmitting.value = false;
     }
 };
 
-onBeforeUnmount(clearTimer);
+onBeforeUnmount(() => {
+    clearTimer();
+    clearNotification();
+});
 </script>
 
 <style scoped>
@@ -222,6 +251,28 @@ onBeforeUnmount(clearTimer);
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
+}
+
+.toast-message {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-primary);
+    font-size: 0.92rem;
+}
+
+.toast-message.success {
+    background: rgba(56, 203, 99, 0.14);
+    border-color: rgba(56, 203, 99, 0.28);
+    color: #d4ffe0;
+}
+
+.toast-message.error {
+    background: rgba(255, 82, 82, 0.14);
+    border-color: rgba(255, 82, 82, 0.28);
+    color: #ffd6d6;
 }
 
 .schedule-heading {
