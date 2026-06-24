@@ -41,10 +41,8 @@ const props = defineProps<{
 const getStepImage = (stepNumber: number) => {
     if (!props.selectedPreset) return '';
     try {
-        return new URL(
-            `../../assets/builderimages/${props.selectedPreset}Step${stepNumber}.jpg`,
-            import.meta.url
-        ).href;
+        return `https://github.com/vincenzochiovaro/the-pizza-database-assets/blob/main/calculator-assets/instructions-assets/${props.selectedPreset}Step${stepNumber}.jpg?raw=true`
+
     } catch (e) {
         console.warn('Step image not found:', props.selectedPreset, stepNumber);
         return '';
