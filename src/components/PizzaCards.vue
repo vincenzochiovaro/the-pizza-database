@@ -115,7 +115,7 @@ function getPizzaImage(imageName: string | undefined): string {
     if (!imageName) {
       return pizzaDefaultImg
     }
-    return new URL(`../assets/pizzaimages/${imageName}`, import.meta.url).href
+    return `https://github.com/vincenzochiovaro/the-pizza-database-assets/blob/main/menu-assets/pizza-display-assets/${imageName}?raw=true`
   } catch {
     return pizzaDefaultImg
   }
