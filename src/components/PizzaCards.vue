@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div v-for="pizza in filteredPizzas" :key="'modal-' + pizza.id">
+    <Teleport v-for="pizza in filteredPizzas" :key="'modal-' + pizza.id" to="body">
       <div class="modal fade" :id="'noteModal' + pizza.id" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -72,7 +72,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </div>
 </template>
 
