@@ -39,14 +39,15 @@
             </ul>
 
 
-            <div class="d-flex justify-content-between mt-auto pt-2">
-              <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+            <div class="d-flex justify-content-between mt-auto pt-2 gap-2">
+              <button class="btn btn-sm btn-icon" title="More info" data-bs-toggle="modal"
                 :data-bs-target="'#noteModal' + pizza.id">
-                💡 More info
+                💡
               </button>
-              <button class="btn btn-sm" :class="isInLocalStorage(pizza.name) ? 'btn-danger' : 'btn-outline-danger'"
+              <button class="btn btn-sm btn-icon"
+                :title="isInLocalStorage(pizza.name) ? 'Remove favourite' : 'Add favourite'"
                 @click="toggleLSPizza(pizza.name)">
-                {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }} Fav
+                {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
               </button>
             </div>
           </div>
@@ -150,6 +151,37 @@ function getPizzaImage(imageName: string | undefined): string {
 </script>
 
 <style scoped>
+/* Target the heart button using the dynamic title attribute */
+.btn-icon[title*="favourite"] {
+  color: #ff4757;
+  /* vibrant red for both states */
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Subtle scale on hover for better feedback */
+.btn-icon[title*="favourite"]:hover {
+  transform: scale(1.15);
+}
+
+/* Press-down effect on click */
+.btn-icon[title*="favourite"]:active {
+  transform: scale(0.85);
+}
+
+.btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  transition: all 0.2s;
+}
+
 .pizza-card {
   max-width: 350px;
   margin: 0 auto;
