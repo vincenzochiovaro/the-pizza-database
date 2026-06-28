@@ -18,6 +18,7 @@
           <p>Tap the heart on a pizza to add it here.</p>
         </div>
       </div>
+
       <div v-for="pizza in filteredPizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="pizza-card" :class="{ vegetarian: pizza.isVegetarian }">
           <div class="pizza-content">
@@ -25,9 +26,7 @@
               <h5 class="pizza-title">The {{ pizza.name }}</h5>
               <div class="pizza-controls">
                 <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
-                <div class="heart-icon" @click="toggleLSPizza(pizza.name)">
-                  {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
-                </div>
+
               </div>
             </div>
 
@@ -39,9 +38,37 @@
               </li>
             </ul>
 
-            <p v-if="pizza.note" class="pizza-note">
-              {{ pizza.note }}
-            </p>
+
+            <div class="d-flex justify-content-between mt-auto pt-2">
+              <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                :data-bs-target="'#noteModal' + pizza.id">
+                💡 More info
+              </button>
+              <button class="btn btn-sm" :class="isInLocalStorage(pizza.name) ? 'btn-danger' : 'btn-outline-danger'"
+                @click="toggleLSPizza(pizza.name)">
+                {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }} Fav
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-for="pizza in filteredPizzas" :key="'modal-' + pizza.id">
+      <div class="modal fade" :id="'noteModal' + pizza.id" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">📝 {{ pizza.name }} – Note</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <p v-if="pizza.note" class="mb-0">{{ pizza.note }}</p>
+              <p v-else class="text-muted mb-0">No additional notes for this pizza.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
       </div>
