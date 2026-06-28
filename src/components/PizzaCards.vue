@@ -151,19 +151,15 @@ function getPizzaImage(imageName: string | undefined): string {
 </script>
 
 <style scoped>
-/* Target the heart button using the dynamic title attribute */
 .btn-icon[title*="favourite"] {
   color: #ff4757;
-  /* vibrant red for both states */
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Subtle scale on hover for better feedback */
 .btn-icon[title*="favourite"]:hover {
   transform: scale(1.15);
 }
 
-/* Press-down effect on click */
 .btn-icon[title*="favourite"]:active {
   transform: scale(0.85);
 }
