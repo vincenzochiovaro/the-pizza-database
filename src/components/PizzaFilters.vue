@@ -12,10 +12,12 @@
       <div class="filter-divider"></div>
 
       <div class="filter-controls">
-        <button @click="selectFilter('Favourites')" class="filter-btn btn-favourite"
+        <button @click="toggleFavourites" class="filter-btn btn-favourite"
           :class="{ active: selectedFilter === 'Favourites' }">
-          <span class="btn-icon">❤️</span>
-          <span class="btn-text">{{ t.favourites }}</span>
+          <span class="btn-icon">{{ selectedFilter === 'Favourites' ? '⮑' : '❤️' }}</span>
+          <span class="btn-text">
+            {{ selectedFilter === 'Favourites' ? t.backToPizzas : t.favourites }}
+          </span>
         </button>
 
         <div class="dropdown" style="position: relative;">
@@ -53,6 +55,7 @@ const dropdownOpen = ref(false)
 const translations = {
   en: {
     favourites: 'Favourites',
+    backToPizzas: 'Back to pizzas',
     allPizzas: 'All Pizzas',
     vegPizzas: 'Vegetarians',
     yourFavourites: '❤️ Your Favourites',
@@ -61,6 +64,7 @@ const translations = {
   },
   it: {
     favourites: 'Preferiti',
+    backToPizzas: 'Torna alle pizze',
     allPizzas: 'Tutte le Pizze',
     vegPizzas: 'Vegetariane',
     yourFavourites: '❤️ I tuoi preferiti',
@@ -82,6 +86,14 @@ const displayFilter = computed(() => {
 function selectFilter(filterValue: string) {
   selectedFilter.value = filterValue
   emit('update-filter', filterValue)
+}
+
+function toggleFavourites() {
+  if (selectedFilter.value === 'Favourites') {
+    selectFilter('All pizzas')
+  } else {
+    selectFilter('Favourites')
+  }
 }
 
 function closeDropdown() {
@@ -316,11 +328,25 @@ function closeDropdown() {
 }
 
 .favourites-mode {
-  background: linear-gradient(135deg,
-      rgba(255, 107, 157, 0.08) 0%,
+  background:
+    linear-gradient(135deg,
+      rgba(255, 107, 157, 0.18) 0%,
+      rgba(255, 200, 100, 0.08) 45%,
       rgba(100, 200, 255, 0.08) 100%),
-    linear-gradient(135deg, #0a0e27 0%, #0f1338 40%, #1a1545 70%, #0a0e27 100%);
-  border-bottom-color: rgba(255, 107, 157, 0.4);
+    linear-gradient(135deg, #180d25 0%, #251238 45%, #0f1338 100%);
+  border-bottom-color: rgba(255, 107, 157, 0.8);
+}
+
+.favourites-mode .filter-title {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ffd166 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.favourites-mode .btn-favourite {
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.35), rgba(255, 209, 102, 0.2)) !important;
+  border-color: rgba(255, 209, 102, 0.8) !important;
 }
 
 @media (max-width: 768px) {
