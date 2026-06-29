@@ -18,6 +18,7 @@
           <p>Tap the heart on a pizza to add it here.</p>
         </div>
       </div>
+
       <div v-for="pizza in filteredPizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="pizza-card" :class="{ vegetarian: pizza.isVegetarian }">
           <div class="pizza-content">
@@ -25,9 +26,7 @@
               <h5 class="pizza-title">The {{ pizza.name }}</h5>
               <div class="pizza-controls">
                 <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
-                <div class="heart-icon" @click="toggleLSPizza(pizza.name)">
-                  {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
-                </div>
+
               </div>
             </div>
 
@@ -39,18 +38,29 @@
               </li>
             </ul>
 
-            <p v-if="pizza.note" class="pizza-note">
-              {{ pizza.note }}
-            </p>
+
+            <div class="d-flex justify-content-between mt-auto pt-2 gap-2">
+              <button class="btn btn-sm btn-icon" title="Info" data-bs-toggle="popover" data-bs-trigger="focus"
+                data-bs-placement="top" :data-bs-content="pizza.note">
+                💡
+              </button>
+              <button class="btn btn-sm btn-icon"
+                :title="isInLocalStorage(pizza.name) ? 'Remove favourite' : 'Add favourite'"
+                @click="toggleLSPizza(pizza.name)">
+                {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, nextTick } from 'vue';
+import { Popover } from 'bootstrap';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
 
@@ -62,6 +72,18 @@ const props = defineProps<{
 const loading = ref(true)
 const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
+
+function initPopovers() {
+
+  nextTick(() => {
+    const popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+
+    popovers.forEach((popover) => {
+      new Popover(popover);
+    });
+  });
+
+}
 
 function filterPizzas(filter: string) {
   if (filter !== "Favourites") {
@@ -83,12 +105,13 @@ watch(
   () => [props.filter, props.pizzas, lsTrigger.value],
   () => {
     filterPizzas(props.filter);
+
     if (!props.pizzas.length) {
       loading.value = true;
       return;
     }
-
     loading.value = false;
+    initPopovers();
   },
   { immediate: true }
 );
@@ -123,6 +146,33 @@ function getPizzaImage(imageName: string | undefined): string {
 </script>
 
 <style scoped>
+.btn-icon[title*="favourite"] {
+  color: #ff4757;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-icon[title*="favourite"]:hover {
+  transform: scale(1.15);
+}
+
+.btn-icon[title*="favourite"]:active {
+  transform: scale(0.85);
+}
+
+.btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  transition: all 0.2s;
+}
+
 .pizza-card {
   max-width: 350px;
   margin: 0 auto;

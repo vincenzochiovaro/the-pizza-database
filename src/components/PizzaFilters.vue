@@ -35,11 +35,6 @@
                   class="item-icon"></span> {{ t.whitePizzas }}</button></li>
           </ul>
         </div>
-
-        <button @click="resetFilter" class="filter-btn btn-reset">
-          <span class="btn-icon">↻</span>
-          <span class="btn-text">{{ t.reset }}</span>
-        </button>
       </div>
     </div>
   </div>
@@ -60,7 +55,6 @@ const translations = {
     favourites: 'Favourites',
     allPizzas: 'All Pizzas',
     vegPizzas: 'Vegetarians',
-    reset: '↻ Reset',
     yourFavourites: '❤️ Your Favourites',
     whitePizzas: 'White Pizzas',
     filterTitle: 'Sort By'
@@ -69,7 +63,6 @@ const translations = {
     favourites: 'Preferiti',
     allPizzas: 'Tutte le Pizze',
     vegPizzas: 'Vegetariane',
-    reset: '↻ Ripristina',
     yourFavourites: '❤️ I tuoi preferiti',
     whitePizzas: 'Pizze Bianche',
     filterTitle: 'Ordina Per'
@@ -91,16 +84,10 @@ function selectFilter(filterValue: string) {
   emit('update-filter', filterValue)
 }
 
-function resetFilter() {
-  selectedFilter.value = 'All pizzas'
-  emit('update-filter', 'All pizzas')
-}
-
 function closeDropdown() {
   setTimeout(() => { dropdownOpen.value = false }, 100)
 }
 </script>
-
 
 <style scoped>
 .filter-bar {
@@ -293,21 +280,6 @@ function closeDropdown() {
   border-color: rgba(255, 107, 157, 0.9) !important;
   color: rgba(255, 255, 255, 1) !important;
   box-shadow: 0 0 20px rgba(255, 107, 157, 0.4), inset 0 0 15px rgba(255, 107, 157, 0.1);
-}
-
-.btn-reset {
-  color: var(--color-accent) !important;
-  font-size: var(--font-size-sm) !important;
-  background: var(--color-primary-lightest) !important;
-  border: 2px solid var(--color-border-light) !important;
-  padding: 0.75rem 1.2rem;
-}
-
-.btn-reset:hover {
-  color: var(--color-accent) !important;
-  border-color: rgba(100, 200, 255, 0.7) !important;
-  background: var(--color-primary-lighter) !important;
-  box-shadow: var(--shadow-md);
 }
 
 .dropdown-menu.dropdown-dark {
