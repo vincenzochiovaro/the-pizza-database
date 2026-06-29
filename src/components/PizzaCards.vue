@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div v-for="pizza in filteredPizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
+      <div v-for="pizza in visiblePizzas" :key="pizza.id" class="col-12 col-md-6 col-lg-4">
         <div class="pizza-card" :class="{ vegetarian: pizza.isVegetarian }">
           <div class="pizza-content">
             <div class="pizza-header">
@@ -55,11 +55,41 @@
       </div>
     </div>
 
+    <div ref="loadMoreTrigger" class="text-center py-3">
+      <div v-if="hasMore" class="text-muted">
+        Loading more pizzas...
+      </div>
+    </div>
+
+    <nav v-if="!isMobile && totalPages > 1" class="d-flex justify-content-center mt-4">
+      <ul class="pagination custom-pagination">
+
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <button class="page-link" @click="changePage(currentPage - 1)">
+            ‹
+          </button>
+        </li>
+
+        <li v-for="page in totalPages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+          <button class="page-link" @click="changePage(page)">
+            {{ page }}
+          </button>
+        </li>
+
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <button class="page-link" @click="changePage(currentPage + 1)">
+            ›
+          </button>
+        </li>
+
+      </ul>
+    </nav>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue';
+import { ref, watch, nextTick, onMounted, onBeforeUnmount, computed } from 'vue';
 import { Popover } from 'bootstrap';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
@@ -72,6 +102,27 @@ const props = defineProps<{
 const loading = ref(true)
 const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
+
+const pageSize = 12;
+const currentPage = ref(1);
+const isMobile = ref(false);
+const loadMoreTrigger = ref<HTMLElement | null>(null);
+let observer: IntersectionObserver | null = null;
+
+const totalPages = computed(() => Math.ceil(filteredPizzas.value.length / pageSize));
+
+const visiblePizzas = computed(() => {
+  if (isMobile.value) {
+    return filteredPizzas.value.slice(0, currentPage.value * pageSize);
+  }
+
+  const start = (currentPage.value - 1) * pageSize;
+  return filteredPizzas.value.slice(start, start + pageSize);
+});
+
+const hasMore = computed(() => {
+  return isMobile.value && visiblePizzas.value.length < filteredPizzas.value.length;
+});
 
 function initPopovers() {
 
@@ -100,11 +151,45 @@ function filterPizzas(filter: string) {
   });
 }
 
+function changePage(page: number) {
+  if (page < 1 || page > totalPages.value) return;
+  currentPage.value = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function checkMobile() {
+  isMobile.value = window.innerWidth < 768;
+}
+
+function setupInfiniteScroll() {
+  observer?.disconnect();
+
+  observer = new IntersectionObserver(() => {
+    console.log("trigger reached", {
+      isMobile: isMobile.value,
+      hasMore: hasMore.value,
+      current: currentPage.value,
+      visible: visiblePizzas.value.length,
+      total: filteredPizzas.value.length
+    });
+
+    if (hasMore.value) {
+      currentPage.value++;
+    }
+  });
+
+  if (loadMoreTrigger.value) {
+    observer.observe(loadMoreTrigger.value);
+  }
+
+}
+
 
 watch(
   () => [props.filter, props.pizzas, lsTrigger.value],
   () => {
     filterPizzas(props.filter);
+    currentPage.value = 1;
 
     if (!props.pizzas.length) {
       loading.value = true;
@@ -115,6 +200,17 @@ watch(
   },
   { immediate: true }
 );
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+  setupInfiniteScroll();
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+  window.removeEventListener('resize', checkMobile);
+});
 
 function isInLocalStorage(pizzaName: string): boolean {
   lsTrigger.value;
@@ -387,5 +483,42 @@ function getPizzaImage(imageName: string | undefined): string {
   100% {
     transform: translateY(-10px);
   }
+}
+
+.custom-pagination {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  background: var(--color-overlay-glass);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  backdrop-filter: var(--backdrop-blur);
+}
+
+.custom-pagination .page-link {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-lg);
+  padding: 0.4rem 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.custom-pagination .page-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+}
+
+.custom-pagination .page-item.active .page-link {
+  background: rgba(255, 107, 157, 0.2);
+  border: 1px solid rgba(255, 107, 157, 0.4);
+  color: white;
+  box-shadow: 0 0 12px rgba(255, 107, 157, 0.2);
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  opacity: 0.3;
+  pointer-events: none;
 }
 </style>
