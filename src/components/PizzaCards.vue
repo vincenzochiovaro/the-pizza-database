@@ -23,7 +23,7 @@
         <div class="pizza-card" :class="{ vegetarian: pizza.isVegetarian }">
           <div class="pizza-content">
             <div class="pizza-header">
-              <h5 class="pizza-title">The {{ pizza.name }}</h5>
+              <h5 class="pizza-title">{{ pizza.name }}</h5>
               <div class="pizza-controls">
                 <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
 
