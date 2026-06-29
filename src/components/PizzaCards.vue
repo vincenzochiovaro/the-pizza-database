@@ -40,8 +40,8 @@
 
 
             <div class="d-flex justify-content-between mt-auto pt-2 gap-2">
-              <button class="btn btn-sm btn-icon" title="More info" data-bs-toggle="modal"
-                :data-bs-target="'#noteModal' + pizza.id">
+              <button class="btn btn-sm btn-icon" title="Info" data-bs-toggle="popover" data-bs-trigger="focus"
+                data-bs-placement="top" :data-bs-content="pizza.note">
                 💡
               </button>
               <button class="btn btn-sm btn-icon"
@@ -55,30 +55,12 @@
       </div>
     </div>
 
-    <Teleport v-for="pizza in filteredPizzas" :key="'modal-' + pizza.id" to="body">
-      <div class="modal fade" :id="'noteModal' + pizza.id" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">📝 {{ pizza.name }} – Note</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-              <p v-if="pizza.note" class="mb-0">{{ pizza.note }}</p>
-              <p v-else class="text-muted mb-0">No additional notes for this pizza.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, nextTick } from 'vue';
+import { Popover } from 'bootstrap';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
 
@@ -90,6 +72,18 @@ const props = defineProps<{
 const loading = ref(true)
 const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
+
+function initPopovers() {
+
+  nextTick(() => {
+    const popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+
+    popovers.forEach((popover) => {
+      new Popover(popover);
+    });
+  });
+
+}
 
 function filterPizzas(filter: string) {
   if (filter !== "Favourites") {
@@ -111,12 +105,13 @@ watch(
   () => [props.filter, props.pizzas, lsTrigger.value],
   () => {
     filterPizzas(props.filter);
+
     if (!props.pizzas.length) {
       loading.value = true;
       return;
     }
-
     loading.value = false;
+    initPopovers();
   },
   { immediate: true }
 );
