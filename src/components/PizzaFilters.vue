@@ -94,6 +94,8 @@ function toggleFavourites() {
   } else {
     selectFilter('Favourites')
   }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 function closeDropdown() {
