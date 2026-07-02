@@ -22,8 +22,8 @@
           <div class="empty-icon">
             <ReusableIcon name="pizza-slice" type="solid" color="rgb(255, 212, 59)" size="2.5rem" />
           </div>
-          <h5>No favourite pizzas yet</h5>
-          <p>Tap the heart on a pizza to add it here.</p>
+          <h5>{{ emptyStateTitle }}</h5>
+          <p>{{ emptyStateDescription }}</p>
         </div>
       </div>
 
@@ -105,6 +105,7 @@ import { Popover } from 'bootstrap';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
 import ReusableIcon from '../icons/ReusableIcon.vue';
+import { useLanguageStore } from '../stores/LanguageStore';
 
 const props = defineProps<{
   pizzas: Array<Pizza>
@@ -114,6 +115,7 @@ const props = defineProps<{
 const loading = ref(true)
 const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
+const languageStore = useLanguageStore();
 
 const pageSize = 12;
 const currentPage = ref(1);
@@ -122,6 +124,18 @@ const loadMoreTrigger = ref<HTMLElement | null>(null);
 let observer: IntersectionObserver | null = null;
 
 const totalPages = computed(() => Math.ceil(filteredPizzas.value.length / pageSize));
+
+const emptyStateTitle = computed(() => {
+  return languageStore.currentLanguage === 'it'
+    ? 'Nessuna pizza presente!'
+    : 'No favourite pizzas yet';
+});
+
+const emptyStateDescription = computed(() => {
+  return languageStore.currentLanguage === 'it'
+    ? 'Tocca il cuore su una pizza per aggiungerla qui.'
+    : 'Tap the heart on a pizza to add it here.';
+});
 
 const visiblePizzas = computed(() => {
   if (isMobile.value) {
