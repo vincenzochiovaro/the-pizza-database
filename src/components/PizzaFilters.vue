@@ -27,7 +27,7 @@
           <button class="filter-btn btn-filter dropdown-toggle" type="button" @click="dropdownOpen = !dropdownOpen"
             @blur="closeDropdown" tabindex="0" :aria-expanded="dropdownOpen">
             <span class="btn-icon">
-              <ReusableIcon name="pizza-slice" type="solid" color="rgb(99, 230, 190)" size="1rem" />
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(116, 192, 252)" size="1rem" />
             </span>
             <span class="btn-text">{{ displayFilter }}</span>
           </button>
