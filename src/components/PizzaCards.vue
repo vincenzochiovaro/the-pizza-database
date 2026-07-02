@@ -277,9 +277,10 @@ function setupInfiniteScroll() {
 
 
 watch(
-  () => [props.filter, props.pizzas, lsTrigger.value],
-  () => {
-    filterPizzas(props.filter);
+  () => [props.filter, props.pizzas],
+  ([filter]) => {
+    const currentFilter = typeof filter === 'string' ? filter : props.filter;
+    filterPizzas(currentFilter);
     closeActivePopover();
     currentPage.value = 1;
 
@@ -294,6 +295,26 @@ watch(
   },
   { immediate: true }
 );
+
+watch(lsTrigger, () => {
+  filterPizzas(props.filter);
+  closeActivePopover();
+
+  const maxPage = totalPages.value;
+  if (maxPage > 0 && currentPage.value > maxPage) {
+    currentPage.value = maxPage;
+  }
+
+  if (!props.pizzas.length) {
+    loading.value = true;
+    return;
+  }
+
+  loading.value = false;
+  nextTick(() => {
+    initPopovers();
+  });
+});
 
 watch(visiblePizzas, () => {
   nextTick(() => {

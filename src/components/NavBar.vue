@@ -88,6 +88,11 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
   opacity: 0.85;
 }
 
+.logo-section:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
 .logo-section:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
