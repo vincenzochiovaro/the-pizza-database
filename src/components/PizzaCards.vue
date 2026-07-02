@@ -136,16 +136,85 @@ const hasMore = computed(() => {
   return isMobile.value && visiblePizzas.value.length < filteredPizzas.value.length;
 });
 
+const popoverInstances = new Map<HTMLElement, Popover>();
+let activePopoverTrigger: HTMLElement | null = null;
+
+function closeActivePopover() {
+  if (!activePopoverTrigger) return;
+
+  const currentPopover = popoverInstances.get(activePopoverTrigger);
+  currentPopover?.hide();
+  activePopoverTrigger.setAttribute('aria-expanded', 'false');
+  activePopoverTrigger = null;
+}
+
+function togglePopover(button: HTMLElement, instance: Popover) {
+  if (activePopoverTrigger && activePopoverTrigger !== button) {
+    const previousPopover = popoverInstances.get(activePopoverTrigger);
+    previousPopover?.hide();
+    activePopoverTrigger.setAttribute('aria-expanded', 'false');
+  }
+
+  const isOpen = button.getAttribute('aria-describedby');
+
+  if (isOpen) {
+    instance.hide();
+    button.setAttribute('aria-expanded', 'false');
+    activePopoverTrigger = null;
+    return;
+  }
+
+  instance.show();
+  activePopoverTrigger = button;
+  button.setAttribute('aria-expanded', 'true');
+}
+
 function initPopovers() {
-
   nextTick(() => {
-    const popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+    popoverInstances.forEach((popover) => popover.dispose());
+    popoverInstances.clear();
 
-    popovers.forEach((popover) => {
-      new Popover(popover);
+    const popoverButtons = Array.from(document.querySelectorAll<HTMLElement>('[data-bs-toggle="popover"]'));
+
+    popoverButtons.forEach((button) => {
+      const instance = new Popover(button, {
+        trigger: 'manual',
+        html: true,
+        placement: 'top',
+        container: 'body',
+        content: button.getAttribute('data-bs-content') ?? '',
+        fallbackPlacements: ['top', 'bottom']
+      });
+
+      button.onclick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        togglePopover(button, instance);
+      };
+
+      popoverInstances.set(button, instance);
     });
   });
+}
 
+function handleDocumentClick(event: MouseEvent) {
+  const target = event.target as HTMLElement | null;
+
+  if (!target) return;
+  if (target.closest('[data-bs-toggle="popover"]') || target.closest('.popover')) return;
+
+  closeActivePopover();
+}
+
+function handleScroll() {
+  if (!activePopoverTrigger) return;
+
+  const triggerRect = activePopoverTrigger.getBoundingClientRect();
+  const topBarOffset = 140;
+
+  if (triggerRect.top <= topBarOffset) {
+    closeActivePopover();
+  }
 }
 
 function filterPizzas(filter: string) {
@@ -165,7 +234,14 @@ function filterPizzas(filter: string) {
 
 function changePage(page: number) {
   if (page < 1 || page > totalPages.value) return;
+
+  closeActivePopover();
   currentPage.value = page;
+
+  nextTick(() => {
+    initPopovers();
+  });
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -187,6 +263,9 @@ function setupInfiniteScroll() {
 
     if (hasMore.value) {
       currentPage.value++;
+      nextTick(() => {
+        initPopovers();
+      });
     }
   });
 
@@ -201,6 +280,7 @@ watch(
   () => [props.filter, props.pizzas, lsTrigger.value],
   () => {
     filterPizzas(props.filter);
+    closeActivePopover();
     currentPage.value = 1;
 
     if (!props.pizzas.length) {
@@ -208,20 +288,34 @@ watch(
       return;
     }
     loading.value = false;
-    initPopovers();
+    nextTick(() => {
+      initPopovers();
+    });
   },
   { immediate: true }
 );
 
+watch(visiblePizzas, () => {
+  nextTick(() => {
+    initPopovers();
+  });
+}, { flush: 'post' });
+
 onMounted(() => {
   checkMobile();
   window.addEventListener('resize', checkMobile);
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('click', handleDocumentClick);
   setupInfiniteScroll();
 });
 
 onBeforeUnmount(() => {
   observer?.disconnect();
   window.removeEventListener('resize', checkMobile);
+  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('click', handleDocumentClick);
+  popoverInstances.forEach((popover) => popover.dispose());
+  popoverInstances.clear();
 });
 
 function isInLocalStorage(pizzaName: string): boolean {
