@@ -2,14 +2,12 @@
   <nav class="navbar">
     <div class="container-fluid d-flex justify-content-between align-items-center px-3 px-md-4">
 
-      <div class="d-flex align-items-center cursor-pointer logo-section" @click="goToHome">
-        <img :src="homeImgSrc" alt="Home Logo" class="logo-img" style="transition: transform 0.3s;">
-        <div class="logo-divider"></div>
+      <button class="logo-section" type="button" @click="goToHome">
         <div class="logo-text">
-          <div class="logo-title fw-bold">The Pizza</div>
-          <div class="logo-title fw-bold">Database</div>
+          <div class="logo-title">Aliper</div>
+          <div class="logo-subtitle">The Pizza Database</div>
         </div>
-      </div>
+      </button>
 
       <div class="d-flex align-items-center gap-3">
         <div class="language-switcher">
@@ -26,9 +24,6 @@
         </div>
 
         <button @click="goToPizzaBrowser" class="create-btn">
-          <div class="create-icon">
-            <i class="fa-solid fa-pizza-slice"></i>
-          </div>
           <span class="create-text">Menu</span>
         </button>
       </div>
@@ -39,11 +34,9 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import homeImg from '../assets/homeimg.png'
 import { useLanguageStore } from '../stores/LanguageStore'
 import { computed, onMounted } from 'vue'
 
-const homeImgSrc = homeImg
 const router = useRouter()
 const languageStore = useLanguageStore()
 
@@ -82,55 +75,53 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
 
 .logo-section {
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: opacity var(--transition-base);
   user-select: none;
   -webkit-user-select: none;
-  gap: var(--spacing-md);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .logo-section:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+.logo-section:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+.logo-section:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
 }
 
 .logo-title {
-  font-size: var(--font-size-md);
+  font-size: 1.05rem;
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-wide);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-bold);
 }
 
-.logo-img {
-  height: 45px;
-  width: auto;
-  cursor: pointer;
-  transition: transform var(--transition-base);
-  filter: brightness(1.2);
-}
-
-.logo-section:hover .logo-img {
-  transform: scale(1.05) rotate(-2deg);
-}
-
-.logo-divider {
-  width: 2px;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--color-border-primary), var(--color-border-lighter));
-  border-radius: 1px;
-}
-
-.logo-text {
-  line-height: var(--line-height-tight);
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-text .text-primary {
-  font-size: var(--font-size-md);
-  color: var(--color-text-primary);
+.logo-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-wide);
   font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  margin-top: 0.15rem;
 }
 
 .create-btn {
@@ -277,16 +268,12 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
     padding: 0.8rem 0;
   }
 
-  .logo-img {
-    height: 40px;
+  .logo-title {
+    font-size: 1rem;
   }
 
-  .logo-divider {
-    height: 35px;
-  }
-
-  .logo-text .text-primary {
-    font-size: 0.95rem;
+  .logo-subtitle {
+    font-size: 0.74rem;
   }
 
   .create-btn {
@@ -328,16 +315,12 @@ function UpdateLocalStorageLang(selectedLanguage: string) {
     padding: 0.6rem 0;
   }
 
-  .logo-img {
-    height: 36px;
-  }
-
-  .logo-divider {
-    height: 30px;
-  }
-
   .logo-title {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  .logo-subtitle {
+    font-size: 0.7rem;
   }
 
   .create-btn {

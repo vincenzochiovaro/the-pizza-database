@@ -4,18 +4,26 @@
       <div v-if="loading" class="col-12">
         <div class="empty-state">
           <div class="loader">
-            <span>🍕</span>
-            <span>🍕</span>
-            <span>🍕</span>
+            <span class="loader-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(255, 212, 59)" size="1.5rem" />
+            </span>
+            <span class="loader-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(99, 230, 190)" size="1.5rem" />
+            </span>
+            <span class="loader-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(249, 7, 103)" size="1.5rem" />
+            </span>
           </div>
         </div>
       </div>
 
       <div v-else-if="!filteredPizzas.length" class="col-12">
         <div class="empty-state">
-          <div class="empty-icon">🍕</div>
-          <h5>No favourite pizzas yet</h5>
-          <p>Tap the heart on a pizza to add it here.</p>
+          <div class="empty-icon">
+            <ReusableIcon name="pizza-slice" type="solid" color="rgb(255, 212, 59)" size="2.5rem" />
+          </div>
+          <h5>{{ emptyStateTitle }}</h5>
+          <p>{{ emptyStateDescription }}</p>
         </div>
       </div>
 
@@ -25,7 +33,9 @@
             <div class="pizza-header">
               <h5 class="pizza-title">{{ pizza.name }}</h5>
               <div class="pizza-controls">
-                <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
+                <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">
+                  <ReusableIcon name="leaf" type="solid" color="rgb(99, 230, 190)" size="1rem" />
+                </div>
 
               </div>
             </div>
@@ -42,12 +52,13 @@
             <div class="d-flex justify-content-between mt-auto pt-2 gap-2">
               <button class="btn btn-sm btn-icon" title="Info" data-bs-toggle="popover" data-bs-trigger="focus"
                 data-bs-placement="top" :data-bs-content="pizza.note">
-                💡
+                <ReusableIcon name="lightbulb" type="regular" color="rgb(99, 230, 190)" size="1rem" />
               </button>
               <button class="btn btn-sm btn-icon"
                 :title="isInLocalStorage(pizza.name) ? 'Remove favourite' : 'Add favourite'"
                 @click="toggleLSPizza(pizza.name)">
-                {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
+                <ReusableIcon :name="'heart'" :type="isInLocalStorage(pizza.name) ? 'solid' : 'regular'"
+                  :color="isInLocalStorage(pizza.name) ? 'rgb(249, 7, 103)' : 'rgb(255, 255, 255)'" size="1rem" />
               </button>
             </div>
           </div>
@@ -66,7 +77,7 @@
 
         <li class="page-item" :class="{ disabled: currentPage === 1 }">
           <button class="page-link" @click="changePage(currentPage - 1)">
-            ‹
+            <ReusableIcon name="chevron-left" type="solid" color="currentColor" size="0.95rem" />
           </button>
         </li>
 
@@ -78,7 +89,7 @@
 
         <li class="page-item" :class="{ disabled: currentPage === totalPages }">
           <button class="page-link" @click="changePage(currentPage + 1)">
-            ›
+            <ReusableIcon name="chevron-right" type="solid" color="currentColor" size="0.95rem" />
           </button>
         </li>
 
@@ -93,6 +104,8 @@ import { ref, watch, nextTick, onMounted, onBeforeUnmount, computed } from 'vue'
 import { Popover } from 'bootstrap';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
+import ReusableIcon from '../icons/ReusableIcon.vue';
+import { useLanguageStore } from '../stores/LanguageStore';
 
 const props = defineProps<{
   pizzas: Array<Pizza>
@@ -102,6 +115,7 @@ const props = defineProps<{
 const loading = ref(true)
 const lsTrigger = ref(0)
 const filteredPizzas = ref<Array<Pizza>>([]);
+const languageStore = useLanguageStore();
 
 const pageSize = 12;
 const currentPage = ref(1);
@@ -110,6 +124,18 @@ const loadMoreTrigger = ref<HTMLElement | null>(null);
 let observer: IntersectionObserver | null = null;
 
 const totalPages = computed(() => Math.ceil(filteredPizzas.value.length / pageSize));
+
+const emptyStateTitle = computed(() => {
+  return languageStore.currentLanguage === 'it'
+    ? 'Nessuna pizza presente!'
+    : 'No favourite pizzas yet';
+});
+
+const emptyStateDescription = computed(() => {
+  return languageStore.currentLanguage === 'it'
+    ? 'Tocca il cuore su una pizza per aggiungerla qui.'
+    : 'Tap the heart on a pizza to add it here.';
+});
 
 const visiblePizzas = computed(() => {
   if (isMobile.value) {
@@ -124,16 +150,85 @@ const hasMore = computed(() => {
   return isMobile.value && visiblePizzas.value.length < filteredPizzas.value.length;
 });
 
+const popoverInstances = new Map<HTMLElement, Popover>();
+let activePopoverTrigger: HTMLElement | null = null;
+
+function closeActivePopover() {
+  if (!activePopoverTrigger) return;
+
+  const currentPopover = popoverInstances.get(activePopoverTrigger);
+  currentPopover?.hide();
+  activePopoverTrigger.setAttribute('aria-expanded', 'false');
+  activePopoverTrigger = null;
+}
+
+function togglePopover(button: HTMLElement, instance: Popover) {
+  if (activePopoverTrigger && activePopoverTrigger !== button) {
+    const previousPopover = popoverInstances.get(activePopoverTrigger);
+    previousPopover?.hide();
+    activePopoverTrigger.setAttribute('aria-expanded', 'false');
+  }
+
+  const isOpen = button.getAttribute('aria-describedby');
+
+  if (isOpen) {
+    instance.hide();
+    button.setAttribute('aria-expanded', 'false');
+    activePopoverTrigger = null;
+    return;
+  }
+
+  instance.show();
+  activePopoverTrigger = button;
+  button.setAttribute('aria-expanded', 'true');
+}
+
 function initPopovers() {
-
   nextTick(() => {
-    const popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+    popoverInstances.forEach((popover) => popover.dispose());
+    popoverInstances.clear();
 
-    popovers.forEach((popover) => {
-      new Popover(popover);
+    const popoverButtons = Array.from(document.querySelectorAll<HTMLElement>('[data-bs-toggle="popover"]'));
+
+    popoverButtons.forEach((button) => {
+      const instance = new Popover(button, {
+        trigger: 'manual',
+        html: true,
+        placement: 'top',
+        container: 'body',
+        content: button.getAttribute('data-bs-content') ?? '',
+        fallbackPlacements: ['top', 'bottom']
+      });
+
+      button.onclick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        togglePopover(button, instance);
+      };
+
+      popoverInstances.set(button, instance);
     });
   });
+}
 
+function handleDocumentClick(event: MouseEvent) {
+  const target = event.target as HTMLElement | null;
+
+  if (!target) return;
+  if (target.closest('[data-bs-toggle="popover"]') || target.closest('.popover')) return;
+
+  closeActivePopover();
+}
+
+function handleScroll() {
+  if (!activePopoverTrigger) return;
+
+  const triggerRect = activePopoverTrigger.getBoundingClientRect();
+  const topBarOffset = 140;
+
+  if (triggerRect.top <= topBarOffset) {
+    closeActivePopover();
+  }
 }
 
 function filterPizzas(filter: string) {
@@ -153,7 +248,14 @@ function filterPizzas(filter: string) {
 
 function changePage(page: number) {
   if (page < 1 || page > totalPages.value) return;
+
+  closeActivePopover();
   currentPage.value = page;
+
+  nextTick(() => {
+    initPopovers();
+  });
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -175,6 +277,9 @@ function setupInfiniteScroll() {
 
     if (hasMore.value) {
       currentPage.value++;
+      nextTick(() => {
+        initPopovers();
+      });
     }
   });
 
@@ -186,9 +291,11 @@ function setupInfiniteScroll() {
 
 
 watch(
-  () => [props.filter, props.pizzas, lsTrigger.value],
-  () => {
-    filterPizzas(props.filter);
+  () => [props.filter, props.pizzas],
+  ([filter]) => {
+    const currentFilter = typeof filter === 'string' ? filter : props.filter;
+    filterPizzas(currentFilter);
+    closeActivePopover();
     currentPage.value = 1;
 
     if (!props.pizzas.length) {
@@ -196,20 +303,54 @@ watch(
       return;
     }
     loading.value = false;
-    initPopovers();
+    nextTick(() => {
+      initPopovers();
+    });
   },
   { immediate: true }
 );
 
+watch(lsTrigger, () => {
+  filterPizzas(props.filter);
+  closeActivePopover();
+
+  const maxPage = totalPages.value;
+  if (maxPage > 0 && currentPage.value > maxPage) {
+    currentPage.value = maxPage;
+  }
+
+  if (!props.pizzas.length) {
+    loading.value = true;
+    return;
+  }
+
+  loading.value = false;
+  nextTick(() => {
+    initPopovers();
+  });
+});
+
+watch(visiblePizzas, () => {
+  nextTick(() => {
+    initPopovers();
+  });
+}, { flush: 'post' });
+
 onMounted(() => {
   checkMobile();
   window.addEventListener('resize', checkMobile);
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('click', handleDocumentClick);
   setupInfiniteScroll();
 });
 
 onBeforeUnmount(() => {
   observer?.disconnect();
   window.removeEventListener('resize', checkMobile);
+  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('click', handleDocumentClick);
+  popoverInstances.forEach((popover) => popover.dispose());
+  popoverInstances.clear();
 });
 
 function isInLocalStorage(pizzaName: string): boolean {
