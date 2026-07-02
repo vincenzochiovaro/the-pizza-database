@@ -14,7 +14,10 @@
       <div class="filter-controls">
         <button @click="toggleFavourites" class="filter-btn btn-favourite"
           :class="{ active: selectedFilter === 'Favourites' }">
-          <span class="btn-icon">{{ selectedFilter === 'Favourites' ? '⮑' : '❤️' }}</span>
+          <span class="btn-icon">
+            <ReusableIcon :name="selectedFilter === 'Favourites' ? 'arrow-left' : 'heart'"
+              :type="selectedFilter === 'Favourites' ? 'solid' : 'regular'" color="rgb(255, 212, 59)" size="1rem" />
+          </span>
           <span class="btn-text">
             {{ selectedFilter === 'Favourites' ? t.backToPizzas : t.favourites }}
           </span>
@@ -23,7 +26,9 @@
         <div class="dropdown" style="position: relative;">
           <button class="filter-btn btn-filter dropdown-toggle" type="button" @click="dropdownOpen = !dropdownOpen"
             @blur="closeDropdown" tabindex="0" :aria-expanded="dropdownOpen">
-            <span class="btn-icon">🍕</span>
+            <span class="btn-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(99, 230, 190)" size="1rem" />
+            </span>
             <span class="btn-text">{{ displayFilter }}</span>
           </button>
           <ul v-if="dropdownOpen" class="dropdown-menu dropdown-dark"
@@ -45,6 +50,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useLanguageStore } from '../stores/LanguageStore'
+import ReusableIcon from '../icons/ReusableIcon.vue'
 
 const emit = defineEmits(['update-filter'])
 const languageStore = useLanguageStore()

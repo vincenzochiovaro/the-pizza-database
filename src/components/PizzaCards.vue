@@ -4,16 +4,24 @@
       <div v-if="loading" class="col-12">
         <div class="empty-state">
           <div class="loader">
-            <span>🍕</span>
-            <span>🍕</span>
-            <span>🍕</span>
+            <span class="loader-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(255, 212, 59)" size="1.5rem" />
+            </span>
+            <span class="loader-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(99, 230, 190)" size="1.5rem" />
+            </span>
+            <span class="loader-icon">
+              <ReusableIcon name="pizza-slice" type="solid" color="rgb(249, 7, 103)" size="1.5rem" />
+            </span>
           </div>
         </div>
       </div>
 
       <div v-else-if="!filteredPizzas.length" class="col-12">
         <div class="empty-state">
-          <div class="empty-icon">🍕</div>
+          <div class="empty-icon">
+            <ReusableIcon name="pizza-slice" type="solid" color="rgb(255, 212, 59)" size="2.5rem" />
+          </div>
           <h5>No favourite pizzas yet</h5>
           <p>Tap the heart on a pizza to add it here.</p>
         </div>
@@ -25,7 +33,9 @@
             <div class="pizza-header">
               <h5 class="pizza-title">{{ pizza.name }}</h5>
               <div class="pizza-controls">
-                <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">🌱</div>
+                <div v-if="pizza.isVegetarian" class="vegetarian-icon" title="Vegetarian">
+                  <ReusableIcon name="leaf" type="solid" color="rgb(99, 230, 190)" size="1rem" />
+                </div>
 
               </div>
             </div>
@@ -42,12 +52,13 @@
             <div class="d-flex justify-content-between mt-auto pt-2 gap-2">
               <button class="btn btn-sm btn-icon" title="Info" data-bs-toggle="popover" data-bs-trigger="focus"
                 data-bs-placement="top" :data-bs-content="pizza.note">
-                💡
+                <ReusableIcon name="lightbulb" type="regular" color="rgb(99, 230, 190)" size="1rem" />
               </button>
               <button class="btn btn-sm btn-icon"
                 :title="isInLocalStorage(pizza.name) ? 'Remove favourite' : 'Add favourite'"
                 @click="toggleLSPizza(pizza.name)">
-                {{ isInLocalStorage(pizza.name) ? '♥' : '♡' }}
+                <ReusableIcon :name="'heart'" :type="isInLocalStorage(pizza.name) ? 'solid' : 'regular'"
+                  :color="isInLocalStorage(pizza.name) ? 'rgb(249, 7, 103)' : 'rgb(255, 255, 255)'" size="1rem" />
               </button>
             </div>
           </div>
@@ -66,7 +77,7 @@
 
         <li class="page-item" :class="{ disabled: currentPage === 1 }">
           <button class="page-link" @click="changePage(currentPage - 1)">
-            ‹
+            <ReusableIcon name="chevron-left" type="solid" color="currentColor" size="0.95rem" />
           </button>
         </li>
 
@@ -78,7 +89,7 @@
 
         <li class="page-item" :class="{ disabled: currentPage === totalPages }">
           <button class="page-link" @click="changePage(currentPage + 1)">
-            ›
+            <ReusableIcon name="chevron-right" type="solid" color="currentColor" size="0.95rem" />
           </button>
         </li>
 
@@ -93,6 +104,7 @@ import { ref, watch, nextTick, onMounted, onBeforeUnmount, computed } from 'vue'
 import { Popover } from 'bootstrap';
 import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
 import type { Pizza } from '../models/Pizza';
+import ReusableIcon from '../icons/ReusableIcon.vue';
 
 const props = defineProps<{
   pizzas: Array<Pizza>
