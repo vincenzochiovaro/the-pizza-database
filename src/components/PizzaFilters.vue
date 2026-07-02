@@ -357,6 +357,14 @@ function closeDropdown() {
   border-color: rgba(255, 209, 102, 0.8) !important;
 }
 
+@media (min-width: 1024px) {
+  .filter-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+}
+
 @media (max-width: 768px) {
   .filter-bar {
     padding: var(--spacing-md) 0;
