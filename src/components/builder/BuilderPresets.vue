@@ -1,5 +1,14 @@
 <template>
-
+    <div class="builder-intro">
+        <div class="builder-intro-inner">
+            <h2 class="builder-intro-title">
+                {{ props.templateData?.builderIntroTitle }}
+            </h2>
+            <p class="builder-intro-description">
+                {{ props.templateData?.builderIntroDescription }}
+            </p>
+        </div>
+    </div>
     <Teleport to="body">
         <div class="modal fade" id="infoModalDirect" tabindex="-1">
             <div class="modal-dialog modal-shift-up modal-sm">
@@ -186,7 +195,42 @@ const decreaseTemperature = () => { if (temperature.value > 0) { temperature.val
 onMounted(() => { emitBuilderChanged() })
 </script>
 
+. . .
 <style scoped>
+.builder-intro {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.75rem 1rem 0.25rem 1rem;
+}
+
+.builder-intro-inner {
+    max-width: 720px;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.08), rgba(100, 150, 255, 0.04));
+    border: 1px solid rgba(100, 200, 255, 0.18);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.builder-intro-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 0.3rem;
+}
+
+.builder-intro-description {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+}
+
 .presets-container {
     display: flex;
     gap: var(--spacing-md);

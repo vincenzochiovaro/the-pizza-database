@@ -36,4 +36,6 @@ export interface BuilderTemplateData {
   readyBySuccessMessage: string,
   readyByFailureMessage: string,
   readyByInvalidTimeText: string,
+  builderIntroTitle: string,
+  builderIntroDescription: string
 }

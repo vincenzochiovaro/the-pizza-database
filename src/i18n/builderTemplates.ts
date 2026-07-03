@@ -39,7 +39,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             readyBySendButton: "Invia",
             readyBySuccessMessage: "Richiesta inviata con successo!",
             readyByFailureMessage: "Invio fallito. Per favore riprova.",
-            readyByInvalidTimeText: "L'orario selezionato deve essere almeno"
+            readyByInvalidTimeText: "L'orario selezionato deve essere almeno",
+            builderIntroTitle: "Inizia da un Preset",
+            builderIntroDescription: "Questi settaggi sono ottimizzati per risultati assicurati. Modifica e perfeziona per rendere ogni ricetta distintamente tua."
         };
 
         return templateDataIt
@@ -82,7 +84,9 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             readyBySendButton: "Send",
             readyBySuccessMessage: "Request sent successfully!",
             readyByFailureMessage: "Failed to send request. Please try again.",
-            readyByInvalidTimeText: "Selected time must be at least"
+            readyByInvalidTimeText: "Selected time must be at least",
+            builderIntroTitle: "Start with a Preset",
+            builderIntroDescription: "These optimized settings deliver consistent results. But feel free to tweak and refine to make each recipe distinctly yours!"
         };
         return templateDataEng
     }
