@@ -1,10 +1,26 @@
 <template>
-    <div class="schedule-card">
-        <div class="schedule-row">
-            <div class="schedule-heading">Pizza Timer</div>
-            <button class="schedule-button" type="button" @click="openModal">
-                {{ props.templateData?.readyByScheduleButton ?? 'Schedule' }}
-            </button>
+    <div class="timer-wrapper">
+        <div class="schedule-card">
+            <div class="timer-content">
+                <div class="timer-image-section">
+                    <img src="../../assets/pizza-default-img.jpg" alt="Pizza" class="timer-image" />
+                </div>
+                <div class="timer-info-section">
+                    <div class="timer-header">
+                        <h4 class="timer-title">{{ props.templateData?.timerCardTitle ?? '🍕 Zero Stress Pizza' }}</h4>
+                        <p class="timer-subtitle">{{ props.templateData?.timerCardSubtitle ??
+                            'Perfect timing, every time' }}</p>
+                    </div>
+                    <p class="timer-description">
+                        {{ props.templateData?.timerCardDescription ??
+                            'Get email reminders for each step of your dough fermentation. Never miss the perfect moment to bake.' }}
+                    </p>
+                    <button class="timer-action-btn" type="button" @click="openModal">
+                        <span class="btn-icon">⏱️</span>
+                        <span class="btn-text">{{ props.templateData?.readyByScheduleButton ?? 'Set Timer' }}</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div v-if="notification.visible" :class="['toast-message', notification.type]">
@@ -16,7 +32,8 @@
             <div v-if="open" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
                 <div class="modal-card">
                     <button class="close-btn" type="button" @click="close">×</button>
-                    <h3 id="schedule-modal-title">Pizza Timer</h3>
+                    <h3 id="schedule-modal-title">{{ props.templateData?.readyByScheduleTitle ?? 'Schedule Your Pizza'
+                        }}</h3>
                     <p class="modal-copy">{{ props.templateData?.readyByModalDescription ??
                         'Pick the time you want your pizza to be ready' }}</p>
 
@@ -30,7 +47,7 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                        }}</label>
+                    }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
                         <option disabled value="">{{ props.templateData?.readyByTimePlaceholder ?? 'Choose time' }}
                         </option>
@@ -41,7 +58,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                        }}</label>
+                    }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -236,21 +253,137 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.schedule-card {
-    min-width: auto;
-    flex: none;
-    padding: 0.9rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-xl);
-    backdrop-filter: blur(14px);
+.timer-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.schedule-row {
+.schedule-card {
+    width: 100%;
+    max-width: 340px;
+    padding: 0;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.06) 0%, rgba(100, 150, 255, 0.03) 100%);
+    border: 1.5px solid rgba(100, 200, 255, 0.2);
+    border-radius: 1.2rem;
+    backdrop-filter: blur(15px);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    box-shadow: 0 8px 32px rgba(100, 200, 255, 0.08);
+}
+
+.schedule-card:hover {
+    border-color: rgba(100, 200, 255, 0.35);
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.1) 0%, rgba(100, 150, 255, 0.05) 100%);
+    box-shadow: 0 12px 48px rgba(100, 200, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.timer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.timer-image-section {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(100, 200, 255, 0.1), rgba(100, 200, 255, 0.05));
+    position: relative;
+}
+
+.timer-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+}
+
+.schedule-card:hover .timer-image {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.timer-info-section {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.timer-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.timer-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.95), rgba(100, 200, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.3px;
+}
+
+.timer-subtitle {
+    margin: 0;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: var(--font-weight-semibold);
+}
+
+.timer-description {
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+}
+
+.timer-action-btn {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 0.8rem;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.25), rgba(100, 200, 255, 0.15));
+    border: 1px solid rgba(100, 200, 255, 0.4);
+    color: rgb(100, 200, 255);
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.timer-action-btn:hover {
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.35), rgba(100, 200, 255, 0.25));
+    border-color: rgba(100, 200, 255, 0.6);
+    box-shadow: 0 6px 20px rgba(100, 200, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.timer-action-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(100, 200, 255, 0.1);
+}
+
+.btn-icon {
+    font-size: 1rem;
+}
+
+.btn-text {
+    font-weight: var(--font-weight-bold);
 }
 
 .toast-message {
@@ -275,33 +408,6 @@ onBeforeUnmount(() => {
     color: #ffd6d6;
 }
 
-.schedule-heading {
-    font-size: 0.75rem;
-    color: var(--color-text-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
-}
-
-.schedule-button {
-    padding: 0.35rem 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-lg);
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: var(--font-weight-semibold);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.18s ease, transform 0.18s ease;
-}
-
-.schedule-button:hover {
-    background: rgba(255, 255, 255, 0.14);
-    transform: translateY(-1px);
-}
-
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -321,10 +427,6 @@ onBeforeUnmount(() => {
 }
 
 .modal-card {
-    margin-top: 0.7rem;
-}
-
-.modal-card {
     width: min(440px, 100%);
     max-height: min(95vh, 640px);
     background: rgba(10, 16, 38, 0.98);
@@ -336,6 +438,12 @@ onBeforeUnmount(() => {
     position: relative;
     margin-top: 1.4rem;
     overflow-y: auto;
+}
+
+.modal-card h3 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.2rem;
+    color: rgb(100, 200, 255);
 }
 
 .close-btn {
