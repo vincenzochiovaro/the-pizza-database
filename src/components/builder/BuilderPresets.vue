@@ -329,7 +329,7 @@ onMounted(() => { emitBuilderChanged() })
     background: linear-gradient(135deg, rgba(100, 200, 255, 0.08) 0%, rgba(100, 150, 255, 0.05) 100%);
     border: 1px solid rgba(100, 200, 255, 0.18);
     backdrop-filter: blur(15px);
-    max-width: 420px;
+    max-width: 360px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -406,15 +406,13 @@ onMounted(() => { emitBuilderChanged() })
     align-items: center;
     gap: 0.3rem;
     flex: 1;
-    min-width: 0;
     justify-content: center;
 }
 
 .temperature-controls input[type="range"] {
-    width: 100px;
+    width: 60px;
     height: 3px;
-    flex: 1;
-    min-width: 60px;
+    flex: 0;
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;

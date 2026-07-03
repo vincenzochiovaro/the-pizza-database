@@ -61,7 +61,7 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             hydrationLabel: "Hydration (%)",
             prefermentLabel: "Preferment (%)",
             temperatureLabel: "Temperature",
-            temperatureDescription: "Dough resting temp",
+            temperatureDescription: "Dough resting",
             homeOvenLabel: "Home Oven",
             professionalOvenLabel: "Professional Oven",
             readyByScheduleButton: "Timer",
