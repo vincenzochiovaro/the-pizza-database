@@ -1,59 +1,60 @@
 <template>
-    <div class="ingredients-display">
-        <div class="ingredients-row">
+    <div class="ingredients-wrapper">
 
-            <div class="ingredient-card water">
-                <div class="ingredient-info">
-                    <div class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</div>
-                    <div class="ingredient-value">{{ props.selectedPresetData?.water ?? '0' }}g</div>
+        <div class="ingredients-header">
+            <div class="ingredients-title">
+                Ingredients for {{ props.selectedPreset ?? 'Pizza' }}
+            </div>
+            <div class="ingredients-subtitle">
+                Balanced recipe automatically calculated for consistent results
+            </div>
+        </div>
+
+        <div class="ingredients-panel">
+
+            <div class="ingredients-group">
+                <div class="group-title">Main dough</div>
+
+                <div class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.water ?? '0' }}g</span>
+                </div>
+
+                <div class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.flour ?? 'Flour' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.flour ?? '0' }}g</span>
+                </div>
+
+                <div class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.yeast ?? 'Yeast' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.yeast ?? '0' }}g</span>
+                </div>
+
+                <div v-if="props.selectedPreset !== 'Biga'" class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0' }}g</span>
                 </div>
             </div>
 
-            <div class="ingredient-card flour">
-                <div class="ingredient-info">
-                    <div class="ingredient-name">{{ props.templateData?.flour ?? 'Flour' }}</div>
-                    <div class="ingredient-value">{{ props.selectedPresetData?.flour ?? '00' }}g</div>
+            <div v-if="props.selectedPreset === 'Biga'" class="ingredients-group">
+                <div class="group-title">Preferment (Day 2)</div>
+
+                <div class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.saltDay2 ?? 'Salt' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.saltDay2 ?? '0' }}g</span>
+                </div>
+
+                <div class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.flourDay2 ?? 'Flour' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.flourDay2 ?? '0' }}g</span>
+                </div>
+
+                <div class="ingredient-row">
+                    <span class="ingredient-name">{{ props.templateData?.waterDay2 ?? 'Water' }}</span>
+                    <span class="ingredient-value">{{ props.selectedPresetData?.waterDay2 ?? '0' }}g</span>
                 </div>
             </div>
 
-            <div class="ingredient-card yeast">
-                <div class="ingredient-info">
-                    <div class="ingredient-name">{{ props.templateData?.yeast ?? 'Yeast' }}</div>
-                    <div class="ingredient-value">{{ props.selectedPresetData?.yeast ?? '000' }}g</div>
-                </div>
-            </div>
-
-            <!-- Only show Day 1 salt if not biga -->
-            <div v-if="props.selectedPreset !== 'Biga'" class="ingredient-card salt">
-                <div class="ingredient-info">
-                    <div class="ingredient-name">{{ props.templateData?.salt ?? 'Salt' }}</div>
-                    <div class="ingredient-value">{{ props.selectedPresetData?.salt ?? '0000' }}g</div>
-                </div>
-            </div>
-
-            <!-- Day 2 ingredients, only for biga -->
-            <template v-if="props.selectedPreset === 'Biga'">
-                <div class="ingredient-card salt">
-                    <div class="ingredient-info">
-                        <div class="ingredient-name">{{ props.templateData?.saltDay2 ?? 'Salt' }}</div>
-                        <div class="ingredient-value">{{ props.selectedPresetData?.saltDay2 ?? '0000' }}g</div>
-                    </div>
-                </div>
-
-                <div class="ingredient-card flour">
-                    <div class="ingredient-info">
-                        <div class="ingredient-name">{{ props.templateData?.flourDay2 ?? 'Flour' }}</div>
-                        <div class="ingredient-value">{{ props.selectedPresetData?.flourDay2 ?? '00' }}g</div>
-                    </div>
-                </div>
-
-                <div class="ingredient-card water">
-                    <div class="ingredient-info">
-                        <div class="ingredient-name">{{ props.templateData?.waterDay2 ?? 'Water' }}</div>
-                        <div class="ingredient-value">{{ props.selectedPresetData?.waterDay2 ?? '0' }}g</div>
-                    </div>
-                </div>
-            </template>
         </div>
     </div>
 </template>
@@ -70,196 +71,82 @@ const props = defineProps<{
 </script>
 
 <style scoped>
-.ingredients-display {
-    margin-top: -2rem;
+.ingredients-wrapper {
     width: 100%;
-    padding: 0.5rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: 0.75rem;
+    margin-top: -1.5rem;
 }
 
-/* Mobile sticky behavior */
-@media (max-width: 768px) {
-    .ingredients-display {
-        position: sticky;
-        top: 3.8rem;
-        background: var(--color-bg-dark-primary);
-        z-index: var(--z-sticky);
-        padding: 0.25rem 0;
-    }
-}
-
-.ingredients-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    justify-content: center;
-    max-width: 600px;
-}
-
-@media (max-width: 768px) {
-    .ingredients-row {
-        gap: 0.3rem;
-        max-width: 100%;
-    }
-
-    .ingredient-card {
-        min-width: 70px;
-        flex: 1 1 70px;
-        padding: 0.3rem 0.4rem;
-    }
-
-    .ingredient-name {
-        font-size: 0.6rem;
-        margin-bottom: 0.1rem;
-    }
-
-    .ingredient-value {
-        font-size: 0.8rem;
-        padding: 0.1rem 0.3rem;
-    }
-}
-
-.ingredient-card {
-    display: flex;
-    align-items: center;
-    background: var(--color-overlay-glass);
-    border: 2px solid var(--color-border-subtle);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-md) var(--spacing-md);
-    min-width: 120px;
-    flex: 1 1 120px;
-    transition: all var(--transition-base);
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-    border-left: 4px solid transparent;
-    justify-content: center;
+.ingredients-header {
+    width: 100%;
+    max-width: 720px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
     text-align: center;
+    backdrop-filter: blur(10px);
 }
 
-.ingredient-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
-    transform: rotate(45deg);
-    animation: shimmer 3s infinite;
+.ingredients-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
 }
 
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    }
-
-    100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-    }
+.ingredients-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.25rem;
 }
 
-.ingredient-card:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--color-border-light);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-}
-
-.ingredient-card.water {
-    border-color: rgba(100, 200, 255, 0.3);
-    border-left-color: rgba(100, 200, 255, 0.9);
-}
-
-.ingredient-card.water:hover {
-    background: rgba(100, 200, 255, 0.1);
-    border-color: rgba(100, 200, 255, 0.6);
-}
-
-.ingredient-card.flour {
-    border-color: rgba(255, 200, 100, 0.3);
-    border-left-color: rgba(255, 200, 100, 0.9);
-}
-
-.ingredient-card.flour:hover {
-    background: rgba(255, 200, 100, 0.1);
-    border-color: rgba(255, 200, 100, 0.6);
-}
-
-.ingredient-card.yeast {
-    border-color: rgba(200, 100, 255, 0.3);
-    border-left-color: rgba(200, 100, 255, 0.9);
-}
-
-.ingredient-card.yeast:hover {
-    background: rgba(200, 100, 255, 0.1);
-    border-color: rgba(200, 100, 255, 0.6);
-}
-
-.ingredient-card.salt {
-    border-color: rgba(100, 255, 200, 0.3);
-    border-left-color: rgba(100, 255, 200, 0.9);
-}
-
-.ingredient-card.salt:hover {
-    background: rgba(100, 255, 200, 0.1);
-    border-color: rgba(100, 255, 200, 0.6);
-}
-
-.ingredient-info {
+.ingredients-panel {
+    width: 100%;
+    max-width: 720px;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+}
+
+.ingredients-group {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+.group-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.ingredient-row {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ingredient-row:last-child {
+    border-bottom: none;
 }
 
 .ingredient-name {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    font-weight: var(--font-weight-semibold);
-    margin-bottom: 0.2rem;
-    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .ingredient-value {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
     font-family: 'JetBrains Mono', monospace;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 0.2rem 0.5rem;
-    border-radius: var(--radius-md);
-    text-align: center;
-}
-
-@media (max-width: 500px) {
-    .ingredient-card {
-        min-width: 70px;
-        padding: 0.3rem 0.4rem;
-    }
-
-    .ingredient-value {
-        font-size: 0.8rem;
-        padding: 0.1rem 0.3rem;
-    }
-
-    .ingredient-name {
-        font-size: 0.6rem;
-        margin-bottom: 0.1rem;
-    }
-}
-
-.timer-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
 }
 </style>
