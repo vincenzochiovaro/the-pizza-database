@@ -7,13 +7,11 @@
                 </div>
                 <div class="timer-info-section">
                     <div class="timer-header">
-                        <h4 class="timer-title">{{ props.templateData?.timerCardTitle ?? '🍕 Zero Stress Pizza' }}</h4>
-                        <p class="timer-subtitle">{{ props.templateData?.timerCardSubtitle ??
-                            'Perfect timing, every time' }}</p>
+                        <h4 class="timer-title">{{ props.templateData?.timerCardTitle ?? 'Zero Stress Pizza' }}</h4>
+                        <p class="timer-subtitle">{{ props.templateData?.timerCardSubtitle }}</p>
                     </div>
                     <p class="timer-description">
-                        {{ props.templateData?.timerCardDescription ??
-                            'Get email reminders for each step of your dough fermentation. Never miss the perfect moment to bake.' }}
+                        {{ props.templateData?.timerCardDescription }}
                     </p>
                     <button class="timer-action-btn" type="button" @click="openModal">
                         <span class="btn-icon">⏱️</span>
