@@ -569,4 +569,46 @@ onBeforeUnmount(() => {
     opacity: 0.55;
     cursor: not-allowed;
 }
+
+@media (min-width: 992px) {
+    .schedule-card {
+        max-width: 540px;
+    }
+
+    .timer-content {
+        flex-direction: row;
+    }
+
+    .timer-image-section {
+        width: 33%;
+        height: auto;
+    }
+
+    .timer-info-section {
+        width: 67%;
+        padding: 1.25rem;
+        gap: 0.65rem;
+    }
+
+    .timer-title {
+        font-size: 1.2rem;
+    }
+
+    .timer-subtitle {
+        font-size: 0.7rem;
+    }
+
+    .timer-description {
+        font-size: 0.85rem;
+    }
+
+    .timer-action-btn {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    .btn-icon {
+        font-size: 0.9rem;
+    }
+}
 </style>
