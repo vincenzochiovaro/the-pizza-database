@@ -102,10 +102,10 @@
 <script setup lang="ts">
 import { ref, watch, nextTick, onMounted, onBeforeUnmount, computed } from 'vue';
 import { Popover } from 'bootstrap';
-import pizzaDefaultImg from '../assets/pizza-default-img.jpg'
-import type { Pizza } from '../models/Pizza';
-import ReusableIcon from '../icons/ReusableIcon.vue';
-import { useLanguageStore } from '../stores/LanguageStore';
+import pizzaDefaultImg from '../../assets/pizza-default-img.jpg'
+import type { Pizza } from '../../models/Pizza.ts';
+import ReusableIcon from '../../icons/ReusableIcon.vue';
+import { useLanguageStore } from '../../stores/LanguageStore.ts';
 
 const props = defineProps<{
   pizzas: Array<Pizza>

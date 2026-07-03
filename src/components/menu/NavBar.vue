@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { useLanguageStore } from '../stores/LanguageStore'
+import { useLanguageStore } from '../../stores/LanguageStore'
 import { computed, onMounted } from 'vue'
 
 const router = useRouter()

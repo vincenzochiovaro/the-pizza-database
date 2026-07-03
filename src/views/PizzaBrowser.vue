@@ -14,8 +14,8 @@
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
-import PizzaCards from '../components/PizzaCards.vue'
-import PizzaFilters from '../components/PizzaFilters.vue'
+import PizzaCards from '../components/menu/PizzaCards.vue'
+import PizzaFilters from '../components/menu/PizzaFilters.vue'
 import { FetchPizzasByFilter } from '../api/PizzaApi'
 import type { Pizza } from '../models/Pizza';
 import { useLanguageStore } from '../stores/LanguageStore';

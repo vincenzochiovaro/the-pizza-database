@@ -49,8 +49,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useLanguageStore } from '../stores/LanguageStore'
-import ReusableIcon from '../icons/ReusableIcon.vue'
+import { useLanguageStore } from '../../stores/LanguageStore.ts'
+import ReusableIcon from '../../icons/ReusableIcon.vue'
 
 const emit = defineEmits(['update-filter'])
 const languageStore = useLanguageStore()
