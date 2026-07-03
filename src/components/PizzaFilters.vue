@@ -92,6 +92,7 @@ const displayFilter = computed(() => {
 function selectFilter(filterValue: string) {
   selectedFilter.value = filterValue
   emit('update-filter', filterValue)
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 function toggleFavourites() {
