@@ -99,18 +99,22 @@
     </div>
 
     <div class="temperature-card">
-        <div class="temperature-header">
-            <span>{{ props.templateData?.temperatureLabel || 'Temperature' }}</span>
-        </div>
-        <div class="temperature-display">
-            <span class="temp-value">{{ temperature }}</span>
-            <span class="temp-unit">°C</span>
+        <div class="temperature-section-left">
+            <div class="temperature-header">
+                <span class="temp-label">{{ props.templateData?.temperatureLabel || 'Temperature' }}</span>
+                <span class="temp-description">{{ props.templateData?.temperatureDescription ||
+                    'Dough resting temperature' }}</span>
+            </div>
+            <div class="temperature-display">
+                <span class="temp-value">{{ temperature }}</span>
+                <span class="temp-unit">°C</span>
+            </div>
         </div>
         <div class="temperature-controls">
-            <button class="temp-btn" @click="decreaseTemperature">−</button>
+            <button class="temp-btn" @click="decreaseTemperature" title="Decrease temperature">−</button>
             <input type="range" min="0" max="35" :value="temperature"
                 @input="(e: any) => { temperature = parseInt(e.target.value); emitBuilderChanged(); }" />
-            <button class="temp-btn" @click="increaseTemperature">+</button>
+            <button class="temp-btn" @click="increaseTemperature" title="Increase temperature">+</button>
         </div>
     </div>
 
@@ -319,68 +323,167 @@ onMounted(() => { emitBuilderChanged() })
 }
 
 .temperature-card {
-    margin-top: 1rem;
-    padding: 0.2rem 0.4rem;
-    border-radius: 1rem;
-    background: rgba(15, 20, 55, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 0.6rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.8rem;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.08) 0%, rgba(100, 150, 255, 0.05) 100%);
+    border: 1px solid rgba(100, 200, 255, 0.18);
     backdrop-filter: blur(15px);
-    max-width: 320px;
+    max-width: 420px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.6rem;
+    gap: 0.4rem;
+    box-shadow: 0 2px 8px rgba(100, 200, 255, 0.04);
+    transition: all var(--transition-base);
+}
+
+.temperature-card:hover {
+    border-color: rgba(100, 200, 255, 0.25);
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.1) 0%, rgba(100, 150, 255, 0.06) 100%);
+    box-shadow: 0 3px 12px rgba(100, 200, 255, 0.06);
+}
+
+.temperature-section-left {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .temperature-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+}
+
+.temp-label {
     font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(100, 200, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+.temp-description {
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.05em;
+    font-style: italic;
+    line-height: 1;
 }
 
 .temperature-display {
     display: flex;
     align-items: baseline;
     gap: 0.1rem;
-    min-width: 42px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.25rem 0.4rem;
+    border-radius: 0.5rem;
+    border: 0.5px solid rgba(100, 200, 255, 0.1);
+    min-width: 60px;
 }
 
 .temp-value {
     font-size: 1rem;
     font-weight: var(--font-weight-bold);
-    color: #f7fafc;
+    color: rgb(100, 200, 255);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
 }
 
 .temp-unit {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     color: rgba(255, 255, 255, 0.6);
+    margin-left: 0.05rem;
+    line-height: 1;
 }
 
 .temperature-controls {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    width: 120px;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
 }
 
 .temperature-controls input[type="range"] {
-    width: 80px;
+    width: 100px;
     height: 3px;
-    flex: none;
+    flex: 1;
+    min-width: 60px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(to right, rgba(100, 200, 255, 0.2), rgba(100, 200, 255, 0.3));
+    border-radius: 999px;
+    outline: none;
+}
+
+.temperature-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.9), rgb(100, 200, 255));
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(100, 200, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.temperature-controls input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+    transform: scale(1.08);
+}
+
+.temperature-controls input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.9), rgb(100, 200, 255));
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 4px rgba(100, 200, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.temperature-controls input[type="range"]::-moz-range-thumb:hover {
+    box-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+    transform: scale(1.08);
 }
 
 .temp-btn {
-    width: 32px;
-    height: 26px;
-    border-radius: 0.6rem;
-    border: none;
-    background: rgba(255, 255, 255, 0.08);
-    color: #f7fafc;
-    font-weight: var(--font-weight-semibold);
+    width: 28px;
+    height: 28px;
+    border-radius: 0.4rem;
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.06), rgba(100, 200, 255, 0.02));
+    color: rgb(100, 200, 255);
+    font-weight: var(--font-weight-bold);
     font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.temp-btn:hover {
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.15), rgba(100, 200, 255, 0.06));
+    border-color: rgba(100, 200, 255, 0.4);
+    box-shadow: 0 2px 6px rgba(100, 200, 255, 0.1);
+    transform: translateY(-0.5px);
+}
+
+.temp-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(100, 200, 255, 0.08);
 }
 
 @media (max-width: 768px) {

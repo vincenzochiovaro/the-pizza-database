@@ -18,6 +18,7 @@ export interface BuilderTemplateData {
   hydrationLabel: string,
   prefermentLabel?: string,
   temperatureLabel: string,
+  temperatureDescription: string,
   homeOvenLabel: string,
   professionalOvenLabel: string,
   readyByScheduleButton: string,
