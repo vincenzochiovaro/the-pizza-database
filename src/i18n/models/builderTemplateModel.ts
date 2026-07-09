@@ -10,6 +10,7 @@ export interface BuilderTemplateData {
   preset1: string
   preset2: string
   preset3: string
+  presetIngredientsTitle: string
   preset1Description: string
   preset2Description: string
   preset3Description: string,
@@ -18,9 +19,14 @@ export interface BuilderTemplateData {
   hydrationLabel: string,
   prefermentLabel?: string,
   temperatureLabel: string,
+  temperatureDescription: string,
   homeOvenLabel: string,
   professionalOvenLabel: string,
   readyByScheduleButton: string,
+  readyByScheduleTitle: string,
+  timerCardTitle: string,
+  timerCardSubtitle: string,
+  timerCardDescription: string,
   readyByModalDescription: string,
   readyByDateLabel: string,
   readyByTimeLabel: string,
@@ -31,4 +37,6 @@ export interface BuilderTemplateData {
   readyBySuccessMessage: string,
   readyByFailureMessage: string,
   readyByInvalidTimeText: string,
+  builderIntroTitle: string,
+  builderIntroDescription: string
 }

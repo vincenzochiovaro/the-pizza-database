@@ -6,7 +6,9 @@
             <BuilderIngredients :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
                 :selectedPreset="props.selectedPreset" />
 
-            <BuilderVideo />
+            <BuilderTimer :selectedPreset="props.selectedPreset" :templateData="props.templateData" />
+
+            <!-- <BuilderVideo /> -->
 
             <BuilderSteps :selectedPresetData="props.selectedPresetData" :templateData="props.templateData"
                 :selectedPreset="props.selectedPreset" />
@@ -19,7 +21,8 @@ import type { DoughIngredients } from '../../models/Builder';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
 import BuilderIngredients from './BuilderIngredients.vue';
 import BuilderSteps from './BuilderSteps.vue';
-import BuilderVideo from './BuilderVideo.vue';
+import BuilderTimer from './BuilderTimer.vue';
+// import BuilderVideo from './BuilderVideo.vue';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null
