@@ -1,19 +1,10 @@
 <template>
     <div class="ingredients-wrapper">
 
-        <div class="ingredients-header">
-            <div class="ingredients-title">
-                Ingredients for {{ props.selectedPreset ?? 'Pizza' }}
-            </div>
-            <div class="ingredients-subtitle">
-                Balanced recipe automatically calculated for consistent results
-            </div>
-        </div>
-
         <div class="ingredients-panel">
 
             <div class="ingredients-group">
-                <div class="group-title">Main dough</div>
+                <div class="group-title">{{ props.templateData?.presetIngredientsTitle ?? 'Ingredients' }}</div>
 
                 <div class="ingredient-row">
                     <span class="ingredient-name">{{ props.templateData?.water ?? 'Water' }}</span>
@@ -78,29 +69,6 @@ const props = defineProps<{
     align-items: center;
     gap: 0.75rem;
     margin-top: -1.5rem;
-}
-
-.ingredients-header {
-    width: 100%;
-    max-width: 720px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 1rem;
-    padding: 0.9rem 1rem;
-    text-align: center;
-    backdrop-filter: blur(10px);
-}
-
-.ingredients-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.ingredients-subtitle {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 0.25rem;
 }
 
 .ingredients-panel {

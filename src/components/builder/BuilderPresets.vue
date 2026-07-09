@@ -236,13 +236,13 @@ onMounted(() => { emitBuilderChanged() })
     gap: var(--spacing-md);
     width: 100%;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-bg-dark-primary) 0%, var(--color-bg-dark-secondary) 50%, var(--color-bg-dark-primary) 100%);
     padding: var(--spacing-md);
 }
 
 .preset-btn {
     flex: 1;
     min-width: 0;
+    max-width: 200px;
     padding: 0.6rem 0.4rem;
     background: var(--color-overlay-glass);
     border: 2px solid var(--color-border-light);
@@ -373,7 +373,7 @@ onMounted(() => { emitBuilderChanged() })
     background: linear-gradient(135deg, rgba(100, 200, 255, 0.08) 0%, rgba(100, 150, 255, 0.05) 100%);
     border: 1px solid rgba(100, 200, 255, 0.18);
     backdrop-filter: blur(15px);
-    max-width: 360px;
+    max-width: 320px;
     margin-left: auto;
     margin-right: auto;
     display: flex;

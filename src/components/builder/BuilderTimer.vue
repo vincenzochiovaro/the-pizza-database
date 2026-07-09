@@ -253,13 +253,14 @@ onBeforeUnmount(() => {
 <style scoped>
 .timer-wrapper {
     width: 100%;
+    padding: 1rem;
     display: flex;
     justify-content: center;
 }
 
 .schedule-card {
     width: 100%;
-    max-width: 340px;
+    max-width: 400px;
     padding: 0;
     background: linear-gradient(135deg, rgba(100, 200, 255, 0.06) 0%, rgba(100, 150, 255, 0.03) 100%);
     border: 1.5px solid rgba(100, 200, 255, 0.2);

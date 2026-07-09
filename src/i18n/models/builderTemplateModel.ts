@@ -10,6 +10,7 @@ export interface BuilderTemplateData {
   preset1: string
   preset2: string
   preset3: string
+  presetIngredientsTitle: string
   preset1Description: string
   preset2Description: string
   preset3Description: string,
