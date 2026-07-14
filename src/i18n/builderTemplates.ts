@@ -45,7 +45,8 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             builderIntroDescription: "Questi parametri sono ottimizzati per essere affidabili e immediati.",
             doughStepsTitle: "Guida alla Preparazione dell'Impasto",
             doughStepsShow: "Mostra Preparazione",
-            doughStepsHide: "Nascondi Preparazione"
+            doughStepsHide: "Nascondi Preparazione",
+            ovenInstructionsTitle: "Istruzioni Forno per una pizza stile napoletano"
         };
 
         return templateDataIt
@@ -94,7 +95,8 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             builderIntroDescription: "These settings are optimized to be reliable and ready to go.",
             doughStepsTitle: "Dough Preparation Guide",
             doughStepsShow: "View Dough Steps",
-            doughStepsHide: "Hide Dough Steps"
+            doughStepsHide: "Hide Dough Steps",
+            ovenInstructionsTitle: "Oven Instructions for a neapolitan style pizza",
         };
         return templateDataEng
     }

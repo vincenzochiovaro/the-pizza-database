@@ -41,5 +41,6 @@ export interface BuilderTemplateData {
   builderIntroDescription: string,
   doughStepsTitle: string,
   doughStepsShow: string,
-  doughStepsHide: string
+  doughStepsHide: string,
+  ovenInstructionsTitle: string;
 }
