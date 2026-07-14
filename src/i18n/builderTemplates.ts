@@ -42,7 +42,10 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             readyByFailureMessage: "Invio fallito. Per favore riprova.",
             readyByInvalidTimeText: "L'orario selezionato deve essere almeno",
             builderIntroTitle: "Inizia da un Preset",
-            builderIntroDescription: "Questi parametri sono ottimizzati per essere affidabili e immediati."
+            builderIntroDescription: "Questi parametri sono ottimizzati per essere affidabili e immediati.",
+            doughStepsTitle: "Guida alla Preparazione dell'Impasto",
+            doughStepsShow: "Mostra Preparazione",
+            doughStepsHide: "Nascondi Preparazione"
         };
 
         return templateDataIt
@@ -88,7 +91,10 @@ export function getBuilderTemplate(lang: string): BuilderTemplateData {
             readyByFailureMessage: "Failed to send request. Please try again.",
             readyByInvalidTimeText: "Selected time must be at least",
             builderIntroTitle: "Start with a Preset",
-            builderIntroDescription: "These settings are optimized to be reliable and ready to go."
+            builderIntroDescription: "These settings are optimized to be reliable and ready to go.",
+            doughStepsTitle: "Dough Preparation Guide",
+            doughStepsShow: "View Dough Steps",
+            doughStepsHide: "Hide Dough Steps"
         };
         return templateDataEng
     }

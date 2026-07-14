@@ -31,7 +31,7 @@
                 <div class="modal-card">
                     <button class="close-btn" type="button" @click="close">×</button>
                     <h3 id="schedule-modal-title">{{ props.templateData?.readyByScheduleTitle ?? 'Schedule Your Pizza'
-                        }}</h3>
+                    }}</h3>
                     <p class="modal-copy">{{ props.templateData?.readyByModalDescription ??
                         'Pick the time you want your pizza to be ready' }}</p>
 
@@ -45,7 +45,7 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                    }}</label>
+                        }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
                         <option disabled value="">{{ props.templateData?.readyByTimePlaceholder ?? 'Choose time' }}
                         </option>
@@ -56,7 +56,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                    }}</label>
+                        }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -260,7 +260,7 @@ onBeforeUnmount(() => {
 
 .schedule-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     padding: 0;
     background: linear-gradient(135deg, rgba(100, 200, 255, 0.06) 0%, rgba(100, 150, 255, 0.03) 100%);
     border: 1.5px solid rgba(100, 200, 255, 0.2);
@@ -477,15 +477,19 @@ onBeforeUnmount(() => {
     width: 100%;
     padding: 0.75rem 0.9rem;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--color-text-primary);
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .05);
+    color: #fff;
+
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .field-input[type="date"],
 .field-input[type="time"] {
     cursor: pointer;
 }
+
 
 .field-input::-webkit-calendar-picker-indicator,
 .field-input::-webkit-clear-button {
@@ -520,8 +524,13 @@ onBeforeUnmount(() => {
     cursor: not-allowed;
 }
 
+.field-input option {
+    background: #111827;
+    color: #fff;
+}
+
 .field-input option:disabled {
-    color: rgba(255, 255, 255, 0.5);
+    color: #9ca3af;
 }
 
 .field-input::-webkit-datetime-edit,
@@ -573,7 +582,7 @@ onBeforeUnmount(() => {
 
 @media (min-width: 992px) {
     .schedule-card {
-        max-width: 540px;
+        max-width: 720px;
     }
 
     .timer-content {
