@@ -38,5 +38,9 @@ export interface BuilderTemplateData {
   readyByFailureMessage: string,
   readyByInvalidTimeText: string,
   builderIntroTitle: string,
-  builderIntroDescription: string
+  builderIntroDescription: string,
+  doughStepsTitle: string,
+  doughStepsShow: string,
+  doughStepsHide: string,
+  ovenInstructionsTitle: string;
 }

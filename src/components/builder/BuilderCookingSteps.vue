@@ -1,6 +1,8 @@
 <template>
     <div class="tips-card">
         <div class="tips-card-header">
+            <h2>{{ props.templateData?.ovenInstructionsTitle || 'Oven Instructions for a neapolitan style pizza' }}</h2>
+
             <div class="tips-card-switch">
                 <button type="button"
                     :class="['tips-card-toggle', selectedOven === 'home' ? 'tips-card-toggle--active' : '']"
@@ -14,7 +16,6 @@
                 </button>
             </div>
         </div>
-
         <ol class="tips-card-list">
             <li v-for="(tip, index) in tips" :key="index">{{ tip }}</li>
         </ol>
@@ -59,6 +60,12 @@ const tips = computed(() => props.selectedPresetData?.tips[selectedOven.value]);
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.25rem;
+}
+
+.tips-card-header h2 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
 }
 
 .tips-card-switch {
