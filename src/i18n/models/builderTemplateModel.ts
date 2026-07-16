@@ -18,6 +18,7 @@ export interface BuilderTemplateData {
   doughBallWeightLabel: string,
   hydrationLabel: string,
   prefermentLabel?: string,
+  prefermentIngredientsDay2Label?: string,
   temperatureLabel: string,
   temperatureDescription: string,
   homeOvenLabel: string,
