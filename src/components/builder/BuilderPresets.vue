@@ -1,70 +1,55 @@
 <template>
-    <div class="builder-intro">
-        <div class="builder-intro-inner">
-            <h2 class="builder-intro-title">
-                {{ props.templateData?.builderIntroTitle }}
-            </h2>
-            <p class="builder-intro-description">
-                {{ props.templateData?.builderIntroDescription }}
-            </p>
+    <div class="preset-selector">
+        <div class="preset-header">
+            <span class="preset-kicker">{{ props.templateData?.builderIntroTitle }}</span>
         </div>
-    </div>
-    <Teleport to="body">
-        <div class="modal fade" id="infoModalDirect" tabindex="-1">
-            <div class="modal-dialog modal-shift-up modal-sm">
-                <div class="modal-content glass-modal">
-                    <div class="modal-header border-0 pb-1">
-                        <span class="modal-badge">{{ props.templateData?.preset1 }}</span>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body pt-1">{{ props.templateData?.preset1Description }}</div>
+
+        <div class="preset-options">
+            <button @click="selectPreset('Direct')" class="preset-option"
+                :class="{ active: selectedPreset === 'Direct' }">
+                <div class="preset-option-top">
+                    <span class="preset-symbol">
+                        <ReusableIcon name="pizza-slice" size="1.25rem" color="#ff6b4a" />
+                    </span>
+                    <span class="preset-check" v-if="selectedPreset === 'Direct'">✓</span>
                 </div>
-            </div>
-        </div>
+                <strong>{{ props.templateData?.preset1 }}</strong>
+            </button>
 
-        <div class="modal fade" id="infoModalBiga" tabindex="-1">
-            <div class="modal-dialog modal-shift-up modal-sm">
-                <div class="modal-content glass-modal">
-                    <div class="modal-header border-0 pb-1">
-                        <span class="modal-badge">{{ props.templateData?.preset2 }}</span>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body pt-1">{{ props.templateData?.preset2Description }}</div>
+            <button @click="selectPreset('Biga')" class="preset-option" :class="{ active: selectedPreset === 'Biga' }">
+                <div class="preset-option-top">
+                    <span class="preset-symbol">
+                        <ReusableIcon name="wheat" size="1.25rem" color="#7ed957" />
+                    </span>
+                    <span class="preset-check" v-if="selectedPreset === 'Biga'">✓</span>
                 </div>
-            </div>
-        </div>
+                <strong>{{ props.templateData?.preset2 }}</strong>
+            </button>
 
-        <div class="modal fade" id="infoModalExpress" tabindex="-1">
-            <div class="modal-dialog modal-shift-up modal-sm">
-                <div class="modal-content glass-modal">
-                    <div class="modal-header border-0 pb-1">
-                        <span class="modal-badge">{{ props.templateData?.preset3 }}</span>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body pt-1">{{ props.templateData?.preset3Description }}</div>
+            <button @click="selectPreset('Express')" class="preset-option"
+                :class="{ active: selectedPreset === 'Express' }">
+                <div class="preset-option-top">
+                    <span class="preset-symbol">
+                        <ReusableIcon name="bolt" size="1.25rem" color="#ffd43b" />
+                    </span>
+                    <span class="preset-check" v-if="selectedPreset === 'Express'">✓</span>
                 </div>
-            </div>
+                <strong>{{ props.templateData?.preset3 }}</strong>
+            </button>
         </div>
-    </Teleport>
 
-    <div class="presets-container">
-        <button @click="selectPreset('Direct')" class="preset-btn" :class="{ active: selectedPreset === 'Direct' }">
-            <span class="info-icon" @click.stop="openModal('infoModalDirect')" title="About Direct">ⓘ</span>
-            <div class="preset-title">{{ props.templateData?.preset1 }}</div>
-        </button>
-
-        <button @click="selectPreset('Biga')" class="preset-btn" :class="{ active: selectedPreset === 'Biga' }">
-            <span class="info-icon" @click.stop="openModal('infoModalBiga')" title="About Biga">ⓘ</span>
-            <div class="preset-title">{{ props.templateData?.preset2 }}</div>
-        </button>
-
-        <button @click="selectPreset('Express')" class="preset-btn" :class="{ active: selectedPreset === 'Express' }">
-            <span class="info-icon" @click.stop="openModal('infoModalExpress')" title="About Express">ⓘ</span>
-            <div class="preset-title">{{ props.templateData?.preset3 }}</div>
-        </button>
+        <transition name="fade">
+            <div class="preset-explanation">
+                <div class="explanation-title">
+                    {{ selectedPreset === 'Direct' ? props.templateData?.preset1 : selectedPreset === 'Biga' ?
+                        props.templateData?.preset2 : props.templateData?.preset3 }}
+                </div>
+                <p>
+                    {{ selectedPreset === 'Direct' ? props.templateData?.preset1Description : selectedPreset === 'Biga'
+                        ? props.templateData?.preset2Description : props.templateData?.preset3Description }}
+                </p>
+            </div>
+        </transition>
     </div>
 
     <div class="dough-config container">
@@ -131,8 +116,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { Modal } from 'bootstrap';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
+import ReusableIcon from '../../../src/icons/ReusableIcon.vue'
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -156,10 +141,6 @@ interface BuilderData {
 
 const emit = defineEmits<{ (e: 'builder-changed', data: BuilderData): void; }>();
 
-const openModal = (id: string) => {
-    const el = document.getElementById(id)
-    if (el) Modal.getOrCreateInstance(el).show()
-}
 
 const emitBuilderChanged = () => {
     if (debounceTimer) clearTimeout(debounceTimer)
@@ -197,104 +178,130 @@ onMounted(() => { emitBuilderChanged() })
 
 . . .
 <style scoped>
-.builder-intro {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 0.75rem 1rem 0.25rem 1rem;
-}
-
-.builder-intro-inner {
+/* --- New Preset Selector Styles --- */
+.preset-selector {
+    width: 70%;
     max-width: 720px;
-    width: 100%;
-    background: linear-gradient(135deg, rgba(100, 200, 255, 0.08), rgba(100, 150, 255, 0.04));
-    border: 1px solid rgba(100, 200, 255, 0.18);
-    border-radius: 1rem;
-    padding: 0.9rem 1rem;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+}
+
+.preset-header {
     text-align: center;
+    margin-bottom: 1rem;
 }
 
-.builder-intro-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.92);
-    margin-bottom: 0.3rem;
+.preset-kicker {
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: rgba(100, 200, 255, .8);
 }
 
-.builder-intro-description {
-    font-size: 0.8rem;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.65);
-    margin: 0;
+.preset-header h3 {
+    margin: .35rem 0 0;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, .9);
 }
 
-.presets-container {
+.preset-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .55rem;
+}
+
+.preset-option {
+    min-height: 125px;
+    padding: .75rem .4rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+    backdrop-filter: blur(14px);
+    color: white;
     display: flex;
-    gap: var(--spacing-md);
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: var(--spacing-md);
+    gap: .45rem;
+    cursor: pointer;
+    transition: .25s ease;
 }
 
-.preset-btn {
-    flex: 1;
-    min-width: 0;
-    max-width: 200px;
-    padding: 0.6rem 0.4rem;
-    background: var(--color-overlay-glass);
-    border: 2px solid var(--color-border-light);
-    border-radius: var(--radius-xl);
-    backdrop-filter: var(--backdrop-blur);
-    cursor: pointer;
-    transition: all var(--transition-base);
-    text-align: center;
+.preset-option strong {
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.preset-option small {
+    font-size: .65rem;
+    color: rgba(255, 255, 255, .55);
+}
+
+.preset-option-top {
     position: relative;
-    overflow: visible;
-    color: var(--color-text-primary);
-    font-family: inherit;
 }
 
-.preset-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+.preset-symbol {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(100, 200, 255, .08);
 }
 
-.preset-btn.active {
-    background: var(--color-primary-light);
-    border-color: rgba(100, 200, 255, 0.6);
-    box-shadow: 0 0 20px rgba(100, 200, 255, 0.4), inset 0 0 20px rgba(100, 200, 255, 0.1);
-}
-
-.preset-btn.active:hover {
-    background: var(--color-primary-light);
-    border-color: rgba(100, 200, 255, 0.8);
-}
-
-.preset-title {
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: -0.5px;
-}
-
-.info-icon {
+.preset-check {
     position: absolute;
-    top: 5px;
-    right: 6px;
-    font-size: var(--font-size-md);
-    color: var(--color-text-faint);
-    cursor: pointer;
-    transition: color var(--transition-fast), text-shadow var(--transition-fast);
-    user-select: none;
-    z-index: 2;
-    line-height: 1;
+    right: -8px;
+    bottom: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgb(100, 200, 255);
+    color: #081225;
+    font-size: .7rem;
+    font-weight: bold;
 }
 
-.info-icon:hover {
-    color: var(--color-accent);
-    text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
+.preset-option.active {
+    border-color: rgba(100, 200, 255, .65);
+    background: rgba(100, 200, 255, .12);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(100, 200, 255, .15);
+}
+
+.preset-explanation {
+    margin-top: .8rem;
+    padding: .9rem 1rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(100, 200, 255, .1), rgba(100, 150, 255, .04));
+    border: 1px solid rgba(100, 200, 255, .18);
+    text-align: center;
+}
+
+.explanation-title {
+    font-size: .85rem;
+    font-weight: 700;
+    margin-bottom: .35rem;
+}
+
+.preset-explanation p {
+    margin: 0;
+    font-size: .78rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, .7);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 
 :global(.modal-shift-up) {
@@ -529,16 +536,9 @@ onMounted(() => { emitBuilderChanged() })
 }
 
 @media (max-width: 768px) {
-    .presets-container {
-        gap: var(--spacing-md);
-    }
-
-    .preset-btn {
-        padding: 0.8rem 0.6rem;
-    }
-
-    .preset-title {
-        font-size: var(--font-size-sm);
+    .preset-selector {
+        width: 100%;
+        max-width: none;
     }
 }
 </style>

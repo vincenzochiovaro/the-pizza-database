@@ -11,7 +11,10 @@ type IconName =
     | 'arrow-right'
     | 'lightbulb'
     | 'pizza-slice'
+    | 'pizza'
     | 'leaf'
+    | 'wheat'
+    | 'bolt'
     | 'info'
     | 'chevron-left'
     | 'chevron-right'
@@ -51,17 +54,25 @@ const computedClasses = computed(() => {
         'arrow-right': 'fa-arrow-right',
         lightbulb: 'fa-lightbulb',
         'pizza-slice': 'fa-pizza-slice',
+        pizza: 'fa-pizza-slice',
         leaf: 'fa-leaf',
+        wheat: 'fa-wheat-awn',
+        bolt: 'fa-bolt',
         info: 'fa-circle-info',
         'chevron-left': 'fa-chevron-left',
-        'chevron-right': 'fa-chevron-right',
-        pizza: 'fa-pizza-slice'
+        'chevron-right': 'fa-chevron-right'
     }
 
     const iconClass = iconMap[props.name] ?? props.name
 
-    return [basePrefix, iconClass, props.className].filter(Boolean)
+    return [
+        basePrefix,
+        iconClass,
+        props.className
+    ].filter(Boolean)
 })
 
-const ariaHidden = computed(() => (props.title ? undefined : 'true'))
+const ariaHidden = computed(() => (
+    props.title ? undefined : 'true'
+))
 </script>
