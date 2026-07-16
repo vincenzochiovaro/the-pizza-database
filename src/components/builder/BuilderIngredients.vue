@@ -28,7 +28,7 @@
             </div>
 
             <div v-if="props.selectedPreset === 'Biga'" class="ingredients-group">
-                <div class="group-title">Preferment (Day 2)</div>
+                <div class="group-title">{{ props.templateData?.prefermentIngredientsDay2Label }}</div>
 
                 <div class="ingredient-row">
                     <span class="ingredient-name">{{ props.templateData?.saltDay2 ?? 'Salt' }}</span>
