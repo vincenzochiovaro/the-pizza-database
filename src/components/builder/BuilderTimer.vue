@@ -21,11 +21,11 @@
             </div>
         </div>
 
-        <div v-if="notification.visible" :class="['toast-message', notification.type]">
-            {{ notification.message }}
-        </div>
-
         <teleport to="body">
+            <div v-if="notification.visible" :class="['toast-message', notification.type]">
+                {{ notification.message }}
+            </div>
+
             <div v-if="open" class="modal-overlay" @click.self="close"></div>
             <div v-if="open" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
                 <div class="modal-card">
@@ -45,7 +45,7 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                        }}</label>
+                    }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
                         <option disabled value="">{{ props.templateData?.readyByTimePlaceholder ?? 'Choose time' }}
                         </option>
@@ -56,7 +56,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                        }}</label>
+                    }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -385,26 +385,48 @@ onBeforeUnmount(() => {
     font-weight: var(--font-weight-bold);
 }
 
+/* TOAST — anchored from the TOP so it can never be clipped by a
+   short mobile viewport / iframe / dynamic browser toolbar. */
 .toast-message {
-    margin-top: 1rem;
+    position: fixed;
+    left: 50%;
+    top: calc(1rem + env(safe-area-inset-top, 0px));
+    bottom: auto;
+    transform: translateX(-50%);
+    width: min(420px, calc(100vw - 2rem));
     padding: 0.85rem 1rem;
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(10, 16, 38, 0.98);
+    backdrop-filter: blur(12px);
     color: var(--color-text-primary);
-    font-size: 0.92rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: center;
+    z-index: 99999;
+    box-sizing: border-box;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .toast-message.success {
     background: rgba(56, 203, 99, 0.14);
-    border-color: rgba(56, 203, 99, 0.28);
+    border-color: rgba(56, 203, 99, 0.35);
     color: #d4ffe0;
 }
 
 .toast-message.error {
     background: rgba(255, 82, 82, 0.14);
-    border-color: rgba(255, 82, 82, 0.28);
+    border-color: rgba(255, 82, 82, 0.35);
     color: #ffd6d6;
+}
+
+@media (max-width: 576px) {
+    .toast-message {
+        width: calc(100vw - 1.5rem);
+        top: calc(0.75rem + env(safe-area-inset-top, 0px));
+        font-size: 0.8rem;
+        padding: 0.75rem 0.85rem;
+    }
 }
 
 .modal-overlay {
