@@ -38,6 +38,7 @@ export async function SubmitScheduleRequestAsync(
     time: string,
     email: string,
     preset: 'Direct' | 'Biga' | 'Express' | null,
+    presetData: DoughIngredients | null,
     lang: string
 ): Promise<void> {
     try {
@@ -46,6 +47,7 @@ export async function SubmitScheduleRequestAsync(
             time,
             email,
             preset,
+            presetData,
             lang
         };
 

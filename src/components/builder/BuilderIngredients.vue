@@ -48,7 +48,8 @@
 
         </div>
     </div>
-    <BuilderTimer :selectedPreset="props.selectedPreset" :templateData="props.templateData" />
+    <BuilderTimer :selectedPreset="props.selectedPreset" :templateData="props.templateData"
+        :selectedPresetData="props.selectedPresetData" />
 </template>
 
 <script setup lang="ts">
