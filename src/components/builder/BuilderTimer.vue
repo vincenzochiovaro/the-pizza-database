@@ -31,7 +31,7 @@
                 <div class="modal-card">
                     <button class="close-btn" type="button" @click="close">×</button>
                     <h3 id="schedule-modal-title">{{ props.templateData?.readyByScheduleTitle ?? 'Schedule Your Pizza'
-                    }}</h3>
+                        }}</h3>
                     <p class="modal-copy">{{ props.templateData?.readyByModalDescription ??
                         'Pick the time you want your pizza to be ready' }}</p>
 
@@ -45,7 +45,7 @@
                     </div>
 
                     <label class="field-label" for="schedule-time">{{ props.templateData?.readyByTimeLabel ?? 'Time'
-                    }}</label>
+                        }}</label>
                     <select id="schedule-time" class="field-input" v-model="selectedTime">
                         <option disabled value="">{{ props.templateData?.readyByTimePlaceholder ?? 'Choose time' }}
                         </option>
@@ -56,7 +56,7 @@
                     </select>
 
                     <label class="field-label" for="schedule-email">{{ props.templateData?.readyByEmailLabel ?? 'Email'
-                    }}</label>
+                        }}</label>
                     <input id="schedule-email" class="field-input" type="email" placeholder="name@domain.com"
                         v-model="email" />
 
@@ -79,12 +79,14 @@
 import { ref, computed, watch, onBeforeUnmount } from 'vue';
 import { useLanguageStore } from '../../stores/LanguageStore';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
+import type { DoughIngredients } from '../../models/Builder';
 import { SubmitScheduleRequestAsync } from '../../api/BuilderApi';
 import { getMinScheduleDateTime, normalizeDateInput, normalizeTimeInput } from '../../utils/scheduleHelpers';
 
 const props = defineProps<{
     selectedPreset: 'Direct' | 'Biga' | 'Express' | null
     templateData: BuilderTemplateData | null
+    selectedPresetData: DoughIngredients | null
 }>();
 
 const open = ref(false);
@@ -225,7 +227,6 @@ const submit = async () => {
     }
 
     isSubmitting.value = true;
-    close();
 
     try {
         await SubmitScheduleRequestAsync(
@@ -233,6 +234,7 @@ const submit = async () => {
             selectedTime.value,
             email.value,
             props.selectedPreset,
+            props.selectedPresetData,
             languageStore.currentLanguage
         );
         showNotification(props.templateData?.readyBySuccessMessage ?? 'Request sent successfully!', 'success');
@@ -240,6 +242,7 @@ const submit = async () => {
         console.error('Failed to submit schedule request:', error);
         showNotification(props.templateData?.readyByFailureMessage ?? 'Failed to send request. Please try again.', 'error');
     } finally {
+        close();
         isSubmitting.value = false;
     }
 };

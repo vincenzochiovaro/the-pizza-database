@@ -48,11 +48,14 @@
 
         </div>
     </div>
+    <BuilderTimer :selectedPreset="props.selectedPreset" :templateData="props.templateData"
+        :selectedPresetData="props.selectedPresetData" />
 </template>
 
 <script setup lang="ts">
 import type { DoughIngredients } from '../../models/Builder';
 import type { BuilderTemplateData } from '../../i18n/models/builderTemplateModel';
+import BuilderTimer from './BuilderTimer.vue';
 
 const props = defineProps<{
     selectedPresetData: DoughIngredients | null
