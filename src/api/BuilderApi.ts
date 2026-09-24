@@ -48,10 +48,11 @@ export async function SubmitScheduleRequestAsync(
             email,
             preset,
             presetData,
-            lang
+            lang,
+            mixingType: "Hands" // Todo to pass from the UI
         };
 
-        const url = `${import.meta.env.VITE_API_URL}api/SchedulePizzaTimeline`;
+        const url = `${import.meta.env.VITE_API_URL}api/TimerSubmitSchedule`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
