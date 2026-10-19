@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PizzaBrowser from '../views/PizzaBrowser.vue'
 import BuilderBrowser from '../views/BuilderBrowser.vue'
 import HomePage from '../views/HomePage.vue'
+import SignInView from '../views/SignInView.vue'
 
 const routes = [
   { path: '/', component: HomePage },
+  { path: '/sign-in', component: SignInView },
   { path: '/builder-browser', component: BuilderBrowser },
   { path: '/pizza-browser', component: PizzaBrowser }
 
