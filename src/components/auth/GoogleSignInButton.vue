@@ -98,7 +98,6 @@ onMounted(async () => {
           statusMessage.value = 'Google did not return an ID token.'
           return
         }
-        console.log('Google ID token:', response.credential)
         console.info('Google sign-in succeeded: Vue received an ID token.')
         statusMessage.value = 'Success: Vue received a Google ID token.'
       }
