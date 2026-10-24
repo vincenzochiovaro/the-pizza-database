@@ -77,6 +77,7 @@ function loadGoogleIdentityServices(): Promise<void> {
 }
 
 onMounted(async () => {
+  console.log('GoogleSignInButton mounted')
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
   if (!clientId) {
