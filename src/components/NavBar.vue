@@ -23,6 +23,10 @@
           </button>
         </div>
 
+        <button @click="goToSignIn" class="create-btn">
+          <span class="create-text">Sign in</span>
+        </button>
+
         <button @click="goToPizzaBrowser" class="create-btn">
           <span class="create-text">Menu</span>
         </button>
@@ -46,6 +50,10 @@ function goToPizzaBrowser() {
 
 function goToHome() {
   router.push('/')
+}
+
+function goToSignIn() {
+  router.push('/sign-in')
 }
 
 const currentLanguage = computed(() => languageStore.currentLanguage)
