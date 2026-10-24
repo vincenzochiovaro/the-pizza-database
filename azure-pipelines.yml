@@ -18,6 +18,7 @@ steps:
   env:
     VITE_API_URL: $(VITE_API_URL)
     VITE_API_KEY: $(VITE_API_KEY)
+    VITE_GOOGLE_CLIENT_ID: $(VITE_GOOGLE_CLIENT_ID)
 
 - task: AzureStaticWebApp@0
   inputs:
