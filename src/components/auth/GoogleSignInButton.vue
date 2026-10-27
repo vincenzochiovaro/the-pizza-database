@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { AuthenticateWithGoogle } from '../../api/AuthApi'
 
 type GoogleCredentialResponse = {
   credential: string
@@ -94,13 +95,20 @@ onMounted(async () => {
 
     window.google.accounts.id.initialize({
       client_id: clientId,
-      callback: (response) => {
+      callback: async (response) => {
         if (!response.credential) {
           statusMessage.value = 'Google did not return an ID token.'
           return
         }
-        console.info('Google sign-in succeeded: Vue received an ID token.')
-        statusMessage.value = 'Success: Vue received a Google ID token.'
+
+        try {
+          const result = await AuthenticateWithGoogle(response.credential)
+          console.log(result.email)
+          statusMessage.value = `Signed in as ${result.email}.`
+        } catch {
+          console.error('invalid')
+          statusMessage.value = 'Sign-in failed.'
+        }
       }
     })
 
